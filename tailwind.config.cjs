@@ -1,15 +1,15 @@
 module.exports = {
-  content: ["./src/**/*.{astro,html,js,jsx,ts,tsx}"],
+  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        dark: "#1A202C",
-        primary: "#FBBF24",
-        secondary: "#FFFFFF",
-        accent: "#6B46C1",
+        dark: '#1A202C',
+        primary: '#FBBF24',
+        secondary: '#FFFFFF',
+        accent: '#6B46C1',
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ['Inter', 'sans-serif'],
       },
     },
   },
