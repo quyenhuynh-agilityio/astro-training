@@ -18,12 +18,18 @@
     "sanity:deploy": "cd real-estate-studio && pnpm run deploy"
   },
   "dependencies": {
+    "@astrojs/node": "^9.4.0",
     "@astrojs/react": "^4.3.0",
+    "@sanity/astro": "^3.2.10",
+    "@sanity/client": "^7.8.2",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
+    "@types/react-is": "^19.0.0",
     "astro": "^5.12.9",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-is": "^19.1.1",
+    "sanity": "^4.3.0"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
@@ -41,7 +47,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
-    "tailwindcss": "^4.1.11",
+    "tailwindcss": "^3.4.0",
     "vite": "^7.1.2",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
