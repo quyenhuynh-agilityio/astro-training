@@ -11,7 +11,7 @@ const env = loadEnv('production', process.cwd(), '');
 export default defineConfig({
   output: 'server',
   adapter: node({
-    mode: 'standalone'
+    mode: 'standalone',
   }),
   redirects: {
     'benefits/': '/',
