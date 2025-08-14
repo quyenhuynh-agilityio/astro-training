@@ -1,5 +1,6 @@
 import Button from './Button';
 import { Icons } from './Icons';
+import Logo from './Logo';
 import PropertyCard from './PropertyCard';
 import Select from './Select';
 
@@ -12,7 +13,7 @@ const Test = () => {
   ];
 
   return (
-    <>
+    <div className="bg-slate-400">
       <Button rightIcon={<Icons.Path className="w-5 h-10 text-white ml-2" />}>
         Work with us
       </Button>
@@ -39,7 +40,9 @@ const Test = () => {
         // value={selectedValue}
         // onChange={handleChange}
       />
-    </>
+
+      <Logo />
+    </div>
   );
 };
 
