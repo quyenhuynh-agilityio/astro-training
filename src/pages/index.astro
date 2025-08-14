@@ -1,18 +1,11 @@
 ---
-import Button from '@components/Button';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+import Test from '@components/Test';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1 class="font-body">Astro</h1>
-    <p class="font-heading">This is my first line</p>
-    <Button>Work with us</Button>
-  </body>
-</html>
+<BaseLayout>
+  <h1 class="font-body">Astro</h1>
+  <p class="font-heading">This is my first line</p>
+  <Test client:load />
+</BaseLayout>

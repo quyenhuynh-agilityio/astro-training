@@ -21,9 +21,7 @@ export default defineConfig({
   },
   integrations: [
     tailwind(),
-    react({
-      experimentalReactChildren: true,
-    }),
+    react(),
     sanity({
       projectId: env.PUBLIC_SANITY_PROJECT_ID,
       dataset: env.PUBLIC_SANITY_DATASET,

@@ -3,14 +3,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        dark: '#1A202C',
-        primary: '#FBBF24',
-        secondary: '#FFFFFF',
-        accent: '#6B46C1',
+        primary: '#FFAC12',
+        secondary: '#979797',
+        accent: '#E4E4E4',
       },
       fontFamily: {
         body: ['Inter', 'sans-serif'],
         heading: ['Roboto', 'sans-serif'],
+      },
+      spacing: {
+        tiny: '10px',
+        base: '15px',
+        md: '17px',
+        '2md': '20px',
+        '3md': '42px',
+        lg: '50px',
+        '2lg': '80px',
+      },
+      height: {
+        10: '10px',
       },
     },
   },
