@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      'bg-primary text-white font-bold hover:bg-primary focus:ring-primary',
+      'bg-primary text-black font-bold hover:bg-primary focus:ring-primary',
     secondary:
       'bg-black font-bold text-white hover:bg-gray-500 focus:ring-gray-500',
     outline:
@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
   const sizeStyles = {
     small: 'px-3 py-1 text-sm',
     medium: 'px-4 py-2 text-base',
-    large: 'px-6 py-3 text-lg',
+    large: 'px-10 py-6 text-base',
   };
 
   return (

@@ -22,8 +22,10 @@ module.exports = {
         '2lg': '80px',
       },
       spacing: {
-        10: '10px',
         30: '30px',
+        60: '60px',
+        80: '80px',
+        177: '177px',
       },
       height: {
         10: '10px',

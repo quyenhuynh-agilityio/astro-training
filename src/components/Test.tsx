@@ -1,6 +1,8 @@
+import Footer from '@layouts/Footer';
 import Button from './Button';
 import { Icons } from './Icons';
 import Logo from './Logo';
+import Navigation from './Navigation';
 import PropertyCard from './PropertyCard';
 import Select from './Select';
 
@@ -42,6 +44,53 @@ const Test = () => {
       />
 
       <Logo />
+
+      <Navigation
+        links={[
+          { label: 'Hone', href: '/' },
+          { label: 'About', href: '/about' },
+          { label: 'Services', href: '/services' },
+          { label: 'Contact', href: '/contact' },
+        ]}
+        className="shadow-md"
+      />
+      <Footer
+        logo="/logo.svg"
+        socialLinks={[
+          { href: '#', icon: <Icons.Facebook /> },
+          { href: '#', icon: <Icons.Twitter /> },
+          { href: '#', icon: <Icons.Instagram /> },
+        ]}
+        columns={[
+          {
+            heading: 'Column Heading',
+            links: [
+              { label: 'Link goes here', href: '#' },
+              { label: 'Link goes here', href: '#' },
+              { label: 'Link goes here', href: '#' },
+              { label: 'Link goes here', href: '#' },
+            ],
+          },
+          {
+            heading: 'Column Heading',
+            links: [
+              { label: 'Link goes here', href: '#' },
+              { label: 'Link goes here', href: '#' },
+              { label: 'Link goes here', href: '#' },
+              { label: 'Link goes here', href: '#' },
+            ],
+          },
+          {
+            heading: 'Column Heading',
+            links: [
+              { label: 'Link goes here', href: '#' },
+              { label: 'Link goes here', href: '#' },
+              { label: 'Link goes here', href: '#' },
+              { label: 'Link goes here', href: '#' },
+            ],
+          },
+        ]}
+      />
     </div>
   );
 };
