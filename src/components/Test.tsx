@@ -1,5 +1,6 @@
 import Button from './Button';
 import { Icons } from './Icons';
+import PropertyCard from './PropertyCard';
 
 const Test = () => {
   return (
@@ -13,6 +14,15 @@ const Test = () => {
       >
         Learn more
       </Button>
+
+      <PropertyCard
+        className="w-336"
+        image="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+        title="Malto House"
+        beds={4}
+        baths={2}
+        sun={2}
+      />
     </>
   );
 };
