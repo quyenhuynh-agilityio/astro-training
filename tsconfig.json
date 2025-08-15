@@ -4,6 +4,7 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "jsx": "react-jsx",
+    "types": ["astro/client"],
     "jsxImportSource": "react",
     "baseUrl": ".", // Required for resolving aliases from the project root
     "paths": {

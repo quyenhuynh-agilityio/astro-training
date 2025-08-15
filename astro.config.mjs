@@ -1,13 +1,12 @@
 import { loadEnv } from 'vite';
 import { defineConfig, passthroughImageService } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import tailwind from '@astrojs/tailwind';
 import sanity from '@sanity/astro';
 import node from '@astrojs/node';
 
 const env = loadEnv('production', process.cwd(), '');
-// https://astro.build/config
+
 export default defineConfig({
   output: 'server',
   adapter: node({
@@ -16,12 +15,9 @@ export default defineConfig({
   redirects: {
     'benefits/': '/',
   },
-  vite: {
-    plugins: [tsconfigPaths()],
-  },
   integrations: [
-    tailwind(),
     react(),
+    tailwind(),
     sanity({
       projectId: env.PUBLIC_SANITY_PROJECT_ID,
       dataset: env.PUBLIC_SANITY_DATASET,

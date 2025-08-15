@@ -1,4 +1,6 @@
 ---
+import BaseLayout from '@layouts/BaseLayout/index.astro';
+
 import LoginForm from '@components/LoginForm';
 import Image from '@components/Image';
 
@@ -10,9 +12,9 @@ const bgImage = {
 };
 ---
 
-<html lang="en" class="h-full">
-  <body class="h-full w-full m-0 relative">
-    <!-- Background image using custom Image component -->
+<BaseLayout>
+  <div class="relative min-h-screen">
+    <!-- Background image -->
     <Image
       alt="Background"
       url={bgImage}
@@ -24,10 +26,10 @@ const bgImage = {
     <div class="absolute inset-0 bg-black/50"></div>
 
     <!-- Login form -->
-    <div class="relative z-10 flex items-center justify-center h-full">
+    <div class="relative z-10 flex items-center justify-center min-h-screen">
       <div class="w-full max-w-md">
         <LoginForm />
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</BaseLayout>
