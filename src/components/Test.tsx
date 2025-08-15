@@ -5,6 +5,8 @@ import Logo from './Logo';
 import Navigation from './Navigation';
 import PropertyCard from './PropertyCard';
 import Select from './Select';
+import Input from './Input';
+import LoginForm from './LoginForm';
 
 const Test = () => {
   const locations = [
@@ -90,6 +92,15 @@ const Test = () => {
             ],
           },
         ]}
+      />
+      <LoginForm />
+
+      <Input label="Name" placeholder="Enter your name" />
+      <Input
+        label="Email"
+        type="email"
+        placeholder="Enter your email"
+        error="Invalid email address"
       />
     </div>
   );

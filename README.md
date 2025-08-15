@@ -45,6 +45,10 @@
 - An Auth.js provider account (e.g., GitHub OAuth) with client ID and secret.
 - A Vercel account for deployment.
 
+## TEMPLATE
+
+Design: [Real Estate](https://www.figma.com/design/AZW6M8lwsb4mGlcG1SvJg9/Real-Estate-Template-%F0%9F%9F%A3-by-Flowbase.co--Community---Copy-?node-id=0-1&p=f&t=d3VeeM9178A0dD7x-0)
+
 ## FEATURES
 
 - **Homepage**: Hero section, Featured Properties grid, Trust section, Footer.

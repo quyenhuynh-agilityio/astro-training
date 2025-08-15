@@ -8,6 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isDisabled?: boolean;
   children: React.ReactNode;
   rightIcon?: React.ReactNode;
+  className?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,11 +18,13 @@ const Button: React.FC<ButtonProps> = ({
   isDisabled = false,
   children,
   rightIcon,
+  className,
   ...props
 }) => {
-  const baseStyles =
-    'font-inter transition-colors text-md rounded-tr-xl duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 flex items-center justify-center gap-2';
-
+  const baseStyles = cn(
+    'font-inter transition-colors text-md rounded-tr-xl duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 flex items-center justify-center gap-2',
+    className
+  );
   const variantStyles = {
     primary:
       'bg-primary text-black font-bold hover:bg-primary focus:ring-primary',
@@ -42,11 +45,11 @@ const Button: React.FC<ButtonProps> = ({
       {...props}
       disabled={isDisabled || isLoading}
       className={cn(
-        baseStyles,
         variantStyles[variant],
         sizeStyles[size],
         (isDisabled || isLoading) && 'opacity-50 cursor-not-allowed',
-        isLoading && 'cursor-wait'
+        isLoading && 'cursor-wait',
+        baseStyles
       )}
     >
       {children}
