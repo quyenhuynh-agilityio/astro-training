@@ -12,7 +12,8 @@
       "@lib/*": ["src/lib/*"],
       "@styles/*": ["src/styles/*"],
       "@pages/*": ["src/pages/*"],
-      "@layouts/*": ["src/layouts/*"]
+      "@layouts/*": ["src/layouts/*"],
+      "@sections/*": ["src/sections/*"]
     }
   }
 }

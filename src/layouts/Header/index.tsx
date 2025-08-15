@@ -6,7 +6,7 @@ import React from 'react';
 
 const Header: React.FC = () => {
   return (
-    <header className="w-full bg-transparent py-4">
+    <header className="w-full bg-transparent py-10">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12">
         {/* Logo */}
         <Logo />

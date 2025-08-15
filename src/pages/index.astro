@@ -1,10 +1,51 @@
 ---
 import BaseLayout from '@layouts/BaseLayout/index.astro';
-
-import Test from '@components/Test';
-import Hero from 'src/sections/HeroSection';
+import Hero from '@sections/HeroSection';
+import TrustedPartnersSection from '@sections/TrustedPartnersSection';
+import Footer from '@layouts/Footer';
+import { Icons } from '@components/Icons';
 ---
 
 <BaseLayout>
   <Hero client:load />
+  <TrustedPartnersSection client:load />
+  <TrustedPartnersSection reverse client:load />
+  <Footer
+    client:load
+    logo="/logo.svg"
+    socialLinks={[
+      { href: '#', icon: Icons.Facebook },
+      { href: '#', icon: Icons.Twitter },
+      { href: '#', icon: Icons.Instagram },
+    ]}
+    columns={[
+      {
+        heading: 'Column Heading',
+        links: [
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+        ],
+      },
+      {
+        heading: 'Column Heading',
+        links: [
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+        ],
+      },
+      {
+        heading: 'Column Heading',
+        links: [
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+        ],
+      },
+    ]}
+  />
 </BaseLayout>
