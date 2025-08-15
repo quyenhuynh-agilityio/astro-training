@@ -2,10 +2,9 @@
 import BaseLayout from '@layouts/BaseLayout/index.astro';
 
 import Test from '@components/Test';
+import Hero from 'src/sections/HeroSection';
 ---
 
 <BaseLayout>
-  <h1 class="font-body">Astro</h1>
-  <p class="font-heading">This is my first line</p>
-  <Test client:load />
+  <Hero client:load />
 </BaseLayout>

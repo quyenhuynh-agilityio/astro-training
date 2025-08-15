@@ -13,8 +13,8 @@ interface NavProps {
 
 const Navigation: React.FC<NavProps> = ({ links, className = '' }) => {
   return (
-    <nav className={`text-white py-4 px-14 ${className}`}>
-      <ul className="flex space-x-6">
+    <nav className={`text-white ${className}`}>
+      <ul className="flex space-x-60">
         {links.map((link, index) => (
           <li key={index}>
             <a href={link.href} className="hover:text-gray-300 text-base">
