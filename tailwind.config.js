@@ -7,6 +7,7 @@ module.exports = {
         primary: '#FFAC12',
         secondary: '#979797',
         accent: '#E4E4E4',
+        bodyBg: '#F5F5F5',
       },
       fontFamily: {
         body: ['Inter', 'sans-serif'],
