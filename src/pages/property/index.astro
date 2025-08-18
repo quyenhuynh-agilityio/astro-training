@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@layouts/BaseLayout/index.astro';
+import Footer from '@layouts/Footer';
+import { Icons } from '@components/Icons';
+
+import PropertyHeroSection from '@sections/PropertyHeroSection';
+import PropertyDetail from '@sections/PropertyDetailSection';
+---
+
+<BaseLayout>
+  <PropertyHeroSection
+    client:load
+    title="Modern House"
+    address="3002 Foster Ave, Brooklyn, NY 11210, USA"
+    price="$450,000"
+    pricePerSqft="$2,800 / sq ft"
+  />
+  <PropertyDetail client:load />
+
+  <Footer
+    client:load
+    logo="/logo.svg"
+    socialLinks={[
+      { href: '#', icon: Icons.Facebook },
+      { href: '#', icon: Icons.Twitter },
+      { href: '#', icon: Icons.Instagram },
+    ]}
+    columns={[
+      {
+        heading: 'Column Heading',
+        links: [
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+        ],
+      },
+      {
+        heading: 'Column Heading',
+        links: [
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+        ],
+      },
+      {
+        heading: 'Column Heading',
+        links: [
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+        ],
+      },
+    ]}
+  />
+</BaseLayout>
