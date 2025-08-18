@@ -1,0 +1,129 @@
+---
+import BaseLayout from '@layouts/BaseLayout/index.astro';
+import PropertyHeroSection from '@sections/PropertyHeroSection';
+import PropertyDetail from '@sections/PropertyDetailSection';
+import Footer from '@layouts/Footer';
+import { Icons } from '@components/Icons';
+import { loadQuery } from '../../../studio/lib/load-query';
+
+interface ResponsiveImage {
+  default: string;
+  desktop?: string;
+  tablet?: string;
+  mobile?: string;
+}
+
+interface PropertyQuery {
+  title: string;
+  address: string;
+  price: string;
+  pricePerSqft: string;
+  images: ResponsiveImage[];
+  details: {
+    beds: number;
+    baths: number;
+    area: string;
+    garage: number;
+    year: number;
+  };
+  description: string;
+  features: string[];
+}
+
+const slug = Astro.params.slug as string;
+
+const query = `*[_type == "property" && slug.current == $slug][0]{
+  title,
+  address,
+  price,
+  pricePerSqft,
+  images[]{
+    "default": default.asset->url,
+    "desktop": desktop.asset->url,
+    "tablet": tablet.asset->url,
+    "mobile": mobile.asset->url
+  },
+  details{
+    beds,
+    baths,
+    area,
+    garage,
+    year
+  },
+  description,
+  features
+}`;
+
+const { data } = await loadQuery<PropertyQuery>({ query, params: { slug } });
+
+const heroTitle = data?.title ?? 'Property';
+const heroAddress = data?.address ?? '';
+const heroPrice = data?.price ?? '';
+const heroPricePerSqft = data?.pricePerSqft ?? '';
+
+const propertyData = data
+  ? {
+      images: data.images ?? [],
+      details: data.details ?? {
+        beds: 0,
+        baths: 0,
+        area: '',
+        garage: 0,
+        year: 0,
+      },
+      description: data.description ?? '',
+      features: data.features ?? [],
+    }
+  : undefined;
+---
+
+<BaseLayout>
+  <PropertyHeroSection
+    client:load
+    title={heroTitle}
+    address={heroAddress}
+    price={heroPrice}
+    pricePerSqft={heroPricePerSqft}
+  />
+
+  <PropertyDetail client:load property={propertyData} />
+
+  <Footer
+    client:load
+    logo="/logo.svg"
+    socialLinks={[
+      { href: '#', icon: Icons.Facebook },
+      { href: '#', icon: Icons.Twitter },
+      { href: '#', icon: Icons.Instagram },
+    ]}
+    columns={[
+      {
+        heading: 'Column Heading',
+        links: [
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+        ],
+      },
+      {
+        heading: 'Column Heading',
+        links: [
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+        ],
+      },
+      {
+        heading: 'Column Heading',
+        links: [
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+          { label: 'Link goes here', href: '#' },
+        ],
+      },
+    ]}
+  />
+</BaseLayout>

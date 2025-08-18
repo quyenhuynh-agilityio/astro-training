@@ -3,7 +3,29 @@ import React from 'react';
 import Image from '@components/Image';
 import DetailItem from '@components/DetailItem';
 
-const property = {
+interface ResponsiveImage {
+  default: string;
+  desktop?: string;
+  tablet?: string;
+  mobile?: string;
+}
+
+interface PropertyDetails {
+  beds: number;
+  baths: number;
+  area: string;
+  garage: number;
+  year: number;
+}
+
+export interface PropertyData {
+  images: ResponsiveImage[];
+  details: PropertyDetails;
+  description: string;
+  features: string[];
+}
+
+const fallbackProperty: PropertyData = {
   images: [
     {
       default:
@@ -83,7 +105,10 @@ const FeatureItem = ({
   </div>
 );
 
-const PropertyDetail = () => {
+const PropertyDetail: React.FC<{ property?: PropertyData }> = ({
+  property,
+}) => {
+  const data = property ?? fallbackProperty;
   return (
     <section className="bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
@@ -93,7 +118,7 @@ const PropertyDetail = () => {
           <div className="lg:col-span-2">
             <Image
               alt="Main property"
-              url={property.images[0]}
+              url={data.images[0]}
               className="w-full h-[250px] sm:h-[350px] lg:h-[450px] object-cover rounded-2xl"
             />
           </div>
@@ -105,7 +130,7 @@ const PropertyDetail = () => {
         flex gap-3 overflow-x-auto sm:grid sm:grid-cols-3 sm:gap-3 lg:grid-cols-1
       "
             >
-              {property.images.slice(1, 7).map((img, i) => (
+              {data.images.slice(1, 7).map((img, i) => (
                 <Image
                   key={i}
                   alt={`Property ${i + 1}`}
@@ -128,31 +153,24 @@ const PropertyDetail = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 text-center border-t border-accent">
             <DetailItem
               icon={Icons.Bed}
-              value={property.details.beds}
+              value={data.details.beds}
               label="Beds"
               bordered
             />
             <DetailItem
               icon={Icons.Shower}
-              value={property.details.baths}
+              value={data.details.baths}
               label="Baths"
               bordered
             />
-            <DetailItem
-              icon={Icons.Size}
-              value={property.details.area}
-              bordered
-            />
+            <DetailItem icon={Icons.Size} value={data.details.area} bordered />
             <DetailItem
               icon={Icons.Garage}
-              value={property.details.garage}
+              value={data.details.garage}
               label="Garage"
               bordered
             />
-            <DetailItem
-              icon={Icons.Bed}
-              value={`Built ${property.details.year}`}
-            />
+            <DetailItem icon={Icons.Bed} value={`Built ${data.details.year}`} />
           </div>
         </div>
 
@@ -162,7 +180,7 @@ const PropertyDetail = () => {
             Description
           </h2>
           <p className="text-gray-700 whitespace-pre-line leading-relaxed">
-            {property.description}
+            {data.description}
           </p>
         </div>
 
@@ -172,7 +190,7 @@ const PropertyDetail = () => {
             Features
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
-            {property.features.map((feature, i) => (
+            {data.features.map((feature, i) => (
               <FeatureItem key={i} icon={Icons.Check} text={feature} />
             ))}
           </div>
