@@ -27,6 +27,7 @@ module.exports = {
         30: '30px',
         60: '60px',
         80: '80px',
+        150: '150px',
         177: '177px',
       },
       height: {
@@ -34,7 +35,11 @@ module.exports = {
         266: '266px',
       },
       width: {
+        169: '169px',
         267: '267px',
+        336: '336px',
+      },
+      maxWidth: {
         336: '336px',
       },
     },

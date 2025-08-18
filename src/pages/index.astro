@@ -5,6 +5,8 @@ import TrustedPartnersSection from '@sections/TrustedPartnersSection';
 import FindPropertySection from '@sections/FindPropertySection';
 import Footer from '@layouts/Footer';
 import { Icons } from '@components/Icons';
+import TrustSection from '@sections/TrustSection';
+import TestimonialSection from '@sections/TestimonialSection';
 ---
 
 <BaseLayout>
@@ -12,6 +14,8 @@ import { Icons } from '@components/Icons';
   <TrustedPartnersSection client:load />
   <FindPropertySection client:load />
   <TrustedPartnersSection reverse client:load />
+  <TrustSection client:load />
+  <TestimonialSection client:load />
   <Footer
     client:load
     logo="/logo.svg"
