@@ -1,25 +1,30 @@
-// schemas/schema.js
+import type { SchemaTypeDefinition } from 'sanity';
 
-import heading from './objects/heading';
-import footer from './objects/footer';
-import properties from './objects/properties';
-import propertyDetail from './objects/propertyDetail';
-import testimonialSection from './objects/testimonialSection';
-import agentSection from './objects/agentSection';
-import contactSection from './objects/contactSection';
-import property from './documents/property';
-import homePage from './documents/homePage';
-import detailPage from './documents/detailPage';
+// Import all schema types
+import { blockContentType } from './types/blockContent';
+import { headingType } from './objects/heading';
+import { footerType } from './objects/footer';
+import { propertiesType } from './objects/properties';
+import { propertyDetailSectionType } from './objects/propertyDetail';
+import { testimonialSectionType } from './objects/testimonialSection';
+import { agentSectionType } from './objects/agentSection';
+import { contactSectionType } from './objects/contactSection';
+import { propertyType } from './documents/property';
+import { homePageType } from './documents/homePage';
+import { propertyDetailType } from './documents/detailPage';
 
-export default [
-  heading,
-  footer,
-  properties,
-  propertyDetail,
-  testimonialSection,
-  agentSection,
-  contactSection,
-  property,
-  homePage,
-  detailPage,
-];
+export const schema: { types: SchemaTypeDefinition[] } = {
+  types: [
+    blockContentType,
+    headingType,
+    footerType,
+    propertiesType,
+    propertyDetailSectionType,
+    testimonialSectionType,
+    agentSectionType,
+    contactSectionType,
+    propertyType,
+    homePageType,
+    propertyDetailType,
+  ],
+};

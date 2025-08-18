@@ -1,6 +1,6 @@
 import { defineType, defineField } from 'sanity';
 
-export default defineType({
+export const propertyDetailType = defineType({
   name: 'detailPage',
   title: 'Detail Page',
   type: 'document',

@@ -1,7 +1,6 @@
 import { defineType, defineField } from 'sanity';
-import blockContent from '../types/blockContent';
 
-export default defineType({
+export const contactSectionType = defineType({
   name: 'contactSection',
   title: 'Contact Section',
   type: 'object',

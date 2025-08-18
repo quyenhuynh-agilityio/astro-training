@@ -1,6 +1,6 @@
 import { defineType, defineField } from 'sanity';
 
-export default defineType({
+export const headingType = defineType({
   name: 'heading',
   title: 'Heading',
   type: 'object',

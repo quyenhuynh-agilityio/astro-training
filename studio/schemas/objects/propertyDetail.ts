@@ -1,7 +1,6 @@
 import { defineType, defineField } from 'sanity';
-import blockContent from '../types/blockContent';
 
-export default defineType({
+export const propertyDetailSectionType = defineType({
   name: 'propertyDetail',
   title: 'Property Detail',
   type: 'object',
