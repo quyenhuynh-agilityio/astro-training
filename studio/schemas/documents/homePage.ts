@@ -6,6 +6,12 @@ export const homePageType = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'header',
+      title: 'Header',
+      type: 'header',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'hero',
       title: 'Hero',
       type: 'object',
@@ -45,9 +51,27 @@ export const homePageType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'about',
+      title: 'About',
+      type: 'about',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'properties',
       title: 'Properties',
       type: 'properties',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'feature',
+      title: 'Feature',
+      type: 'feature',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'agentSection',
+      title: 'Agent Section',
+      type: 'agentSection',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

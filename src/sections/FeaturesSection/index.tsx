@@ -3,7 +3,7 @@ import Button from '@components/Button';
 import { Icons } from '@components/Icons';
 import Heading from '@components/Heading';
 
-const TrustSection: React.FC = () => {
+const FeaturesSection: React.FC = () => {
   return (
     <section className="relative flex flex-col items-center justify-center py-150 bg-black text-center text-white">
       <div className="max-w-2xl px-6">
@@ -30,4 +30,4 @@ const TrustSection: React.FC = () => {
   );
 };
 
-export default TrustSection;
+export default FeaturesSection;

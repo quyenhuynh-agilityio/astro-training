@@ -1,20 +1,20 @@
 ---
 import BaseLayout from '@layouts/BaseLayout/index.astro';
 import Hero from '@sections/HeroSection';
-import TrustedPartnersSection from '@sections/TrustedPartnersSection';
+import AboutSection from '@sections/AboutSection';
 import FindPropertySection from '@sections/FindPropertySection';
 import Footer from '@layouts/Footer';
 import { Icons } from '@components/Icons';
-import TrustSection from '@sections/TrustSection';
+import FeaturesSection from '@sections/FeaturesSection';
 import TestimonialSection from '@sections/TestimonialSection';
 ---
 
 <BaseLayout>
   <Hero client:load />
-  <TrustedPartnersSection client:load />
+  <AboutSection client:load />
   <FindPropertySection client:load />
-  <TrustedPartnersSection reverse client:load />
-  <TrustSection client:load />
+  <AboutSection reverse client:load />
+  <FeaturesSection client:load />
   <TestimonialSection client:load />
   <Footer
     client:load

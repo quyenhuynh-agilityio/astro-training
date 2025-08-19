@@ -12,7 +12,7 @@ interface ImageSource {
   mobile?: string;
 }
 
-interface TrustedPartnersSectionProps {
+interface AboutSectionProps {
   title?: string;
   description?: string;
   image?: ImageSource;
@@ -24,7 +24,7 @@ interface TrustedPartnersSectionProps {
   textWrapperClassName?: string;
 }
 
-const TrustedPartnersSection: React.FC<TrustedPartnersSectionProps> = ({
+const AboutSection: React.FC<AboutSectionProps> = ({
   title = 'You’re in good hands',
   description = `Torquatos nostros? quos dolores eos, qui dolorem ipsum per se texit,
     ne ferae quidem se repellere, idque instituit docere sic: omne
@@ -86,4 +86,4 @@ const TrustedPartnersSection: React.FC<TrustedPartnersSectionProps> = ({
   );
 };
 
-export default TrustedPartnersSection;
+export default AboutSection;

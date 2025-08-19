@@ -8,21 +8,25 @@ import { propertiesType } from './objects/properties';
 import { propertyDetailSectionType } from './objects/propertyDetail';
 import { testimonialSectionType } from './objects/testimonialSection';
 import { agentSectionType } from './objects/agentSection';
-import { contactSectionType } from './objects/contactSection';
 import { propertyType } from './documents/property';
 import { homePageType } from './documents/homePage';
 import { propertyDetailType } from './documents/detailPage';
+import { headerType } from './objects/header';
+import { aboutType } from './objects/aboutSection';
+import { featureType } from './objects/featureSection';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     blockContentType,
-    headingType,
+    headerType,
+    aboutType,
+    featureType,
+    agentSectionType,
+    testimonialSectionType,
     footerType,
+    headingType,
     propertiesType,
     propertyDetailSectionType,
-    testimonialSectionType,
-    agentSectionType,
-    contactSectionType,
     propertyType,
     homePageType,
     propertyDetailType,
