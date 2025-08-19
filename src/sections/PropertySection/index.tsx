@@ -2,7 +2,24 @@ import Heading from '@components/Heading';
 import PropertyCard from '@components/PropertyCard';
 import Select from '@components/Select';
 
-const FindPropertySection = () => {
+interface PropertyItem {
+  image: string;
+  title: string;
+  beds: number;
+  baths: number;
+  sun: number;
+  slug: string;
+}
+
+interface PropertySectionProps {
+  title?: string;
+  properties: PropertyItem[];
+}
+
+const PropertySection = ({
+  title = 'Find your next place to live',
+  properties: incomingProperties,
+}: PropertySectionProps) => {
   const options = [
     { value: '', label: 'Looking for' },
     { value: 'rent', label: 'Rent' },
@@ -27,56 +44,15 @@ const FindPropertySection = () => {
     { value: 'high', label: 'High to Low' },
   ];
 
-  const properties = [
-    {
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      title: 'Malto House',
-      beds: 4,
-      baths: 2,
-      sun: 2,
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      title: 'Malto House',
-      beds: 4,
-      baths: 2,
-      sun: 2,
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      title: 'Malto House',
-      beds: 4,
-      baths: 2,
-      sun: 2,
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      title: 'Malto House',
-      beds: 4,
-      baths: 2,
-      sun: 2,
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      title: 'Malto House',
-      beds: 4,
-      baths: 2,
-      sun: 2,
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-      title: 'Malto House',
-      beds: 4,
-      baths: 2,
-      sun: 2,
-    },
-  ];
+  const properties = incomingProperties;
+
+  console.log('incomingProperties', incomingProperties);
 
   return (
     <section className="py-16 bg-bodyBg">
       <div className="max-w-7xl mx-auto px-4">
         {/* Heading */}
-        <Heading title="Find your next place to live" />
+        <Heading title={title} />
 
         {/* Filters */}
         <div className="flex flex-col md:flex-row w-full gap-4 bg-white shadow-md rounded-xl  mb-10">
@@ -102,22 +78,23 @@ const FindPropertySection = () => {
           />
         </div>
 
-        {/* Properties */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {properties.map((property, index) => (
-            <PropertyCard
-              key={index}
-              image={property.image}
-              title={property.title}
-              beds={property.beds}
-              baths={property.baths}
-              sun={property.sun}
-            />
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {properties.map((property) => (
+            <li key={property.slug}>
+              <PropertyCard
+                slug={property.slug}
+                image={property.image}
+                title={property.title}
+                beds={property.beds}
+                baths={property.baths}
+                area={property.sun}
+              />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
 };
 
-export default FindPropertySection;
+export default PropertySection;

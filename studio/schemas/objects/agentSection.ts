@@ -1,8 +1,8 @@
 import { defineType, defineField } from 'sanity';
 
 export const agentSectionType = defineType({
-  name: 'agentSection',
-  title: 'Agent Section',
+  name: 'agent',
+  title: 'Agent',
   type: 'object',
   fields: [
     defineField({

@@ -1,15 +1,20 @@
 import React from 'react';
 import Image from '../Image';
 
-const Logo = () => {
+interface LogoProps {
+  url: string;
+  alt: string;
+}
+
+const Logo: React.FC<LogoProps> = ({ url, alt }) => {
   return (
     <Image
-      alt="Company Logo"
+      alt={alt}
       url={{
-        default: '/images/logo.png',
-        desktop: '/images/logo.png',
-        tablet: '/images/logo.png',
-        mobile: '/images/logo.png',
+        default: url,
+        desktop: url,
+        tablet: url,
+        mobile: url,
       }}
       className="w-32 h-auto"
       width={106}

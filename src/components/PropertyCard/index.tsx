@@ -1,29 +1,33 @@
+// src/components/PropertyCard.tsx
 import React from 'react';
 import { Icons } from '../Icons';
 import { cn } from '@lib/utils';
 
 interface CardProps {
   className?: string;
+  slug: string;
   image: string;
   title: string;
   beds: number;
   baths: number;
-  sun: number;
+  area: number;
 }
 
 const PropertyCard: React.FC<CardProps> = ({
   className,
+  slug,
   image,
   title,
   beds,
   baths,
-  sun,
+  area,
 }) => {
   return (
-    <div
+    <a
+      href={`/${slug}`}
       className={cn(
         className,
-        'bg-white rounded-2xl shadow-md overflow-hidden'
+        'block bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow'
       )}
     >
       <div className="h-266 w-full overflow-hidden">
@@ -44,10 +48,10 @@ const PropertyCard: React.FC<CardProps> = ({
         </div>
         <div className="flex items-center justify-center gap-1 py-2">
           <Icons.Size className="size-4" />
-          <span className="text-md ml-1">{sun}</span>
+          <span className="text-md ml-1">{area}</span>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

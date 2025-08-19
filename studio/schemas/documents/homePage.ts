@@ -69,15 +69,15 @@ export const homePageType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'agentSection',
-      title: 'Agent Section',
-      type: 'agentSection',
+      name: 'agent',
+      title: 'Agent',
+      type: 'agent',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'testimonialSection',
-      title: 'Testimonial Section',
-      type: 'testimonialSection',
+      name: 'testimonial',
+      title: 'Testimonial',
+      type: 'testimonial',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

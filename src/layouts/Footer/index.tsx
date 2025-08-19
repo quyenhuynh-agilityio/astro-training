@@ -19,7 +19,10 @@ interface SocialLink {
 }
 
 interface FooterProps {
-  logo: string;
+  logo: {
+    url: string;
+    alt: string;
+  };
   columns: Column[];
   socialLinks: SocialLink[];
 }
@@ -44,7 +47,7 @@ const Footer = ({ logo, columns, socialLinks }: FooterProps) => {
 
       <div className="max-w-7xl mx-auto mt-60 flex justify-between">
         <div>
-          <Logo />
+          <Logo url={logo.url} alt={logo.alt} />
           <div className="flex space-x-10 mt-30">
             {socialLinks.map((item, idx) => (
               <a

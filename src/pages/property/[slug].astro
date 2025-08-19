@@ -38,10 +38,8 @@ const query = `*[_type == "property" && slug.current == $slug][0]{
   price,
   pricePerSqft,
   images[]{
-    "default": default.asset->url,
-    "desktop": desktop.asset->url,
-    "tablet": tablet.asset->url,
-    "mobile": mobile.asset->url
+    "url": asset->url,
+    alt
   },
   details{
     beds,
@@ -54,12 +52,27 @@ const query = `*[_type == "property" && slug.current == $slug][0]{
   features
 }`;
 
-const { data } = await loadQuery<PropertyQuery>({ query, params: { slug } });
+const propertyDetailQuery = `*[_type == "property" && slug.current == $slug][0]{
+  title,
+  address,
+  price,
+  pricePerSqft,
+  images[]{
+    "url": asset->url,
+    alt
+  },
+  details{
+    beds,
+    baths,
+    area,
+    garage,
+    year
+  },
+  description,
+  features
+}`;
 
-const heroTitle = data?.title ?? 'Property';
-const heroAddress = data?.address ?? '';
-const heroPrice = data?.price ?? '';
-const heroPricePerSqft = data?.pricePerSqft ?? '';
+const { data } = await loadQuery({ query, params: { slug } });
 
 const propertyData = data
   ? {
@@ -78,16 +91,16 @@ const propertyData = data
 ---
 
 <BaseLayout>
-  <PropertyHeroSection
+  <!-- <PropertyHeroSection
     client:load
     title={heroTitle}
     address={heroAddress}
     price={heroPrice}
     pricePerSqft={heroPricePerSqft}
-  />
+  /> -->
 
   <PropertyDetail client:load property={propertyData} />
-  <Footer
+  <!-- <Footer
     client:load
     logo="/logo.svg"
     socialLinks={[
@@ -124,5 +137,5 @@ const propertyData = data
         ],
       },
     ]}
-  />
+  /> -->
 </BaseLayout>

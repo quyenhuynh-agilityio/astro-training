@@ -3,16 +3,20 @@ import Button from '@components/Button';
 import { Icons } from '@components/Icons';
 import Heading from '@components/Heading';
 
-const FeaturesSection: React.FC = () => {
+interface AgentSectionProps {
+  title: string;
+  description: string;
+  cta: string;
+}
+
+const AgentSection = ({ title, description, cta }: AgentSectionProps) => {
   return (
     <section className="relative flex flex-col items-center justify-center py-150 bg-black text-center text-white">
       <div className="max-w-2xl px-6">
-        <Heading title="You’re in good hands" className="justify-center" />
+        <Heading title={title} className="justify-center" />
 
         <p className="text-secondary text-base leading-relaxed mb-6">
-          Torquatos nostros? quos dolores eos, qui dolorem ipsum per se texit,
-          ne ferae quidem se repellere, idque instituit docere sic: omne animal,
-          simul atque integre iudicante itaque aiunt hanc quasi involuta
+          {description}
           aperiri, altera occulta quaedam et voluptatem accusantium doloremque.
         </p>
 
@@ -22,7 +26,7 @@ const FeaturesSection: React.FC = () => {
             size="large"
             rightIcon={<Icons.Path className="w-5 h-10 text-white ml-2" />}
           >
-            Work with us
+            {cta}
           </Button>
         </div>
       </div>
@@ -30,4 +34,4 @@ const FeaturesSection: React.FC = () => {
   );
 };
 
-export default FeaturesSection;
+export default AgentSection;
