@@ -30,112 +30,99 @@ interface PropertyQuery {
   features: string[];
 }
 
-const slug = Astro.params.slug as string;
-
-const query = `*[_type == "property" && slug.current == $slug][0]{
-  title,
-  address,
-  price,
-  pricePerSqft,
-  images[]{
-    "url": asset->url,
-    alt
-  },
-  details{
-    beds,
-    baths,
-    area,
-    garage,
-    year
-  },
-  description,
-  features
-}`;
-
-const propertyDetailQuery = `*[_type == "property" && slug.current == $slug][0]{
-  title,
-  address,
-  price,
-  pricePerSqft,
-  images[]{
-    "url": asset->url,
-    alt
-  },
-  details{
-    beds,
-    baths,
-    area,
-    garage,
-    year
-  },
-  description,
-  features
-}`;
-
-const { data } = await loadQuery({ query, params: { slug } });
-
-const propertyData = data
-  ? {
-      images: data.images ?? [],
-      details: data.details ?? {
-        beds: 0,
-        baths: 0,
-        area: '',
-        garage: 0,
-        year: 0,
-      },
-      description: data.description ?? '',
-      features: data.features ?? [],
+// Get static paths for all properties
+export async function getStaticPaths() {
+  const { data: properties } = await loadQuery<{ slug: { current: string } }[]>(
+    {
+      query: `*[_type == "homePage" && defined(slug.current)] { slug }`,
     }
-  : undefined;
+  );
+
+  return properties.map((property) => ({
+    params: { slug: property.slug.current },
+  }));
+}
+
+const { slug } = Astro.params;
+
+const fullSlug = `property/${slug}`;
+
+const { data: property } = await loadQuery<any>({
+  query: `*[_type == "property" && slug.current == $slug][0]{
+    _id,
+    title,
+    "slug": slug.current,
+    address,
+    price,
+    pricePerSqft,
+    mainImage { asset-> { url }, alt },
+    galleryImages[] { asset-> { url }, alt },
+    details { beds, baths, area, garage, yearBuilt },
+    "description": coalesce(pt::text(description), ""),
+    features,
+    status
+  }`,
+  params: { slug: fullSlug },
+});
+
+const { data: detailPage } = await loadQuery<any>({
+  query: `*[_type == "homePage"][0] {
+     header {
+      logo { asset-> { url }, alt },
+      navItems[] {
+        title,
+        link
+      },
+      ctaText,
+      ctaLink
+    },
+    footer {
+      logo { asset-> { url }, alt },
+      links[] { title, links },
+        socialLinks[] {
+          url,
+          icon {
+            asset-> {
+              url,
+              alt
+            }
+          }
+        },
+      ctaText,
+      ctaLink
+    }
+  }`,
+});
+
+const { header, footer } = detailPage;
 ---
 
-<BaseLayout>
-  <!-- <PropertyHeroSection
+<BaseLayout title="Detail Page">
+  <PropertyHeroSection
     client:load
-    title={heroTitle}
-    address={heroAddress}
-    price={heroPrice}
-    pricePerSqft={heroPricePerSqft}
-  /> -->
+    title={property?.title}
+    address={property?.address}
+    price={property?.price}
+    pricePerSqft={property?.pricePerSqft}
+    logo={header.logo.asset}
+    navItems={header.navItems}
+    ctaText={header.ctaText}
+  />
 
-  <PropertyDetail client:load property={propertyData} />
-  <!-- <Footer
+  <PropertyDetail client:load {property} />
+  <Footer
     client:load
-    logo="/logo.svg"
-    socialLinks={[
-      { href: '#', icon: Icons.Facebook },
-      { href: '#', icon: Icons.Twitter },
-      { href: '#', icon: Icons.Instagram },
-    ]}
-    columns={[
-      {
-        heading: 'Column Heading',
-        links: [
-          { label: 'Link goes here', href: '#' },
-          { label: 'Link goes here', href: '#' },
-          { label: 'Link goes here', href: '#' },
-          { label: 'Link goes here', href: '#' },
-        ],
-      },
-      {
-        heading: 'Column Heading',
-        links: [
-          { label: 'Link goes here', href: '#' },
-          { label: 'Link goes here', href: '#' },
-          { label: 'Link goes here', href: '#' },
-          { label: 'Link goes here', href: '#' },
-        ],
-      },
-      {
-        heading: 'Column Heading',
-        links: [
-          { label: 'Link goes here', href: '#' },
-          { label: 'Link goes here', href: '#' },
-          { label: 'Link goes here', href: '#' },
-          { label: 'Link goes here', href: '#' },
-        ],
-      },
-    ]}
-  /> -->
+    logo={footer?.logo?.asset}
+    socialLinks={footer?.socialLinks}
+    ctaText={footer?.ctaText}
+    columns={(footer?.links || []).map(
+      (section: { title: string; links: string[] }) => ({
+        heading: section.title,
+        links: (section.links || []).map((label: string) => ({
+          label,
+          href: '#',
+        })),
+      })
+    )}
+  />
 </BaseLayout>

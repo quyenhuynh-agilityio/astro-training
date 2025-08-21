@@ -3,11 +3,11 @@ import React from 'react';
 import Image from '@components/Image';
 import DetailItem from '@components/DetailItem';
 
-interface ResponsiveImage {
-  default: string;
-  desktop?: string;
-  tablet?: string;
-  mobile?: string;
+interface SanityImage {
+  asset: {
+    url: string;
+  };
+  alt?: string;
 }
 
 interface PropertyDetails {
@@ -15,82 +15,23 @@ interface PropertyDetails {
   baths: number;
   area: string;
   garage: number;
-  year: number;
+  yearBuilt: number;
 }
 
 export interface PropertyData {
-  images: ResponsiveImage[];
+  _id: string;
+  title: string;
+  slug: string;
+  address?: string;
+  price?: number;
+  pricePerSqft?: number;
+  mainImage: SanityImage;
+  galleryImages: SanityImage[];
   details: PropertyDetails;
   description: string;
   features: string[];
+  status?: string;
 }
-
-const fallbackProperty: PropertyData = {
-  images: [
-    {
-      default:
-        'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg',
-      desktop:
-        'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1440',
-      tablet:
-        'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=768',
-      mobile:
-        'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=480',
-    },
-    {
-      default:
-        'https://images.pexels.com/photos/271815/pexels-photo-271815.jpeg',
-    },
-    {
-      default:
-        'https://images.pexels.com/photos/259962/pexels-photo-259962.jpeg',
-    },
-    {
-      default:
-        'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg',
-    },
-    {
-      default:
-        'https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg',
-    },
-    {
-      default:
-        'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg',
-    },
-    {
-      default:
-        'https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg',
-    },
-    {
-      default:
-        'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg',
-    },
-  ],
-  details: {
-    beds: 4,
-    baths: 2,
-    area: '200 m²',
-    garage: 1,
-    year: 2007,
-  },
-  description: `
-    At vero eos et iusto odio dignissimos ducimus...
-  `,
-  features: [
-    'Air Conditioning',
-    'Swimming Pool',
-    'Garage',
-    'Garden',
-    'Fireplace',
-    'Security System',
-    'Balcony',
-    'Hardwood Floors',
-    'Modern Kitchen',
-    'Smart Home',
-    'Solar Panels',
-    'Double Glazing',
-  ],
-};
 
 const FeatureItem = ({
   icon: Icon,
@@ -105,10 +46,7 @@ const FeatureItem = ({
   </div>
 );
 
-const PropertyDetail: React.FC<{ property?: PropertyData }> = ({
-  property,
-}) => {
-  const data = property ?? fallbackProperty;
+const PropertyDetail: React.FC<{ property: PropertyData }> = ({ property }) => {
   return (
     <section className="bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
@@ -117,8 +55,13 @@ const PropertyDetail: React.FC<{ property?: PropertyData }> = ({
           {/* Main Image */}
           <div className="lg:col-span-2">
             <Image
-              alt="Main property"
-              url={data.images[0]}
+              alt={property.mainImage?.alt || ''}
+              url={{
+                default: property.mainImage?.asset?.url,
+                desktop: property.mainImage?.asset?.url,
+                tablet: property.mainImage?.asset?.url,
+                mobile: property.mainImage?.asset?.url,
+              }}
               className="w-full h-[250px] sm:h-[350px] lg:h-[450px] object-cover rounded-2xl"
             />
           </div>
@@ -127,19 +70,24 @@ const PropertyDetail: React.FC<{ property?: PropertyData }> = ({
           <div className="mt-4 lg:mt-0">
             <div
               className="
-        flex gap-3 overflow-x-auto sm:grid sm:grid-cols-3 sm:gap-3 lg:grid-cols-1
-      "
+                flex gap-3 overflow-x-auto sm:grid sm:grid-cols-3 sm:gap-3 lg:grid-cols-1
+              "
             >
-              {data.images.slice(1, 7).map((img, i) => (
+              {property.galleryImages.slice(1, 7).map((image, i) => (
                 <Image
                   key={i}
                   alt={`Property ${i + 1}`}
-                  url={img}
+                  url={{
+                    default: image?.asset?.url,
+                    desktop: image?.asset?.url,
+                    tablet: image?.asset?.url,
+                    mobile: image?.asset?.url,
+                  }}
                   className="
-            w-32 h-24 sm:w-full sm:h-28
-            object-cover rounded-xl cursor-pointer
-            flex-shrink-0 hover:opacity-80 transition
-          "
+                    w-32 h-24 sm:w-full sm:h-28
+                    object-cover rounded-xl cursor-pointer
+                    flex-shrink-0 hover:opacity-80 transition
+                  "
                   isLazyLoading
                 />
               ))}
@@ -153,24 +101,31 @@ const PropertyDetail: React.FC<{ property?: PropertyData }> = ({
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 text-center border-t border-accent">
             <DetailItem
               icon={Icons.Bed}
-              value={data.details.beds}
+              value={property.details.beds}
               label="Beds"
               bordered
             />
             <DetailItem
               icon={Icons.Shower}
-              value={data.details.baths}
+              value={property.details.baths}
               label="Baths"
               bordered
             />
-            <DetailItem icon={Icons.Size} value={data.details.area} bordered />
+            <DetailItem
+              icon={Icons.Size}
+              value={property.details.area}
+              bordered
+            />
             <DetailItem
               icon={Icons.Garage}
-              value={data.details.garage}
+              value={property.details.garage}
               label="Garage"
               bordered
             />
-            <DetailItem icon={Icons.Bed} value={`Built ${data.details.year}`} />
+            <DetailItem
+              icon={Icons.Bed}
+              value={`Built ${property.details.yearBuilt}`}
+            />
           </div>
         </div>
 
@@ -179,8 +134,8 @@ const PropertyDetail: React.FC<{ property?: PropertyData }> = ({
           <h2 className="text-xl font-semibold pb-4 border-b border-accent">
             Description
           </h2>
-          <p className="text-gray-700 whitespace-pre-line leading-relaxed">
-            {data.description}
+          <p className="text-gray-700 whitespace-pre-line leading-relaxed pt-4">
+            {property.description}
           </p>
         </div>
 
@@ -190,7 +145,7 @@ const PropertyDetail: React.FC<{ property?: PropertyData }> = ({
             Features
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
-            {data.features.map((feature, i) => (
+            {property?.features?.map((feature, i) => (
               <FeatureItem key={i} icon={Icons.Check} text={feature} />
             ))}
           </div>

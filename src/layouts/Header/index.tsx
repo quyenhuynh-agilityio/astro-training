@@ -15,7 +15,7 @@ interface HeaderProps {
     link: string;
   }[];
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({

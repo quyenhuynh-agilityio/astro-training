@@ -30,8 +30,6 @@ interface FooterProps {
 }
 
 const Footer = ({ logo, columns, socialLinks, ctaText }: FooterProps) => {
-  console.log('socialLinks', socialLinks);
-
   return (
     <footer className="bg-black text-white px-177 py-80">
       <div className="max-w-7xl mx-auto pb-12 flex flex-col md:flex-row items-center md:justify-between">

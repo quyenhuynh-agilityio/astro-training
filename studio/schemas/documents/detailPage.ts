@@ -6,12 +6,11 @@ export const propertyDetailType = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'property',
-      title: 'Property',
-      type: 'property',
+      name: 'header',
+      title: 'Header',
+      type: 'header',
       validation: (Rule) => Rule.required(),
     }),
-
     defineField({
       name: 'footer',
       title: 'Footer',
