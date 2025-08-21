@@ -61,7 +61,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               alt={title || 'Trusted Partners'}
               width={800}
               height={600}
-              className="object-cover"
+              className="object-cover w-604 h-557"
             />
           </div>
         </div>

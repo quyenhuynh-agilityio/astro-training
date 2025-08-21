@@ -4,7 +4,6 @@ import Hero from '@sections/HeroSection';
 import AboutSection from '@sections/AboutSection';
 import PropertySection from '@sections/PropertySection';
 import Footer from '@layouts/Footer';
-import { Icons } from '@components/Icons';
 
 import TestimonialSection from '@sections/TestimonialSection';
 
@@ -77,6 +76,15 @@ const { data: homePage } = await loadQuery<any>({
     footer {
       logo { asset-> { url }, alt },
       links[] { title, links },
+        socialLinks[] {
+          url,
+          icon {
+            asset-> {
+              url,
+              alt
+            }
+          }
+        },
       ctaText,
       ctaLink
     }
@@ -87,21 +95,11 @@ if (!homePage) {
   throw new Error('No home page data found');
 }
 
-const {
-  header,
-  hero,
-  about,
-  properties,
-  feature,
-  agent,
-  testimonialSection,
-  footer,
-} = homePage;
-
-console.log('properties', properties);
+const { header, hero, about, properties, feature, agent, testimonial, footer } =
+  homePage;
 ---
 
-<BaseLayout>
+<BaseLayout title="Home Page">
   <Hero
     title={hero.heading.title}
     subtitle={hero.heading.subtitle}
@@ -162,7 +160,7 @@ console.log('properties', properties);
     client:load
   />
   <TestimonialSection
-    testimonials={(testimonialSection?.testimonials || []).map((t: any) => ({
+    testimonials={(testimonial?.testimonials || []).map((t: any) => ({
       name: t.author,
       role: t.role,
       image: t?.image?.asset?.url,
@@ -174,11 +172,8 @@ console.log('properties', properties);
   <Footer
     client:load
     logo={footer?.logo?.asset}
-    socialLinks={[
-      { href: '#', icon: Icons.Facebook },
-      { href: '#', icon: Icons.Twitter },
-      { href: '#', icon: Icons.Instagram },
-    ]}
+    socialLinks={footer?.socialLinks}
+    ctaText={footer?.ctaText}
     columns={(footer?.links || []).map(
       (section: { title: string; links: string[] }) => ({
         heading: section.title,

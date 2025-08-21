@@ -33,11 +33,13 @@ module.exports = {
       height: {
         10: '10px',
         266: '266px',
+        557: '557px',
       },
       width: {
         169: '169px',
         267: '267px',
         336: '336px',
+        604: '604px',
       },
       maxWidth: {
         336: '336px',

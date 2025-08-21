@@ -1,5 +1,6 @@
 import Button from '@components/Button';
 import { Icons } from '@components/Icons';
+import Image from '@components/Image';
 import Logo from '@components/Logo';
 import React from 'react';
 
@@ -25,9 +26,12 @@ interface FooterProps {
   };
   columns: Column[];
   socialLinks: SocialLink[];
+  ctaText?: string;
 }
 
-const Footer = ({ logo, columns, socialLinks }: FooterProps) => {
+const Footer = ({ logo, columns, socialLinks, ctaText }: FooterProps) => {
+  console.log('socialLinks', socialLinks);
+
   return (
     <footer className="bg-black text-white px-177 py-80">
       <div className="max-w-7xl mx-auto pb-12 flex flex-col md:flex-row items-center md:justify-between">
@@ -35,11 +39,10 @@ const Footer = ({ logo, columns, socialLinks }: FooterProps) => {
           Make your dreams a <span className="text-primary">reality</span>
         </h2>
         <Button
-          // variant="secondary"
           size="large"
           rightIcon={<Icons.Path className="w-5 h-10 text-white ml-2" />}
         >
-          Work with us
+          {ctaText}
         </Button>
       </div>
 
@@ -49,13 +52,24 @@ const Footer = ({ logo, columns, socialLinks }: FooterProps) => {
         <div>
           <Logo url={logo.url} alt={logo.alt} />
           <div className="flex space-x-10 mt-30">
-            {socialLinks.map((item, idx) => (
+            {socialLinks?.map((item, idx) => (
               <a
                 key={idx}
                 href={item.href}
                 className="hover:text-primary transition"
               >
-                {item.icon}
+                <Image
+                  alt={item.icon.alt}
+                  width={22}
+                  height={22}
+                  url={{
+                    default: item?.icon?.asset?.url,
+                    desktop: item?.icon?.asset?.url,
+                    tablet: item?.icon?.asset?.url,
+                    mobile: item?.icon?.asset?.url,
+                  }}
+                  className="size-5"
+                />
               </a>
             ))}
           </div>

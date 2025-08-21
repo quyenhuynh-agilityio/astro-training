@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from '@components/Image';
 
 interface TestimonialItem {
   name: string;
@@ -8,39 +9,13 @@ interface TestimonialItem {
 }
 
 interface TestimonialSectionProps {
-  testimonials?: TestimonialItem[];
+  testimonials: TestimonialItem[];
 }
 
 const TestimonialSection: React.FC<TestimonialSectionProps> = ({
   testimonials,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const items: TestimonialItem[] =
-    testimonials && testimonials.length > 0
-      ? testimonials
-      : [
-          {
-            name: 'Lara Madrigal',
-            role: 'Client',
-            image: 'https://randomuser.me/api/portraits/women/44.jpg',
-            quote:
-              'Certe, inquam, pertinax non existimant oportere exquisitis rationibus conquisitis de quo enim ipsam. Torquem detraxit hosti et quidem faciunt, ut aut.',
-          },
-          {
-            name: 'John Smith',
-            role: 'Client',
-            image: 'https://randomuser.me/api/portraits/men/32.jpg',
-            quote:
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia nihil temporibus, dignissimos facere ducimus minus fuga!',
-          },
-          {
-            name: 'Sophie Lee',
-            role: 'Client',
-            image: 'https://randomuser.me/api/portraits/women/68.jpg',
-            quote:
-              'Ut aliquid scire se gaudeat, id est voluptatem. Non igitur bene. Quid ad utilitatem tantae pecuniae?',
-          },
-        ];
 
   return (
     <section className="py-150 bg-white">
@@ -49,17 +24,15 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({
         <div className="flex justify-center mb-6">
           <span className="w-336 h-1 bg-gradient-to-r from-yellow-400 to-black"></span>
         </div>
-
-        {/* Quote with fixed height to avoid jumping */}
-        <div className="relative mb-24 min-h-44 flex items-center justify-center mx-auto max-w-336">
+        <div className="relative mb-24 min-h-52 flex items-center justify-center mx-auto max-w-336">
           <blockquote className="text-xl italic text-gray-800 leading-relaxed max-w-2xl mx-auto transition-opacity duration-300">
-            “{items[activeIndex].quote}”
+            “{testimonials[activeIndex]?.quote}”
           </blockquote>
         </div>
 
         {/* Avatars */}
         <div className="flex justify-center gap-8">
-          {items.map((t, index) => (
+          {testimonials?.map((t, index) => (
             <button
               key={t.name + index}
               onClick={() => setActiveIndex(index)}
@@ -69,8 +42,13 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({
                   : 'opacity-60 hover:opacity-100'
               }`}
             >
-              <img
-                src={t.image}
+              <Image
+                url={{
+                  default: t.image,
+                  desktop: t.image,
+                  tablet: t.image,
+                  mobile: t.image,
+                }}
                 alt={t.name}
                 className={`w-14 h-14 rounded-full object-cover mb-2 ${
                   index === activeIndex ? 'ring-2 ring-white' : ''
