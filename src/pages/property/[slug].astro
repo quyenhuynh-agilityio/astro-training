@@ -3,32 +3,8 @@ import BaseLayout from '@layouts/BaseLayout/index.astro';
 import PropertyHeroSection from '@sections/PropertyHeroSection';
 import PropertyDetail from '@sections/PropertyDetailSection';
 import Footer from '@layouts/Footer';
-import { Icons } from '@components/Icons';
 import { loadQuery } from '../../../studio/lib/load-query';
-
-interface ResponsiveImage {
-  default: string;
-  desktop?: string;
-  tablet?: string;
-  mobile?: string;
-}
-
-interface PropertyQuery {
-  title: string;
-  address: string;
-  price: string;
-  pricePerSqft: string;
-  images: ResponsiveImage[];
-  details: {
-    beds: number;
-    baths: number;
-    area: string;
-    garage: number;
-    year: number;
-  };
-  description: string;
-  features: string[];
-}
+import type { PropertyDetailType } from '@types-local/property';
 
 // Get static paths for all properties
 export async function getStaticPaths() {
@@ -47,7 +23,7 @@ const { slug } = Astro.params;
 
 const fullSlug = `property/${slug}`;
 
-const { data: property } = await loadQuery<any>({
+const { data: property } = await loadQuery<PropertyDetailType>({
   query: `*[_type == "property" && slug.current == $slug][0]{
     _id,
     title,
@@ -95,6 +71,11 @@ const { data: detailPage } = await loadQuery<any>({
 });
 
 const { header, footer } = detailPage;
+
+// Handle case where property is not found
+if (!property) {
+  return Astro.redirect('/404'); // Redirect to 404 page
+}
 ---
 
 <BaseLayout title="Detail Page">

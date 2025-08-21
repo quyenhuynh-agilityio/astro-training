@@ -9,8 +9,9 @@ import TestimonialSection from '@sections/TestimonialSection';
 
 import { loadQuery } from '../../studio/lib/load-query.ts';
 import AgentSection from '@sections/AgentSection';
+import type { HomePageType } from '@types-local/home';
 
-const { data: homePage } = await loadQuery<any>({
+const { data: homePage } = await loadQuery<HomePageType>({
   query: `*[_type == "homePage"][0] {
     hero {
       heading {
