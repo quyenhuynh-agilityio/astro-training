@@ -93,7 +93,7 @@ const { data: homePage } = await loadQuery<HomePageType>({
 });
 
 if (!homePage) {
-  throw new Error('No home page data found');
+  return Astro.redirect('/404');
 }
 
 const { header, hero, about, properties, feature, agent, testimonial, footer } =
@@ -108,23 +108,13 @@ const { header, hero, about, properties, feature, agent, testimonial, footer } =
     logo={header.logo.asset}
     navItems={header.navItems}
     ctaText={header.ctaText}
-    image={{
-      default: hero.image?.asset?.url,
-      desktop: hero.image?.asset?.url,
-      tablet: hero.image?.asset?.url,
-      mobile: hero.image?.asset?.url,
-    }}
+    image={hero.image?.asset?.url}
     client:load
   />
   <AboutSection
     title={about?.title}
     description={about?.description}
-    image={{
-      default: about?.image?.asset?.url,
-      desktop: about?.image?.asset?.url,
-      tablet: about?.image?.asset?.url,
-      mobile: about?.image?.asset?.url,
-    }}
+    image={about?.image?.asset?.url}
     buttonText={about?.ctaText}
     client:load
   />
@@ -144,12 +134,7 @@ const { header, hero, about, properties, feature, agent, testimonial, footer } =
     reverse
     title={feature?.title}
     description={feature?.description}
-    image={{
-      default: feature?.image?.asset?.url,
-      desktop: feature?.image?.asset?.url,
-      tablet: feature?.image?.asset?.url,
-      mobile: feature?.image?.asset?.url,
-    }}
+    image={feature?.image?.asset?.url}
     buttonText={feature?.ctaText}
     client:load
   />

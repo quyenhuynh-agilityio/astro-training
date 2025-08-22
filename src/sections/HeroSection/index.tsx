@@ -3,23 +3,11 @@ import Image from '@components/Image';
 import Header from '@layouts/Header';
 import { Icons } from '@components/Icons';
 
-const bgImage = {
-  default: '/images/main-bg.png',
-  desktop: '/images/main-bg.png',
-  tablet: '/images/main-bg.png',
-  mobile: '/images/main-bg.png',
-};
-
 interface HeroProps {
   title?: string;
   subtitle?: string;
   labelBtn?: string;
-  image?: {
-    default: string;
-    desktop?: string;
-    tablet?: string;
-    mobile?: string;
-  };
+  image: string;
   logo?: string;
   navItems?: string;
   ctaText?: string;
@@ -34,13 +22,11 @@ const Hero = ({
   navItems,
   ctaText,
 }: HeroProps) => {
-  const backgroundImage = image ?? bgImage;
-
   return (
     <section className="relative w-full h-[90vh] overflow-hidden">
       <Image
         alt="Background"
-        url={backgroundImage}
+        url={image}
         isLazyLoading={false}
         className="absolute inset-0 w-full h-full object-cover"
       />

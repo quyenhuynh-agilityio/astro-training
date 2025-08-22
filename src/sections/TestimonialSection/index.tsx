@@ -43,12 +43,7 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({
               }`}
             >
               <Image
-                url={{
-                  default: t.image,
-                  desktop: t.image,
-                  tablet: t.image,
-                  mobile: t.image,
-                }}
+                url={t.image}
                 alt={t.name}
                 className={`w-14 h-14 rounded-full object-cover mb-2 ${
                   index === activeIndex ? 'ring-2 ring-white' : ''

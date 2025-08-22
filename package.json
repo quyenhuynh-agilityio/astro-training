@@ -12,10 +12,7 @@
     "format": "prettier --write .",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "sanity": "cd real-estate-studio && pnpm run start",
-    "sanity:build": "cd real-estate-studio && pnpm run build",
-    "sanity:deploy": "cd real-estate-studio && pnpm run deploy"
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",

@@ -5,17 +5,10 @@ import { Icons } from '@components/Icons';
 import { cn } from '@lib/utils';
 import Heading from '@components/Heading';
 
-interface ImageSource {
-  default: string;
-  desktop?: string;
-  tablet?: string;
-  mobile?: string;
-}
-
 interface AboutSectionProps {
   title?: string;
   description?: string;
-  image?: ImageSource;
+  image?: string;
   buttonText?: string;
   reverse?: boolean;
   sectionClassName?: string;

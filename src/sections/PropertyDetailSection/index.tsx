@@ -56,12 +56,7 @@ const PropertyDetail: React.FC<{ property: PropertyData }> = ({ property }) => {
           <div className="lg:col-span-2">
             <Image
               alt={property.mainImage?.alt || ''}
-              url={{
-                default: property.mainImage?.asset?.url,
-                desktop: property.mainImage?.asset?.url,
-                tablet: property.mainImage?.asset?.url,
-                mobile: property.mainImage?.asset?.url,
-              }}
+              url={property.mainImage?.asset?.url}
               className="w-full h-[250px] sm:h-[350px] lg:h-[450px] object-cover rounded-2xl"
             />
           </div>
@@ -77,12 +72,7 @@ const PropertyDetail: React.FC<{ property: PropertyData }> = ({ property }) => {
                 <Image
                   key={i}
                   alt={`Property ${i + 1}`}
-                  url={{
-                    default: image?.asset?.url,
-                    desktop: image?.asset?.url,
-                    tablet: image?.asset?.url,
-                    mobile: image?.asset?.url,
-                  }}
+                  url={image?.asset?.url}
                   className="
                     w-32 h-24 sm:w-full sm:h-28
                     object-cover rounded-xl cursor-pointer

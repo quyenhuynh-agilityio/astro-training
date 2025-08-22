@@ -60,12 +60,7 @@ const Footer = ({ logo, columns, socialLinks, ctaText }: FooterProps) => {
                   alt={item.icon.alt}
                   width={22}
                   height={22}
-                  url={{
-                    default: item?.icon?.asset?.url,
-                    desktop: item?.icon?.asset?.url,
-                    tablet: item?.icon?.asset?.url,
-                    mobile: item?.icon?.asset?.url,
-                  }}
+                  url={item?.icon?.asset?.url}
                   className="size-5"
                 />
               </a>
