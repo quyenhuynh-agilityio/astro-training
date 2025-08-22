@@ -4,6 +4,17 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "types": ["astro/client"],
+    "jsxImportSource": "react",
+    "baseUrl": ".", // Required for resolving aliases from the project root
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@lib/*": ["src/lib/*"],
+      "@styles/*": ["src/styles/*"],
+      "@pages/*": ["src/pages/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@sections/*": ["src/sections/*"],
+      "@types-local/*": ["src/types/*"]
+    }
   }
 }

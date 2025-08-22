@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@layouts/BaseLayout/index.astro';
+
+import LoginForm from '@components/LoginForm';
+import Image from '@components/Image';
+
+const bgImage = {
+  default: '/images/main-bg.png',
+  desktop: '/images/main-bg.png',
+  tablet: '/images/main-bg.png',
+  mobile: '/images/main-bg.png',
+};
+---
+
+<BaseLayout>
+  <div class="relative min-h-screen">
+    <!-- Background image -->
+    <Image
+      alt="Background"
+      url={bgImage}
+      className="absolute inset-0 w-full h-full object-cover"
+      isLazyLoading={false}
+    />
+
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <!-- Login form -->
+    <div class="relative z-10 flex items-center justify-center min-h-screen">
+      <div class="w-full max-w-md">
+        <LoginForm />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

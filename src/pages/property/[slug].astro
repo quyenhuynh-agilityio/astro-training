@@ -1,0 +1,109 @@
+---
+import BaseLayout from '@layouts/BaseLayout/index.astro';
+import PropertyHeroSection from '@sections/PropertyHeroSection';
+import PropertyDetail from '@sections/PropertyDetailSection';
+import Footer from '@layouts/Footer';
+import { loadQuery } from '../../../studio/lib/load-query';
+import type { PropertyDetailType } from '@types-local/property';
+
+// Get static paths for all properties
+export async function getStaticPaths() {
+  const { data: properties } = await loadQuery<{ slug: { current: string } }[]>(
+    {
+      query: `*[_type == "homePage" && defined(slug.current)] { slug }`,
+    }
+  );
+
+  return properties.map((property) => ({
+    params: { slug: property.slug.current },
+  }));
+}
+
+const { slug } = Astro.params;
+
+const fullSlug = `property/${slug}`;
+
+const { data: property } = await loadQuery<PropertyDetailType>({
+  query: `*[_type == "property" && slug.current == $slug][0]{
+    _id,
+    title,
+    "slug": slug.current,
+    address,
+    price,
+    pricePerSqft,
+    mainImage { asset-> { url }, alt },
+    galleryImages[] { asset-> { url }, alt },
+    details { beds, baths, area, garage, yearBuilt },
+    "description": coalesce(pt::text(description), ""),
+    features,
+    status
+  }`,
+  params: { slug: fullSlug },
+});
+
+const { data: detailPage } = await loadQuery<any>({
+  query: `*[_type == "homePage"][0] {
+     header {
+      logo { asset-> { url }, alt },
+      navItems[] {
+        title,
+        link
+      },
+      ctaText,
+      ctaLink
+    },
+    footer {
+      logo { asset-> { url }, alt },
+      links[] { title, links },
+        socialLinks[] {
+          url,
+          icon {
+            asset-> {
+              url,
+              alt
+            }
+          }
+        },
+      ctaText,
+      ctaLink
+    }
+  }`,
+});
+
+const { header, footer } = detailPage;
+
+// Handle case where property is not found
+if (!property) {
+  return Astro.redirect('/404'); // Redirect to 404 page
+}
+---
+
+<BaseLayout title="Detail Page">
+  <PropertyHeroSection
+    client:load
+    title={property?.title}
+    address={property?.address}
+    price={property?.price}
+    pricePerSqft={property?.pricePerSqft}
+    logo={header.logo.asset}
+    navItems={header.navItems}
+    ctaText={header.ctaText}
+  />
+
+  <PropertyDetail client:load {property} />
+  <Footer
+    client:load
+    logo={footer?.logo?.asset}
+    socialLinks={footer?.socialLinks}
+    ctaText={footer?.ctaText}
+    columns={(footer?.links || []).map(
+      (section: { title: string; links: string[] }) => ({
+        heading: section.title,
+        links: (section.links || []).map((label: string) => ({
+          label,
+          href: '#',
+        })),
+      })
+    )}
+  />
+</BaseLayout>
