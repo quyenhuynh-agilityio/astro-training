@@ -1,31 +1,18 @@
 import { createClient } from '@sanity/client';
-import { loadEnv } from 'vite';
+import imageUrlBuilder from '@sanity/image-url';
 
-// Load environment variables
-const env = loadEnv(import.meta.env.MODE || 'development', process.cwd(), '');
-
-// Dynamically import imageUrlBuilder to handle potential CommonJS issues
-const imageUrlBuilder = async () => {
-  const { default: builder } = await import('@sanity/image-url');
-  return builder;
-};
-
-const client = createClient({
-  projectId: env.PUBLIC_SANITY_PROJECT_ID || '',
-  dataset: env.PUBLIC_SANITY_DATASET || 'production',
-  useCdn: false,
-  apiVersion: '2023-05-03',
-  token: env.SANITY_API_READ_TOKEN,
+// 1. Configure Sanity client
+export const sanityClient = createClient({
+  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID, // from your env
+  dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
+  apiVersion: '2025-01-01', // or today's date for latest API
+  useCdn: true,
 });
 
-// Use async function to get builder instance
-export const urlFor = async (source: {
-  _ref?: string;
-  asset?: { _ref?: string };
-  [key: string]: any;
-}) => {
-  const builder = await imageUrlBuilder();
-  return builder.image(source);
-};
+// 2. Configure image URL builder
+const builder = imageUrlBuilder(sanityClient);
 
-export default client;
+// 3. Helper function to generate image URLs
+export function urlFor(source: any) {
+  return builder.image(source);
+}

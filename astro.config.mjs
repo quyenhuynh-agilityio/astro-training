@@ -7,20 +7,9 @@ import vercel from '@astrojs/vercel';
 
 const env = loadEnv(import.meta.env.MODE || 'development', process.cwd(), '');
 
-const validateEnv = () => {
-  const missingVars = [];
-  if (!env.PUBLIC_SANITY_PROJECT_ID)
-    missingVars.push('PUBLIC_SANITY_PROJECT_ID');
-  if (!env.PUBLIC_SANITY_DATASET) missingVars.push('PUBLIC_SANITY_DATASET');
-  if (import.meta.env.PROD && !env.SANITY_API_READ_TOKEN)
-    missingVars.push('SANITY_API_READ_TOKEN');
-  if (missingVars.length > 0) {
-    console.warn(
-      `Warning: Missing environment variables: ${missingVars.join(', ')}. Check your .env files.`
-    );
-  }
-};
-validateEnv();
+if (!env.PUBLIC_SANITY_PROJECT_ID || !env.PUBLIC_SANITY_DATASET) {
+  console.warn('Missing Sanity ENV variables!');
+}
 
 export default defineConfig({
   output: 'server',
@@ -40,7 +29,7 @@ export default defineConfig({
     sanity({
       projectId: env.PUBLIC_SANITY_PROJECT_ID,
       dataset: env.PUBLIC_SANITY_DATASET,
-      useCdn: env.DEV ? false : true,
+      useCdn: false,
       apiVersion: '2023-05-03',
       studioBasePath: '/studio',
       stega: {
@@ -55,33 +44,26 @@ export default defineConfig({
   },
   vite: {
     optimizeDeps: {
-      include: ['@sanity/client', '@sanity/image-url'],
+      include: ['@sanity/client'],
       exclude: ['fsevents'],
     },
     ssr: {
-      noExternal: ['@sanity/client', '@sanity/image-url'],
-    },
-    build: {
-      rollupOptions: {
-        external: [/fsevents\.node$/],
-      },
+      noExternal: ['@sanity/client'],
     },
     define: {
       global: 'globalThis',
+      'import.meta.env.PUBLIC_SANITY_PROJECT_ID': JSON.stringify(
+        env.PUBLIC_SANITY_PROJECT_ID || ''
+      ),
+      'import.meta.env.PUBLIC_SANITY_DATASET': JSON.stringify(
+        env.PUBLIC_SANITY_DATASET || 'production'
+      ),
+      'import.meta.env.PUBLIC_STUDIO_URL': JSON.stringify(
+        env.PUBLIC_STUDIO_URL || 'https://astro-real-estate.vercel.app/'
+      ),
+      'import.meta.env.PUBLIC_SANITY_VISUAL_EDITING_ENABLED': JSON.stringify(
+        env.PUBLIC_SANITY_VISUAL_EDITING_ENABLED || 'false'
+      ),
     },
-  },
-  define: {
-    'import.meta.env.PUBLIC_SANITY_PROJECT_ID': JSON.stringify(
-      env.PUBLIC_SANITY_PROJECT_ID || ''
-    ),
-    'import.meta.env.PUBLIC_SANITY_DATASET': JSON.stringify(
-      env.PUBLIC_SANITY_DATASET || 'production'
-    ),
-    'import.meta.env.PUBLIC_STUDIO_URL': JSON.stringify(
-      env.PUBLIC_STUDIO_URL || 'https://astro-real-estate.vercel.app/'
-    ),
-    'import.meta.env.PUBLIC_SANITY_VISUAL_EDITING_ENABLED': JSON.stringify(
-      env.PUBLIC_SANITY_VISUAL_EDITING_ENABLED || 'false'
-    ),
   },
 });

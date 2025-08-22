@@ -26,9 +26,6 @@ importers:
       '@sanity/client':
         specifier: ^7.8.2
         version: 7.9.0(debug@4.4.1)
-      '@sanity/image-url':
-        specifier: ^1.1.0
-        version: 1.1.0
       '@types/react':
         specifier: ^19.1.10
         version: 19.1.10
@@ -57,6 +54,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@sanity/image-url':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@testing-library/jest-dom':
         specifier: ^6.7.0
         version: 6.8.0

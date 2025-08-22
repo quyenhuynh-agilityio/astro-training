@@ -24,12 +24,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     animal, simul atque integre iudicante itaque aiunt hanc quasi
     involuta aperiri, altera occulta quaedam et voluptatem accusantium
     doloremque.`,
-  image = {
-    default: '/images/trusted.png',
-    desktop: '/images/trusted.png',
-    tablet: '/images/trusted.png',
-    mobile: '/images/trusted.png',
-  },
+  image = '',
   buttonText = 'Learn more',
   reverse = false,
   sectionClassName,

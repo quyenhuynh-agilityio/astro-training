@@ -1,72 +1,51 @@
-import React from 'react';
-import { urlFor } from '../../lib/sanity'; // Adjust path to your sanity.ts file
-
-interface ImageProps {
-  alt: string;
-  url: string; // Single Sanity image reference or URL
-  className?: string;
-  width?: number;
-  height?: number;
-  isLazyLoading?: boolean;
-  quality?: number; // Optional quality parameter (0-100)
-}
+import { urlFor } from '@lib/sanity';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 const Image: React.FC<ImageProps> = ({
   alt,
   url,
   className = '',
-  width = 800, // Default width
-  height = 600, // Default height
+  width = 800,
+  height = 600,
   isLazyLoading = true,
-  quality = 75, // Default quality
+  quality = 75,
 }) => {
-  // Generate optimized URLs for each breakpoint
-  const getBreakpointUrl = (w: number, h: number) =>
-    urlFor(typeof url === 'string' ? { asset: { _ref: url } } : url)
+  if (!url) return null;
+
+  const source: SanityImageSource | string =
+    typeof url === 'string' && url.startsWith('http')
+      ? url
+      : typeof url === 'string'
+        ? { asset: { _ref: url } }
+        : url;
+
+  const getBreakpointUrl = (w: number, h: number) => {
+    if (typeof source === 'string') return source; // already a valid CDN URL
+    return urlFor(source)
       .width(w)
       .height(h)
       .quality(quality)
       .auto('format')
       .url();
+  };
 
-  const desktopUrl = getBreakpointUrl(1200, 900); // Optimized for desktop
-  const tabletUrl = getBreakpointUrl(800, 600); // Optimized for tablet
-  const mobileUrl = getBreakpointUrl(400, 300); // Optimized for mobile
-  const defaultUrl = getBreakpointUrl(width, height); // Fallback
+  const desktopUrl = getBreakpointUrl(1200, 900);
+  const tabletUrl = getBreakpointUrl(800, 600);
+  const mobileUrl = getBreakpointUrl(400, 300);
+  const defaultUrl = getBreakpointUrl(width, height);
 
   return (
     <picture className={className}>
-      {desktopUrl && (
-        <source
-          media="(min-width: 1440px)"
-          srcSet={desktopUrl}
-          width={1200}
-          height={900}
-        />
-      )}
-      {tabletUrl && (
-        <source
-          media="(min-width: 768px)"
-          srcSet={tabletUrl}
-          width={800}
-          height={600}
-        />
-      )}
-      {mobileUrl && (
-        <source
-          media="(max-width: 767px)"
-          srcSet={mobileUrl}
-          width={400}
-          height={300}
-        />
-      )}
+      <source media="(min-width: 1440px)" srcSet={desktopUrl} />
+      <source media="(min-width: 768px)" srcSet={tabletUrl} />
+      <source media="(max-width: 767px)" srcSet={mobileUrl} />
       <img
         src={defaultUrl}
         alt={alt}
-        width={width || undefined}
-        height={height || undefined}
+        width={width}
+        height={height}
         loading={isLazyLoading ? 'lazy' : 'eager'}
-        decoding="async" // Improves rendering performance
+        decoding="async"
         className={className}
       />
     </picture>
