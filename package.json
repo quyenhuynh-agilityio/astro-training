@@ -18,12 +18,13 @@
     "sanity:deploy": "cd real-estate-studio && pnpm run deploy"
   },
   "dependencies": {
-    "@astrojs/node": "^9.4.1",
     "@astrojs/react": "^4.3.0",
+    "@astrojs/vercel": "^8.2.6",
     "@fontsource/inter": "^5.2.6",
     "@fontsource/roboto": "^5.2.6",
     "@sanity/astro": "^3.2.10",
     "@sanity/client": "^7.8.2",
+    "@sanity/image-url": "^1.1.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "astro": "^5.13.0",
