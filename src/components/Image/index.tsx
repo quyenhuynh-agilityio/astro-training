@@ -1,6 +1,16 @@
 import { urlFor } from '@lib/sanity';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
+interface ImageProps {
+  alt: string;
+  url: SanityImageSource | string;
+  className?: string;
+  width?: number;
+  height?: number;
+  isLazyLoading?: boolean;
+  quality?: number;
+}
+
 const Image: React.FC<ImageProps> = ({
   alt,
   url,
@@ -19,28 +29,84 @@ const Image: React.FC<ImageProps> = ({
         ? { asset: { _ref: url } }
         : url;
 
-  const getBreakpointUrl = (w: number, h: number) => {
-    if (typeof source === 'string') return source; // already a valid CDN URL
-    return urlFor(source)
-      .width(w)
-      .height(h)
-      .quality(quality)
-      .auto('format')
-      .url();
+  const getBreakpointUrl = (w: number, h: number, format?: string) => {
+    if (typeof source === 'string') return source;
+    let builder = urlFor(source).width(w).height(h).quality(quality);
+    if (format) builder = builder.format(format);
+    else builder = builder.auto('format');
+    return builder.url();
   };
 
-  const desktopUrl = getBreakpointUrl(1200, 900);
-  const tabletUrl = getBreakpointUrl(800, 600);
-  const mobileUrl = getBreakpointUrl(400, 300);
-  const defaultUrl = getBreakpointUrl(width, height);
+  const breakpoints = {
+    desktop: { w: 1200, h: 900 },
+    tablet: { w: 800, h: 600 },
+    mobile: { w: 400, h: 300 },
+    default: { w: width, h: height },
+  };
 
   return (
     <picture className={className}>
-      <source media="(min-width: 1440px)" srcSet={desktopUrl} />
-      <source media="(min-width: 768px)" srcSet={tabletUrl} />
-      <source media="(max-width: 767px)" srcSet={mobileUrl} />
+      {/* AVIF sources first */}
+      <source
+        media="(min-width: 1440px)"
+        srcSet={getBreakpointUrl(
+          breakpoints.desktop.w,
+          breakpoints.desktop.h,
+          'avif'
+        )}
+        type="image/avif"
+      />
+      <source
+        media="(min-width: 768px)"
+        srcSet={getBreakpointUrl(
+          breakpoints.tablet.w,
+          breakpoints.tablet.h,
+          'avif'
+        )}
+        type="image/avif"
+      />
+      <source
+        media="(max-width: 767px)"
+        srcSet={getBreakpointUrl(
+          breakpoints.mobile.w,
+          breakpoints.mobile.h,
+          'avif'
+        )}
+        type="image/avif"
+      />
+
+      {/* WebP fallback */}
+      <source
+        media="(min-width: 1440px)"
+        srcSet={getBreakpointUrl(
+          breakpoints.desktop.w,
+          breakpoints.desktop.h,
+          'webp'
+        )}
+        type="image/webp"
+      />
+      <source
+        media="(min-width: 768px)"
+        srcSet={getBreakpointUrl(
+          breakpoints.tablet.w,
+          breakpoints.tablet.h,
+          'webp'
+        )}
+        type="image/webp"
+      />
+      <source
+        media="(max-width: 767px)"
+        srcSet={getBreakpointUrl(
+          breakpoints.mobile.w,
+          breakpoints.mobile.h,
+          'webp'
+        )}
+        type="image/webp"
+      />
+
+      {/* Default fallback */}
       <img
-        src={defaultUrl}
+        src={getBreakpointUrl(breakpoints.default.w, breakpoints.default.h)}
         alt={alt}
         width={width}
         height={height}

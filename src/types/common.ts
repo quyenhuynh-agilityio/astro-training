@@ -16,8 +16,11 @@ export interface HeadingBlock {
 
 /** Navigation item used in header/footer */
 export interface NavItem {
-  title: string;
-  link: string;
+  link?: {
+    _type: 'slug';
+    current: string;
+  };
+  title?: string;
 }
 
 /** Shared header type */
@@ -36,7 +39,7 @@ export interface SiteFooter {
     links: string[];
   }[];
   socialLinks?: {
-    url: string;
+    url?: string;
     icon?: SanityImage;
   }[];
   ctaText?: string;

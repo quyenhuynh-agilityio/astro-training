@@ -4,9 +4,9 @@ import { Icons } from '@components/Icons';
 import Heading from '@components/Heading';
 
 interface AgentSectionProps {
-  title: string;
-  description: string;
-  cta: string;
+  title?: string;
+  description?: string;
+  cta?: string;
 }
 
 const AgentSection = ({ title, description, cta }: AgentSectionProps) => {

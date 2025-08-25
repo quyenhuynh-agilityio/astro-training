@@ -57,21 +57,25 @@ const PropertySection = ({
             className="w-full md:flex-1 border-r border-accent rounded-tl-xl rounded-bl-xl"
             options={options}
             name="lookingFor"
+            ariaLabel="Looking for"
           />
           <Select
             className="w-full md:flex-1 border-r border-accent"
             options={locations}
             name="location"
+            ariaLabel="Location"
           />
           <Select
             className="w-full md:flex-1 border-r border-accent"
             options={types}
             name="propertyType"
+            ariaLabel="Property Type"
           />
           <Select
             className="w-full md:flex-1 rounded-tr-xl rounded-br-xl"
             options={prices}
             name="price"
+            ariaLabel="Price"
           />
         </div>
 

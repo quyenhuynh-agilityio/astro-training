@@ -101,7 +101,7 @@ export const footerType = defineType({
     defineField({
       name: 'ctaLink',
       title: 'CTA Link',
-      type: 'url',
+      type: 'slug',
     }),
   ],
 });

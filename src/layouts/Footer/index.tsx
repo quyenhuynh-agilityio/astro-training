@@ -2,6 +2,7 @@ import Button from '@components/Button';
 import { Icons } from '@components/Icons';
 import Image from '@components/Image';
 import Logo from '@components/Logo';
+import type { SanityImage } from '@types-local/common';
 import React from 'react';
 
 interface LinkItem {
@@ -15,17 +16,14 @@ interface Column {
 }
 
 interface SocialLink {
-  href: string;
-  icon: React.ElementType;
+  url: string;
+  icon: SanityImage;
 }
 
 interface FooterProps {
-  logo: {
-    url: string;
-    alt: string;
-  };
+  logo?: SanityImage;
   columns: Column[];
-  socialLinks: SocialLink[];
+  socialLinks?: SocialLink[];
   ctaText?: string;
 }
 
@@ -48,19 +46,19 @@ const Footer = ({ logo, columns, socialLinks, ctaText }: FooterProps) => {
 
       <div className="max-w-7xl mx-auto mt-60 flex justify-between">
         <div>
-          <Logo url={logo.url} alt={logo.alt} />
+          <Logo url={logo?.asset?.url || ''} alt={logo?.alt || ''} />
           <div className="flex space-x-10 mt-30">
             {socialLinks?.map((item, idx) => (
               <a
                 key={idx}
-                href={item.href}
+                href={item?.url || ''}
                 className="hover:text-primary transition"
               >
                 <Image
-                  alt={item.icon.alt}
+                  alt={item?.icon?.alt || ''}
                   width={22}
                   height={22}
-                  url={item?.icon?.asset?.url}
+                  url={item?.icon?.asset?.url || ''}
                   className="size-5"
                 />
               </a>
@@ -70,7 +68,7 @@ const Footer = ({ logo, columns, socialLinks, ctaText }: FooterProps) => {
 
         {columns.map((col, idx) => (
           <div key={idx}>
-            <h4 className="font-semibold mb-4">{col.heading}</h4>
+            <h3 className="font-semibold mb-4">{col.heading}</h3>
             <ul className="space-y-2 text-gray-400">
               {col.links.map((link, i) => (
                 <li key={i}>

@@ -55,7 +55,7 @@ const PropertyDetail: React.FC<{ property: PropertyData }> = ({ property }) => {
           {/* Main Image */}
           <div className="lg:col-span-2">
             <Image
-              alt={property.mainImage?.alt || ''}
+              alt={property.mainImage.alt}
               url={property.mainImage?.asset?.url}
               className="w-full h-[250px] sm:h-[350px] lg:h-[450px] object-cover rounded-2xl"
             />
@@ -71,7 +71,7 @@ const PropertyDetail: React.FC<{ property: PropertyData }> = ({ property }) => {
               {property.galleryImages.slice(1, 7).map((image, i) => (
                 <Image
                   key={i}
-                  alt={`Property ${i + 1}`}
+                  alt={image.alt}
                   url={image?.asset?.url}
                   className="
                     w-32 h-24 sm:w-full sm:h-28

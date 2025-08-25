@@ -14,7 +14,6 @@ export default function LoginForm() {
       return;
     }
     setError('');
-    console.log('Logging in with:', { email, password });
   };
 
   return (
@@ -50,7 +49,7 @@ export default function LoginForm() {
             />
             <span>Remember me</span>
           </label>
-          <a href="#" className="text-blue-600 hover:underline">
+          <a href="/forgot-pwd" className="text-blue-600 hover:underline">
             Forgot password?
           </a>
         </div>
@@ -61,7 +60,7 @@ export default function LoginForm() {
 
       <p className="mt-6 text-center text-sm text-gray-500">
         Don&apos;t have an account?
-        <a href="#" className="text-blue-600 hover:underline ml-2">
+        <a href="/sign-up" className="text-blue-600 hover:underline ml-2">
           Sign up
         </a>
       </p>

@@ -59,7 +59,7 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({
                 </span>
                 <span
                   className={`text-xs ${
-                    index === activeIndex ? 'text-gray-300' : 'text-gray-500'
+                    index === activeIndex ? 'text-gray-300' : 'text-gray-900'
                   }`}
                 >
                   {t.role}

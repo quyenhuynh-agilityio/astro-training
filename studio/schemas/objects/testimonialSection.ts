@@ -65,7 +65,7 @@ export const testimonialSectionType = defineType({
     defineField({
       name: 'ctaLink',
       title: 'CTA Link',
-      type: 'url',
+      type: 'slug',
     }),
   ],
 });

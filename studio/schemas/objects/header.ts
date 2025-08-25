@@ -37,8 +37,7 @@ export const headerType = defineType({
             defineField({
               name: 'link',
               title: 'Link',
-              type: 'url',
-              validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }),
+              type: 'slug',
             }),
           ],
         },
@@ -54,8 +53,7 @@ export const headerType = defineType({
     defineField({
       name: 'ctaLink',
       title: 'CTA Link',
-      type: 'url',
-      validation: (Rule) => Rule.uri({ scheme: ['http', 'https'] }),
+      type: 'slug',
     }),
   ],
 });

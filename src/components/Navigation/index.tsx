@@ -7,7 +7,7 @@ interface NavLink {
 }
 
 interface NavProps {
-  links: NavLink[];
+  links?: NavLink[];
   className?: string;
 }
 
@@ -15,7 +15,7 @@ const Navigation: React.FC<NavProps> = ({ links, className = '' }) => {
   return (
     <nav className={`text-white ${className}`}>
       <ul className="flex space-x-60">
-        {links.map((link, index) => (
+        {links?.map((link, index) => (
           <li key={index}>
             <a href={link.href} className="hover:text-gray-300 text-base">
               {link.label}

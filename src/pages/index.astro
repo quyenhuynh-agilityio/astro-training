@@ -81,9 +81,9 @@ const { data: homePage } = await loadQuery<HomePageType>({
           url,
           icon {
             asset-> {
-              url,
-              alt
-            }
+              url
+            },
+            alt
           }
         },
       ctaText,
@@ -105,7 +105,7 @@ const { header, hero, about, properties, feature, agent, testimonial, footer } =
     title={hero.heading.title}
     subtitle={hero.heading.subtitle}
     labelBtn={hero.ctaText}
-    logo={header.logo.asset}
+    logo={header.logo}
     navItems={header.navItems}
     ctaText={header.ctaText}
     image={hero.image?.asset?.url}
@@ -157,7 +157,7 @@ const { header, hero, about, properties, feature, agent, testimonial, footer } =
 
   <Footer
     client:load
-    logo={footer?.logo?.asset}
+    logo={footer?.logo}
     socialLinks={footer?.socialLinks}
     ctaText={footer?.ctaText}
     columns={(footer?.links || []).map(

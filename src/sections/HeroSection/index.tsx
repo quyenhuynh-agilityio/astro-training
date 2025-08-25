@@ -2,14 +2,15 @@ import React from 'react';
 import Image from '@components/Image';
 import Header from '@layouts/Header';
 import { Icons } from '@components/Icons';
+import type { NavItem, SanityImage } from '@types-local/common';
 
 interface HeroProps {
   title?: string;
   subtitle?: string;
   labelBtn?: string;
-  image: string;
-  logo?: string;
-  navItems?: string;
+  image?: string;
+  logo?: SanityImage;
+  navItems?: NavItem[];
   ctaText?: string;
 }
 
@@ -26,19 +27,14 @@ const Hero = ({
     <section className="relative w-full h-[90vh] overflow-hidden">
       <Image
         alt="Background"
-        url={image}
+        url={image || '/images/main-bg.png'}
         isLazyLoading={false}
         className="absolute inset-0 w-full h-full object-cover"
       />
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20" />
       <div className="relative z-20 flex flex-col h-full max-w-7xl mx-auto px-6 md:px-12">
-        <Header
-          logo={logo}
-          navItems={navItems}
-          ctaText={ctaText}
-          // ctaLink={ctaLink}
-        />
+        <Header logo={logo} navItems={navItems} ctaText={ctaText} />
         <div className="flex-1 flex items-center">
           <div>
             <h1 className="text-white text-5xl md:text-6xl font-bold leading-tight max-w-xl">

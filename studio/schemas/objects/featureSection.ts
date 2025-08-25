@@ -31,7 +31,7 @@ export const featureType = defineType({
     defineField({
       name: 'ctaLink',
       title: 'CTA Link',
-      type: 'url',
+      type: 'slug',
     }),
   ],
 });
