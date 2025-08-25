@@ -1,0 +1,85 @@
+---
+import { PortableText } from 'astro-portabletext';
+import PortableTextImage from '@components/PortableTextImage/index.astro';
+import Button from '@components/Button';
+import Heading from '@components/Heading';
+import { Icons } from '@components/Icons';
+import { cn } from '@lib/utils';
+
+const {
+  title,
+  description,
+  image,
+  buttonText,
+  reverse = false,
+  sectionClassName = '',
+  containerClassName = '',
+  imageWrapperClassName = '',
+  textWrapperClassName = '',
+} = Astro.props;
+
+// Prepare image node for PortableTextImage
+const imageNode = image
+  ? { _type: 'image', asset: image.asset, alt: image.alt || 'About Image' }
+  : null;
+
+// PortableText components mapping
+const portableComponents = {
+  types: {
+    image: PortableTextImage,
+  },
+};
+---
+
+<section class={cn('w-full py-16', sectionClassName)}>
+  <div
+    class={cn(
+      'max-w-7xl flex flex-col md:flex-row items-center gap-12 px-6 md:px-12',
+      reverse && 'md:flex-row-reverse',
+      containerClassName
+    )}
+  >
+    <!-- Image -->
+    {
+      imageNode && (
+        <div class={cn('flex-1', imageWrapperClassName)}>
+          <div class="rounded-3xl overflow-hidden shadow-lg">
+            <PortableTextImage
+              node={imageNode}
+              class="object-cover w-[604px] h-[557px]"
+            />
+          </div>
+        </div>
+      )
+    }
+
+    <!-- Text Content -->
+    <div class={cn('flex-1', textWrapperClassName)}>
+      {
+        title && (
+          <Heading>
+            <PortableText value={title} components={portableComponents} />
+          </Heading>
+        )
+      }
+
+      {
+        description && (
+          <div class="text-gray-600 mb-8 leading-relaxed">
+            <PortableText value={description} components={portableComponents} />
+          </div>
+        )
+      }
+
+      <!-- {buttonText && (
+        <Button
+          class="py-5 px-10"
+          variant="secondary"
+          rightIcon={<Icons.Path class="w-5 h-5 text-primary ml-2" />}
+        >
+          <PortableText value={buttonText} components={portableComponents} />
+        </Button>
+      )} -->
+    </div>
+  </div>
+</section>

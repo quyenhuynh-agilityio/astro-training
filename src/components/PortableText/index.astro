@@ -1,0 +1,18 @@
+---
+import { PortableText as PortableTextInternal } from 'astro-portabletext';
+import PortableTextImage from '../PortableTextImage/index.astro';
+import NormalBlock from '@components/blocks/NormalBlock';
+import H1Block from '@components/blocks/HeadingBlock';
+
+const { portableText } = Astro.props;
+
+const components = {
+  types: { image: PortableTextImage },
+  block: {
+    normal: NormalBlock,
+    h1: H1Block,
+  },
+};
+---
+
+<PortableTextInternal value={portableText} {components} />

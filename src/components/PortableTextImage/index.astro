@@ -1,0 +1,20 @@
+---
+import { urlForImage } from '@lib/sanity';
+
+// Rename class to something else (like className) when destructuring:
+const { node, class: className } = Astro.props;
+const asset = node?.asset;
+
+let url = '';
+let webpUrl = '';
+
+if (asset?._ref) {
+  url = urlForImage(asset).url();
+  webpUrl = urlForImage(asset).format('webp').url();
+}
+---
+
+<picture>
+  {webpUrl && <source srcset={webpUrl} type="image/webp" />}
+  {url && <img class={className} src={url} alt={node?.alt || ''} />}
+</picture>
