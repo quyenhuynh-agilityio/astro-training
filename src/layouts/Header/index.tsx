@@ -1,5 +1,4 @@
 import Button from '@components/Button';
-import { Icons } from '@components/Icons';
 import Logo from '@components/Logo';
 import Navigation from '@components/Navigation';
 import type { NavItem, SanityImage } from '@types-local/common';
@@ -26,11 +25,7 @@ const Header: React.FC<HeaderProps> = ({ logo, navItems, ctaText }) => {
           />
 
           {/* CTA Button */}
-          <Button
-            rightIcon={<Icons.Path className="w-5 h-5 text-white ml-2" />}
-          >
-            {ctaText}
-          </Button>
+          <Button rightIcon="path">{ctaText}</Button>
         </div>
       </div>
     </header>

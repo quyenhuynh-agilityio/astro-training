@@ -37,8 +37,8 @@ const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
     <h2 class="text-3xl md:text-4md font-bold text-white">
       Make your dreams a <span class="text-primary">reality</span>
     </h2>
-    <Button size="large">
-      <PortableText value={ctaText} />
+    <Button size="large" rightIcon="path">
+      {ctaText}
     </Button>
   </div>
 

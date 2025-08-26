@@ -8,84 +8,10 @@ import TestimonialSection from '@sections/TestimonialSection/index.astro';
 import AgentSection from '@sections/AgentSection/index.astro';
 import type { HomePageType } from '@types-local/home';
 import { loadQuery } from 'studio/lib/load-query';
+import { homePageQuery } from '@queries/index';
 
 const { data: homePage } = await loadQuery<HomePageType>({
-  query: `*[_type == "homePage"][0] {
-    hero {
-      heading {
-        title,
-        subtitle,
-        alignment
-      },
-      image { asset, alt },
-      ctaText,
-      ctaLink
-    },
-    header {
-      logo { asset-> { url }, alt },
-      navItems[] { title, link },
-      ctaText,
-      ctaLink
-    },
-    about {
-      title,        
-      description,
-      image { asset-> { url }, alt },
-      ctaText,
-      ctaLink
-    },
-    properties {
-      heading { title[], subtitle[], alignment },
-      items[]-> {
-        title,
-        slug,
-        details { beds, baths, area },
-        mainImage { asset-> { url }, alt }
-      },
-      filters,
-      introText[]
-    },
-    feature {
-      title,
-      description,
-      image { asset-> { url }, alt },
-      ctaText,
-      ctaLink
-    },
-    agent {
-      title[],
-      description[],
-      ctaText,
-      ctaLink
-    },
-    testimonial {
-      heading { title[], subtitle[], alignment },
-      testimonials[] {
-        author,
-        role,
-        image { asset-> { url }, alt },
-        quote[]
-      },
-      ctaText,
-      ctaLink
-    },
-    footer {
-      logo { asset-> { url }, alt },
-      links[] {
-        title[],                               
-        links[] {
-          label[],                             
-          href                                 
-        }
-      },
-      socialLinks[] {
-        url,
-        icon { asset-> { url }, alt }
-      },
-      ctaText,
-      ctaLink
-    }
-  }`,
+  query: homePageQuery,
 });
 
 if (!homePage) {
@@ -94,8 +20,6 @@ if (!homePage) {
 
 const { header, hero, about, properties, feature, agent, testimonial, footer } =
   homePage;
-
-console.log('footer', footer);
 ---
 
 <BaseLayout title="Home Page">
@@ -116,14 +40,12 @@ console.log('footer', footer);
   />
   <PropertySection
     title={properties.heading.title}
-    properties={properties?.items}
-    client:load
+    properties={properties.items}
   />
   <AgentSection
     title={agent?.title}
     description={agent?.description}
     cta={agent?.ctaText}
-    client:load
   />
   <AboutSection
     reverse

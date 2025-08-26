@@ -14,7 +14,8 @@
       "@pages/*": ["src/pages/*"],
       "@layouts/*": ["src/layouts/*"],
       "@sections/*": ["src/sections/*"],
-      "@types-local/*": ["src/types/*"]
+      "@types-local/*": ["src/types/*"],
+      "@queries/*": ["src/queries/*"]
     }
   }
 }

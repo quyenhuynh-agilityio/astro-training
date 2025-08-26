@@ -2,19 +2,11 @@
 import Heading from '@components/Heading/index.astro';
 import PropertyCard from '@components/PropertyCard/index.astro';
 import Select from '@components/Select';
-
-interface PropertyItem {
-  slug: string;
-  title: any;
-  mainImage: any;
-  beds: number;
-  baths: number;
-  sun: number;
-}
+import type { PropertyDetailType } from '@types-local/property';
 
 interface Props {
-  title?: any; // PortableText array
-  properties: PropertyItem[];
+  title?: string;
+  properties: PropertyDetailType[];
 }
 
 const { title, properties } = Astro.props as Props;
@@ -84,7 +76,7 @@ const prices = [
       {
         properties.map((property) => {
           return (
-            <li id={property.slug}>
+            <li id={property.slug.current}>
               <PropertyCard
                 slug={property.slug.current}
                 image={property.mainImage}

@@ -111,7 +111,7 @@ export const footerType = defineType({
     defineField({
       name: 'ctaText',
       title: 'CTA Text',
-      type: 'blockContent',
+      type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

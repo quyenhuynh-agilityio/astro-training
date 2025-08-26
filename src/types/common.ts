@@ -22,6 +22,10 @@ export interface NavItem {
   };
   title?: string;
 }
+export interface Slug {
+  _type: 'slug';
+  current: string;
+}
 
 /** Shared header type */
 export interface SiteHeader {

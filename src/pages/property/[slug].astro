@@ -5,6 +5,8 @@ import PropertyDetail from '@sections/PropertyDetailSection/index.astro';
 import Footer from '@layouts/Footer/index.astro';
 import { loadQuery } from '../../../studio/lib/load-query';
 import type { PropertyDetailType } from '@types-local/property';
+import { detailPageQuery, propertyQuery } from '@queries/index';
+import type { HomePageType } from '@types-local/home';
 
 // Get static paths for all properties
 export async function getStaticPaths() {
@@ -24,50 +26,13 @@ const { slug } = Astro.params;
 const fullSlug = `property/${slug}`;
 
 const { data: property } = await loadQuery<PropertyDetailType>({
-  query: `*[_type == "property" && slug.current == $slug][0]{
-    _id,
-    title,
-    slug,  
-    address,
-    price,
-    pricePerSqft,
-    mainImage { asset-> { url }, alt },
-    galleryImages[] { asset-> { url }, alt },
-    details { beds, baths, area, garage, yearBuilt },
-    description[],
-    features,
-    status
-  }`,
+  query: propertyQuery,
   params: { slug: fullSlug },
 });
 
-const { data: detailPage } = await loadQuery<any>({
-  query: `*[_type == "homePage"][0] {
-    header {
-      logo { asset-> { url }, alt },
-      navItems[] { title, link },
-      ctaText,
-      ctaLink
-    },
-    footer {
-      logo { asset-> { url }, alt },
-      links[] {
-        title[],                               
-        links[] {
-          label[],                             
-          href                                 
-        }
-      },
-      socialLinks[] {
-        url,
-        icon { asset-> { url }, alt }
-      },
-      ctaText,
-      ctaLink
-    }
-  }`,
+const { data: detailPage } = await loadQuery<HomePageType>({
+  query: detailPageQuery,
 });
-
 const { header, footer } = detailPage;
 
 console.log('property', property);

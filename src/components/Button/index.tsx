@@ -1,5 +1,9 @@
-import { cn } from '@lib/utils';
+// src/components/Button.tsx
 import React from 'react';
+import { cn } from '@lib/utils';
+import { Icons } from '@components/Icons';
+
+type IconName = 'path' | 'check' | 'arrow'; // extend with other icon keys
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline';
@@ -7,7 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
   isDisabled?: boolean;
   children: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  rightIcon?: IconName;
   className?: string;
 }
 
@@ -25,6 +29,7 @@ const Button: React.FC<ButtonProps> = ({
     'font-inter transition-colors text-md rounded-tr-xl duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 flex items-center justify-center gap-2',
     className
   );
+
   const variantStyles = {
     primary:
       'bg-primary text-black font-bold hover:bg-primary focus:ring-primary',
@@ -40,6 +45,19 @@ const Button: React.FC<ButtonProps> = ({
     large: 'px-10 py-6 text-base',
   };
 
+  const iconColorClass =
+    variant === 'secondary' || variant === 'large'
+      ? 'text-primary'
+      : 'text-white';
+
+  // Map icon name to actual component
+  const IconMap: Record<IconName, React.ElementType> = {
+    path: Icons.Path,
+    check: Icons.Check,
+    arrow: 'symbol',
+  };
+  const RightIcon = rightIcon ? IconMap[rightIcon] : null;
+
   return (
     <button
       {...props}
@@ -53,7 +71,9 @@ const Button: React.FC<ButtonProps> = ({
       )}
     >
       {children}
-      {rightIcon}
+      {RightIcon && (
+        <Icons.Path className={cn('w-5 h-5 ml-2', iconColorClass)} />
+      )}
     </button>
   );
 };

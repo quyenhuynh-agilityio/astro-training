@@ -4,22 +4,22 @@ import PortableTextImage from '@components/PortableTextImage/index.astro';
 import PortableText from '@components/PortableText/index.astro';
 import { cn } from '@lib/utils';
 import type { SanityImage } from '@types-local/common';
+import type { PropertyDetailType } from '@types-local/property';
+
+interface Details {
+  beds: number;
+  baths: number;
+  area: string;
+  garage: number;
+  yearBuilt: number;
+}
 
 interface Props {
   class?: string;
   slug: string;
-  image: SanityImage;
+  image?: SanityImage;
   title: string;
-  details: {
-    beds: number;
-    baths: number;
-    area: string;
-    garage: number;
-    yearBuilt: number;
-  };
-  beds: number;
-  baths: number;
-  area: number;
+  details: Details;
 }
 
 const { class: className, slug, image, title, details } = Astro.props as Props;
