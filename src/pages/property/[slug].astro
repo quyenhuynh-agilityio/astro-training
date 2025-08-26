@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '@layouts/BaseLayout/index.astro';
-import PropertyHeroSection from '@sections/PropertyHeroSection';
-import PropertyDetail from '@sections/PropertyDetailSection';
-import Footer from '@layouts/Footer';
+import PropertyHeroSection from '@sections/PropertyHeroSection/index.astro';
+import PropertyDetail from '@sections/PropertyDetailSection/index.astro';
+import Footer from '@layouts/Footer/index.astro';
 import { loadQuery } from '../../../studio/lib/load-query';
 import type { PropertyDetailType } from '@types-local/property';
 
@@ -27,14 +27,14 @@ const { data: property } = await loadQuery<PropertyDetailType>({
   query: `*[_type == "property" && slug.current == $slug][0]{
     _id,
     title,
-    "slug": slug.current,
+    slug,  
     address,
     price,
     pricePerSqft,
     mainImage { asset-> { url }, alt },
     galleryImages[] { asset-> { url }, alt },
     details { beds, baths, area, garage, yearBuilt },
-    "description": coalesce(pt::text(description), ""),
+    description[],
     features,
     status
   }`,
@@ -43,27 +43,25 @@ const { data: property } = await loadQuery<PropertyDetailType>({
 
 const { data: detailPage } = await loadQuery<any>({
   query: `*[_type == "homePage"][0] {
-     header {
+    header {
       logo { asset-> { url }, alt },
-      navItems[] {
-        title,
-        link
-      },
+      navItems[] { title, link },
       ctaText,
       ctaLink
     },
     footer {
       logo { asset-> { url }, alt },
-      links[] { title, links },
-        socialLinks[] {
-          url,
-          icon {
-            asset-> {
-              url,
-              alt
-            }
-          }
-        },
+      links[] {
+        title[],                               
+        links[] {
+          label[],                             
+          href                                 
+        }
+      },
+      socialLinks[] {
+        url,
+        icon { asset-> { url }, alt }
+      },
       ctaText,
       ctaLink
     }
@@ -71,6 +69,8 @@ const { data: detailPage } = await loadQuery<any>({
 });
 
 const { header, footer } = detailPage;
+
+console.log('property', property);
 
 // Handle case where property is not found
 if (!property) {
@@ -80,30 +80,20 @@ if (!property) {
 
 <BaseLayout title="Detail Page">
   <PropertyHeroSection
-    client:load
     title={property?.title}
     address={property?.address}
     price={property?.price}
     pricePerSqft={property?.pricePerSqft}
-    logo={header.logo.asset}
+    logo={header.logo}
     navItems={header.navItems}
     ctaText={header.ctaText}
   />
 
-  <PropertyDetail client:load {property} />
+  <PropertyDetail {property} />
   <Footer
-    client:load
-    logo={footer?.logo?.asset}
-    socialLinks={footer?.socialLinks}
-    ctaText={footer?.ctaText}
-    columns={(footer?.links || []).map(
-      (section: { title: string; links: string[] }) => ({
-        heading: section.title,
-        links: (section.links || []).map((label: string) => ({
-          label,
-          href: '#',
-        })),
-      })
-    )}
+    logo={footer.logo}
+    socialLinks={footer.socialLinks}
+    ctaText={footer.ctaText}
+    columns={footer.links}
   />
 </BaseLayout>

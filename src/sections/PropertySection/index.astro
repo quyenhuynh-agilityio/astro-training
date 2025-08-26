@@ -2,8 +2,6 @@
 import Heading from '@components/Heading/index.astro';
 import PropertyCard from '@components/PropertyCard/index.astro';
 import Select from '@components/Select';
-import PortableText from '@components/PortableText/index.astro';
-import PortableTextImage from '@components/PortableTextImage/index.astro';
 
 interface PropertyItem {
   slug: string;
@@ -84,18 +82,18 @@ const prices = [
     <!-- Property Grid -->
     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {
-        properties.map((property) => (
-          <li id={property.slug}>
-            <PropertyCard
-              slug={property.slug}
-              image={property.mainImage}
-              title={property.title}
-              beds={property.beds}
-              baths={property.baths}
-              area={property.sun}
-            />
-          </li>
-        ))
+        properties.map((property) => {
+          return (
+            <li id={property.slug}>
+              <PropertyCard
+                slug={property.slug.current}
+                image={property.mainImage}
+                title={property.title}
+                details={property.details}
+              />
+            </li>
+          );
+        })
       }
     </ul>
   </div>

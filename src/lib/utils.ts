@@ -1,6 +1,22 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { toPlainText } from 'astro-portabletext';
+import type { PortableTextBlock } from 'sanity';
 
-export function cn(...inputs: ClassValue[]) {
+export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
-}
+};
+
+export const portableTextToHref = (
+  value: string | PortableTextBlock[]
+): string => {
+  const plain = typeof value === 'string' ? value : toPlainText(value);
+  const slug = plain
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+
+  return `/${slug}`;
+};

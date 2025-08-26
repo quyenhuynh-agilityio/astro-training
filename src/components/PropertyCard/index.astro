@@ -1,27 +1,28 @@
 ---
 import { Icons } from '../Icons';
 import PortableTextImage from '@components/PortableTextImage/index.astro';
+import PortableText from '@components/PortableText/index.astro';
 import { cn } from '@lib/utils';
+import type { SanityImage } from '@types-local/common';
 
 interface Props {
   class?: string;
   slug: string;
-  image: any; // Sanity image object
+  image: SanityImage;
   title: string;
+  details: {
+    beds: number;
+    baths: number;
+    area: string;
+    garage: number;
+    yearBuilt: number;
+  };
   beds: number;
   baths: number;
   area: number;
 }
 
-const {
-  class: className,
-  slug,
-  image,
-  title,
-  beds,
-  baths,
-  area,
-} = Astro.props as Props;
+const { class: className, slug, image, title, details } = Astro.props as Props;
 ---
 
 <a
@@ -45,15 +46,16 @@ const {
   <div class="grid grid-cols-3 divide-x">
     <div class="flex items-center justify-center gap-1 py-5">
       <Icons.Bed className="size-4" />
-      <span class="text-md ml-1">{beds}</span>
+
+      <span class="text-md ml-1">{details.beds}</span>
     </div>
     <div class="flex items-center justify-center gap-1 py-2">
       <Icons.Shower className="size-4" />
-      <span class="text-md ml-1">{baths}</span>
+      <span class="text-md ml-1">{details.baths}</span>
     </div>
     <div class="flex items-center justify-center gap-1 py-2">
       <Icons.Size className="size-4" />
-      <span class="text-md ml-1">{area}</span>
+      <span class="text-md ml-1">{details.area}</span>
     </div>
   </div>
 </a>

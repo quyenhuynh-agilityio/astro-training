@@ -8,13 +8,13 @@ export const propertyType = defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
+      type: 'blockContent',
       validation: (Rule) => Rule.required().max(100),
     }),
     defineField({
       name: 'address',
       title: 'Address',
-      type: 'string',
+      type: 'blockContent',
       validation: (Rule) => Rule.required().max(200),
     }),
     defineField({
