@@ -8,13 +8,12 @@ export const aboutType = defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
+      type: 'blockContent',
     }),
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
-      rows: 3,
+      type: 'blockContent',
     }),
     defineField({
       name: 'image',

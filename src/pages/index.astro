@@ -1,95 +1,17 @@
 ---
 import BaseLayout from '@layouts/BaseLayout/index.astro';
-import Hero from '@sections/HeroSection';
-import AboutSection from '@sections/AboutSection';
-import PropertySection from '@sections/PropertySection';
-import Footer from '@layouts/Footer';
-
-import TestimonialSection from '@sections/TestimonialSection';
-
-import { loadQuery } from '../../studio/lib/load-query.ts';
-import AgentSection from '@sections/AgentSection';
+import Hero from '@sections/HeroSection/index.astro';
+import AboutSection from '@sections/AboutSection/index.astro';
+import PropertySection from '@sections/PropertySection/index.astro';
+import Footer from '@layouts/Footer/index.astro';
+import TestimonialSection from '@sections/TestimonialSection/index.astro';
+import AgentSection from '@sections/AgentSection/index.astro';
 import type { HomePageType } from '@types-local/home';
+import { loadQuery } from 'studio/lib/load-query';
+import { homePageQuery } from '@queries/index';
 
 const { data: homePage } = await loadQuery<HomePageType>({
-  query: `*[_type == "homePage"][0] {
-    hero {
-      heading {
-        "title": coalesce(pt::text(title), ""),
-        "subtitle": coalesce(pt::text(subtitle), ""),
-        alignment
-      },
-      image { asset-> { url }, alt },
-      ctaText,
-      ctaLink
-    },
-     header {
-      logo { asset-> { url }, alt },
-      navItems[] {
-        title,
-        link
-      },
-      ctaText,
-      ctaLink
-    },
-    about {
-      title,
-      description,
-      image { asset-> { url }, alt },
-      ctaText,
-      ctaLink
-    },
-    properties {
-      heading { "title": coalesce(pt::text(title), ""), "subtitle": coalesce(pt::text(subtitle), ""), alignment },
-      items[]-> {
-        title,
-        slug,
-        details { beds, baths, area },
-        mainImage { asset-> { url }, alt }
-      },
-      filters,
-      "introText": coalesce(pt::text(introText), "")
-    },
-    feature {
-      title,
-      description,
-      image { asset-> { url }, alt },
-      ctaText,
-      ctaLink
-    },
-    agent {
-      title,
-      description,
-      ctaText,
-      ctaLink
-    },
-    testimonial {
-      heading { "title": coalesce(pt::text(title), ""), "subtitle": coalesce(pt::text(subtitle), ""), alignment },
-      "testimonials": testimonials[] {
-        author,
-        role,
-        image { asset-> { url }, alt },
-        "quote": coalesce(pt::text(quote), "")
-      },
-      ctaText,
-      ctaLink
-    },
-    footer {
-      logo { asset-> { url }, alt },
-      links[] { title, links },
-        socialLinks[] {
-          url,
-          icon {
-            asset-> {
-              url
-            },
-            alt
-          }
-        },
-      ctaText,
-      ctaLink
-    }
-  }`,
+  query: homePageQuery,
 });
 
 if (!homePage) {
@@ -108,66 +30,42 @@ const { header, hero, about, properties, feature, agent, testimonial, footer } =
     logo={header.logo}
     navItems={header.navItems}
     ctaText={header.ctaText}
-    image={hero.image?.asset?.url}
-    client:load
+    image={hero.image}
   />
   <AboutSection
-    title={about?.title}
-    description={about?.description}
-    image={about?.image?.asset?.url}
-    buttonText={about?.ctaText}
-    client:load
+    title={about.title}
+    description={about.description}
+    image={about.image}
+    buttonText={about.ctaText}
   />
   <PropertySection
-    title={properties?.heading?.title}
-    properties={(properties?.items || []).map((item: any) => ({
-      slug: item?.slug?.current,
-      image: item?.mainImage?.asset?.url,
-      title: item?.title,
-      beds: item?.details?.beds,
-      baths: item?.details?.baths,
-      sun: item?.details?.area,
-    }))}
-    client:load
+    title={properties.heading.title}
+    properties={properties.items}
   />
-  <AboutSection
-    reverse
-    title={feature?.title}
-    description={feature?.description}
-    image={feature?.image?.asset?.url}
-    buttonText={feature?.ctaText}
-    client:load
-  />
-
   <AgentSection
     title={agent?.title}
     description={agent?.description}
     cta={agent?.ctaText}
-    client:load
+  />
+  <AboutSection
+    reverse
+    title={feature.title}
+    description={feature.description}
+    image={feature.image}
+    buttonText={feature.ctaText}
   />
   <TestimonialSection
     testimonials={(testimonial?.testimonials || []).map((t: any) => ({
       name: t.author,
       role: t.role,
-      image: t?.image?.asset?.url,
+      image: t?.image,
       quote: t.quote,
     }))}
-    client:load
   />
-
   <Footer
-    client:load
-    logo={footer?.logo}
-    socialLinks={footer?.socialLinks}
-    ctaText={footer?.ctaText}
-    columns={(footer?.links || []).map(
-      (section: { title: string; links: string[] }) => ({
-        heading: section.title,
-        links: (section.links || []).map((label: string) => ({
-          label,
-          href: '#',
-        })),
-      })
-    )}
+    logo={footer.logo}
+    socialLinks={footer.socialLinks}
+    ctaText={footer.ctaText}
+    columns={footer.links}
   />
 </BaseLayout>

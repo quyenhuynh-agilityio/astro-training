@@ -79,13 +79,29 @@ export const footerType = defineType({
             defineField({
               name: 'title',
               title: 'Section Title',
-              type: 'string',
+              type: 'blockContent', // supports rich text now
             }),
             defineField({
               name: 'links',
               title: 'Links',
               type: 'array',
-              of: [{ type: 'string' }],
+              of: [
+                {
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'label',
+                      title: 'Link Label',
+                      type: 'blockContent', // portable text for label
+                    }),
+                    defineField({
+                      name: 'href',
+                      title: 'URL',
+                      type: 'slug',
+                    }),
+                  ],
+                },
+              ],
             }),
           ],
         },

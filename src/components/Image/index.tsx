@@ -1,4 +1,4 @@
-import { urlFor } from '@lib/sanity';
+import { urlForImage } from '@lib/sanity';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 interface ImageProps {
@@ -31,7 +31,7 @@ const Image: React.FC<ImageProps> = ({
 
   const getBreakpointUrl = (w: number, h: number, format?: string) => {
     if (typeof source === 'string') return source;
-    let builder = urlFor(source).width(w).height(h).quality(quality);
+    let builder = urlForImage(source).width(w).height(h).quality(quality);
     if (format) builder = builder.format(format);
     else builder = builder.auto('format');
     return builder.url();

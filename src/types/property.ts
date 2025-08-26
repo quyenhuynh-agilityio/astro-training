@@ -1,9 +1,9 @@
-import type { SanityImage, SiteHeader, SiteFooter } from './common';
+import type { SanityImage, SiteHeader, SiteFooter, Slug } from './common';
 
 export interface PropertyDetailType {
   _id: string;
   title: string;
-  slug: string;
+  slug: Slug;
   address: string;
   price: string;
   pricePerSqft: string;
