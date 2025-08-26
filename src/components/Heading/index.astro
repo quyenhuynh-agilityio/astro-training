@@ -1,0 +1,13 @@
+---
+// Heading.astro
+import { cn } from '@lib/utils';
+import PortableText from '@components/PortableText/index.astro';
+
+const { title, className } = Astro.props;
+const computedClass = cn('flex items-center gap-2 mb-4', className);
+---
+
+<div class={computedClass}>
+  <div class="w-169 h-1 bg-gradient-to-r from-primary to-black"></div>
+</div>
+<PortableText value={title} />

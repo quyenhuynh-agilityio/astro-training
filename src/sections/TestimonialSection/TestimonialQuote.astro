@@ -1,0 +1,12 @@
+---
+import PortableText from '@components/PortableText/index.astro';
+const { quote, index } = Astro.props;
+---
+
+<blockquote
+  class="testimonial-quote text-xl italic text-gray-800 leading-relaxed max-w-2xl mx-auto transition-opacity duration-300"
+  data-index={index}
+  style="display:none"
+>
+  <PortableText value={quote} />
+</blockquote>

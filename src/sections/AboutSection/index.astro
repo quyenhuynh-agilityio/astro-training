@@ -1,8 +1,8 @@
 ---
-import { PortableText } from 'astro-portabletext';
+import PortableText from '@components/PortableText/index.astro';
 import PortableTextImage from '@components/PortableTextImage/index.astro';
 import Button from '@components/Button';
-import Heading from '@components/Heading';
+import Heading from '@components/Heading/index.astro';
 import { Icons } from '@components/Icons';
 import { cn } from '@lib/utils';
 
@@ -22,13 +22,6 @@ const {
 const imageNode = image
   ? { _type: 'image', asset: image.asset, alt: image.alt || 'About Image' }
   : null;
-
-// PortableText components mapping
-const portableComponents = {
-  types: {
-    image: PortableTextImage,
-  },
-};
 ---
 
 <section class={cn('w-full py-16', sectionClassName)}>
@@ -55,31 +48,18 @@ const portableComponents = {
 
     <!-- Text Content -->
     <div class={cn('flex-1', textWrapperClassName)}>
-      {
-        title && (
-          <Heading>
-            <PortableText value={title} components={portableComponents} />
-          </Heading>
-        )
-      }
+      <Heading {title} />
+      <div class="text-gray-600 mb-8 leading-relaxed">
+        <PortableText value={description} />
+      </div>
 
-      {
-        description && (
-          <div class="text-gray-600 mb-8 leading-relaxed">
-            <PortableText value={description} components={portableComponents} />
-          </div>
-        )
-      }
-
-      <!-- {buttonText && (
-        <Button
-          class="py-5 px-10"
-          variant="secondary"
-          rightIcon={<Icons.Path class="w-5 h-5 text-primary ml-2" />}
-        >
-          <PortableText value={buttonText} components={portableComponents} />
-        </Button>
-      )} -->
+      <!-- <Button
+        className="py-5 px-10"
+        variant="secondary"
+        rightIcon={(<Icons.Path className="w-5 h-5 text-primary ml-2" />)}
+      >
+        {buttonText}
+      </Button> -->
     </div>
   </div>
 </section>

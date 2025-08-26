@@ -5,8 +5,8 @@ import Header from '@layouts/Header';
 import { Icons } from '@components/Icons';
 
 interface HeroProps {
-  title?: string | any[];
-  subtitle?: string | any[];
+  title: string | any[];
+  subtitle: string | any[];
   labelBtn?: string | any[];
   image?: { asset?: any; alt?: string };
   logo?: any;
@@ -20,15 +20,6 @@ const { title, subtitle, labelBtn, image, logo, navItems, ctaText } =
 const imageNode = image
   ? { _type: 'image', asset: image.asset, alt: image.alt || 'Background' }
   : null;
-
-const extractText = (block: string | any[]) => {
-  if (typeof block === 'string') return block;
-  if (Array.isArray(block))
-    return block
-      .map((item) => item.children?.map((c) => c.text).join(' '))
-      .join(' ');
-  return '';
-};
 ---
 
 <section class="relative w-full h-[90vh] overflow-hidden">
@@ -48,27 +39,22 @@ const extractText = (block: string | any[]) => {
     <Header {logo} {navItems} {ctaText} />
     <div class="flex-1 flex items-center">
       <div>
-        {
-          title && (
-            <div class=" max-w-xl">
-              <PortableText portableText={title} />
-            </div>
-          )
-        }
-        <div class="mt-4 max-w-md">
-          <PortableText portableText={subtitle} />
+        <div class="max-w-xl">
+          <PortableText value={title} />
+        </div>
+
+        <div class="mt-4 max-w-md text-gray-200">
+          <PortableText value={subtitle} />
         </div>
       </div>
     </div>
     <div class="w-full">
-      {
-        labelBtn && (
-          <div class="bg-white w-full px-10 py-9 shadow-lg flex items-center gap-2 cursor-pointer hover:underline">
-            <span class="font-semibold">{extractText(labelBtn)}</span>
-            <Icons.Path className="w-5 h-10 text-primary ml-1" />
-          </div>
-        )
-      }
+      <div
+        class="bg-white w-full px-10 py-9 shadow-lg flex items-center gap-2 cursor-pointer hover:underline"
+      >
+        <span class="font-semibold">{labelBtn}</span>
+        <Icons.Path className="w-5 h-10 text-primary ml-1" />
+      </div>
     </div>
   </div>
 </section>

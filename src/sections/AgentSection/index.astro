@@ -1,0 +1,33 @@
+---
+// ./src/components/AgentSection.astro
+import Button from '@components/Button';
+import { Icons } from '@components/Icons';
+import Heading from '@components/Heading/index.astro';
+import PortableText from '@components/PortableText/index.astro';
+// Props from parent
+const { title, description, cta } = Astro.props as {
+  title?: string;
+  description?: string;
+  cta?: string;
+};
+---
+
+<section
+  class="relative flex flex-col items-center justify-center py-150 bg-black text-center text-white"
+>
+  <div class="max-w-2xl px-6">
+    <Heading {title} className="justify-center" />
+    <div class="my-6">
+      <PortableText value={description} />
+    </div>
+
+    <div class="flex justify-center">
+      <!-- <Button
+        size="large"
+        rightIcon={(<Icons.Path class="w-5 h-10 text-white ml-2" />)}
+      >
+        {cta}
+      </Button> -->
+    </div>
+  </div>
+</section>

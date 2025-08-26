@@ -1,18 +1,29 @@
 ---
+// src/components/PortableText.astro
 import { PortableText as PortableTextInternal } from 'astro-portabletext';
 import PortableTextImage from '../PortableTextImage/index.astro';
-import NormalBlock from '@components/blocks/NormalBlock';
-import H1Block from '@components/blocks/HeadingBlock';
+import { H2Block, H3Block, NormalBlock } from '@components/Blocks';
+import type { PortableTextBlock } from 'sanity';
 
-const { portableText } = Astro.props;
+interface Props {
+  value: PortableTextBlock[];
+}
+
+const { value } = Astro.props;
+
+// Debug the value
+console.log('PortableText value:', JSON.stringify(value, null, 2));
 
 const components = {
-  types: { image: PortableTextImage },
+  types: {
+    image: PortableTextImage,
+  },
   block: {
     normal: NormalBlock,
-    h1: H1Block,
+    h2: H2Block,
+    h3: H3Block,
   },
 };
 ---
 
-<PortableTextInternal value={portableText} {components} />
+<PortableTextInternal {value} {components} />

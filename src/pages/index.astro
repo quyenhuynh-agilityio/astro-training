@@ -4,8 +4,8 @@ import Hero from '@sections/HeroSection/index.astro';
 import AboutSection from '@sections/AboutSection/index.astro';
 import PropertySection from '@sections/PropertySection';
 import Footer from '@layouts/Footer';
-import TestimonialSection from '@sections/TestimonialSection';
-import AgentSection from '@sections/AgentSection';
+import TestimonialSection from '@sections/TestimonialSection/index.astro';
+import AgentSection from '@sections/AgentSection/index.astro';
 import type { HomePageType } from '@types-local/home';
 import { loadQuery } from 'studio/lib/load-query';
 
@@ -13,8 +13,8 @@ const { data: homePage } = await loadQuery<HomePageType>({
   query: `*[_type == "homePage"][0] {
     hero {
       heading {
-        title[],
-        subtitle[],
+        title,
+        subtitle,
         alignment
       },
       image { asset, alt },
@@ -28,8 +28,8 @@ const { data: homePage } = await loadQuery<HomePageType>({
       ctaLink
     },
     about {
-      title[],        // PortableText
-      description[],  // PortableText
+      title,        
+      description,
       image { asset-> { url }, alt },
       ctaText,
       ctaLink
@@ -46,8 +46,8 @@ const { data: homePage } = await loadQuery<HomePageType>({
       introText[]
     },
     feature {
-      title[],
-      description[],
+      title,
+      description,
       image { asset-> { url }, alt },
       ctaText,
       ctaLink
@@ -101,9 +101,30 @@ const { header, hero, about, properties, feature, agent, testimonial, footer } =
     image={hero.image}
   />
   <AboutSection
-    title={about?.title}
-    description={about?.description}
-    image={about?.image}
-    buttonText={about?.ctaText}
+    title={about.title}
+    description={about.description}
+    image={about.image}
+    buttonText={about.ctaText}
+  />
+  <AgentSection
+    title={agent?.title}
+    description={agent?.description}
+    cta={agent?.ctaText}
+    client:load
+  />
+  <AboutSection
+    reverse
+    title={feature.title}
+    description={feature.description}
+    image={feature.image}
+    buttonText={feature.ctaText}
+  />
+  <TestimonialSection
+    testimonials={(testimonial?.testimonials || []).map((t: any) => ({
+      name: t.author,
+      role: t.role,
+      image: t?.image,
+      quote: t.quote,
+    }))}
   />
 </BaseLayout>
