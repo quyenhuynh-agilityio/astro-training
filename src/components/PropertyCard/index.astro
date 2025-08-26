@@ -1,0 +1,59 @@
+---
+import { Icons } from '../Icons';
+import PortableTextImage from '@components/PortableTextImage/index.astro';
+import { cn } from '@lib/utils';
+
+interface Props {
+  class?: string;
+  slug: string;
+  image: any; // Sanity image object
+  title: string;
+  beds: number;
+  baths: number;
+  area: number;
+}
+
+const {
+  class: className,
+  slug,
+  image,
+  title,
+  beds,
+  baths,
+  area,
+} = Astro.props as Props;
+---
+
+<a
+  href={`/${slug}`}
+  class={cn(
+    className,
+    'block bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow'
+  )}
+>
+  <!-- Image -->
+  <div class="h-266 w-full overflow-hidden">
+    <PortableTextImage node={image} class="h-full w-full object-cover" />
+  </div>
+
+  <!-- Title -->
+  <div class="pl-30 py-30 border-b">
+    <h3 class="font-bold text-3md">{title}</h3>
+  </div>
+
+  <!-- Details -->
+  <div class="grid grid-cols-3 divide-x">
+    <div class="flex items-center justify-center gap-1 py-5">
+      <Icons.Bed className="size-4" />
+      <span class="text-md ml-1">{beds}</span>
+    </div>
+    <div class="flex items-center justify-center gap-1 py-2">
+      <Icons.Shower className="size-4" />
+      <span class="text-md ml-1">{baths}</span>
+    </div>
+    <div class="flex items-center justify-center gap-1 py-2">
+      <Icons.Size className="size-4" />
+      <span class="text-md ml-1">{area}</span>
+    </div>
+  </div>
+</a>

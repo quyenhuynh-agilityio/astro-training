@@ -2,8 +2,8 @@
 import BaseLayout from '@layouts/BaseLayout/index.astro';
 import Hero from '@sections/HeroSection/index.astro';
 import AboutSection from '@sections/AboutSection/index.astro';
-import PropertySection from '@sections/PropertySection';
-import Footer from '@layouts/Footer';
+import PropertySection from '@sections/PropertySection/index.astro';
+import Footer from '@layouts/Footer/index.astro';
 import TestimonialSection from '@sections/TestimonialSection/index.astro';
 import AgentSection from '@sections/AgentSection/index.astro';
 import type { HomePageType } from '@types-local/home';
@@ -71,7 +71,13 @@ const { data: homePage } = await loadQuery<HomePageType>({
     },
     footer {
       logo { asset-> { url }, alt },
-      links[] { title, links },
+      links[] {
+        title[],                               
+        links[] {
+          label[],                             
+          href                                 
+        }
+      },
       socialLinks[] {
         url,
         icon { asset-> { url }, alt }
@@ -88,6 +94,8 @@ if (!homePage) {
 
 const { header, hero, about, properties, feature, agent, testimonial, footer } =
   homePage;
+
+console.log('footer', footer);
 ---
 
 <BaseLayout title="Home Page">
@@ -105,6 +113,11 @@ const { header, hero, about, properties, feature, agent, testimonial, footer } =
     description={about.description}
     image={about.image}
     buttonText={about.ctaText}
+  />
+  <PropertySection
+    title={properties.heading.title}
+    properties={properties?.items}
+    client:load
   />
   <AgentSection
     title={agent?.title}
@@ -126,5 +139,11 @@ const { header, hero, about, properties, feature, agent, testimonial, footer } =
       image: t?.image,
       quote: t.quote,
     }))}
+  />
+  <Footer
+    logo={footer.logo}
+    socialLinks={footer.socialLinks}
+    ctaText={footer.ctaText}
+    columns={footer.links}
   />
 </BaseLayout>
