@@ -46,7 +46,7 @@ const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
 
   <div class="max-w-7xl mx-auto mt-60 flex justify-between">
     <div>
-      {logo && <PortableTextImage node={logo} class="h-34 w-32" />}
+      {logo && <PortableTextImage node={logo} class="h-auto w-auto max-h-34" />}
       <div class="flex space-x-10 mt-30">
         {
           socialLinks.map((item) => (
@@ -68,7 +68,7 @@ const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
       columns?.map((col) => (
         <div>
           <h3 class="font-semibold mb-4">{col.heading}</h3>
-          <ul class="space-y-2 text-gray-400">
+          <ul class="space-y-2 text-gray-300">
             {col.links.map((link) => (
               <li>
                 <a
