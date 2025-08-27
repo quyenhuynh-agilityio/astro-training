@@ -6,7 +6,7 @@ import { H2Block, H3Block, NormalBlock } from '@components/Blocks';
 import type { PortableTextBlock } from 'sanity';
 
 interface Props {
-  value: PortableTextBlock[];
+  value: PortableTextBlock | string;
 }
 
 const { value } = Astro.props;

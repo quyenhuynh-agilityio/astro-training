@@ -46,15 +46,11 @@ const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
 
   <div class="max-w-7xl mx-auto mt-60 flex justify-between">
     <div>
-      {logo && <PortableTextImage node={logo} alt={logo.alt || ''} />}
+      {logo && <PortableTextImage node={logo} class="h-8 w-32" />}
       <div class="flex space-x-10 mt-30">
         {
-          socialLinks.map((item, idx) => (
-            <a
-              key={idx}
-              href={item?.url || ''}
-              class="hover:text-primary transition"
-            >
+          socialLinks.map((item) => (
+            <a href={item?.url || ''} class="hover:text-primary transition">
               {item.icon && (
                 <PortableTextImage
                   node={item.icon}
@@ -69,22 +65,20 @@ const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
     </div>
 
     {
-      columns?.map((col, idx) => (
-        <div key={idx}>
+      columns?.map((col) => (
+        <div>
           <h3 class="font-semibold mb-4">{col.heading}</h3>
           <ul class="space-y-2 text-gray-400">
-            {col.links.map((link, i) => {
-              return (
-                <li key={i}>
-                  <a
-                    href={portableTextToHref(link.label)}
-                    class="hover:text-primary transition"
-                  >
-                    <PortableText value={link.label} />
-                  </a>
-                </li>
-              );
-            })}
+            {col.links.map((link) => (
+              <li>
+                <a
+                  href={portableTextToHref(link.label)}
+                  class="hover:text-primary transition"
+                >
+                  <PortableText value={link.label} />
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       ))

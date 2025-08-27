@@ -1,28 +1,40 @@
+import type { PortableTextBlock } from 'sanity';
 import type { SanityImage, SiteHeader, SiteFooter, Slug } from './common';
+export interface PropertyDetails {
+  beds: number;
+  baths: number;
+  area: number;
+  garage: number;
+  yearBuilt: number;
+}
 
-export interface PropertyDetailType {
-  _id: string;
-  title: string;
-  slug: Slug;
-  address: string;
-  price: string;
-  pricePerSqft: string;
-  mainImage?: SanityImage;
-  galleryImages?: SanityImage[];
-  details: {
-    beds: number;
-    baths: number;
-    area: string;
-    garage: number;
-    yearBuilt: number;
+export interface ImageWithAlt {
+  asset: {
+    _ref?: string;
+    _type?: string;
+    url?: string;
   };
-  description: string;
-  features: string[];
-  status?: string;
+  alt?: string;
+}
+
+export interface Property {
+  _id: string;
+  _type: 'property';
+  title: PortableTextBlock;
+  address: PortableTextBlock;
+  price: number;
+  pricePerSqft: number;
+  mainImage: SanityImage;
+  galleryImages: SanityImage[];
+  details: PropertyDetails;
+  description: PortableTextBlock;
+  features?: string[];
+  status: 'For Sale' | 'Sold' | 'Under Offer';
+  slug: Slug;
 }
 
 export interface PropertyPageData {
-  property: PropertyDetailType;
+  property: Property;
   header: SiteHeader;
   footer: SiteFooter;
 }

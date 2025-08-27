@@ -1,0 +1,26 @@
+---
+import Button from '@components/Button';
+import PortableTextImage from '@components/PortableTextImage/index.astro';
+import Navigation from '@components/Navigation';
+import type { NavItem, SanityImage } from '@types-local/common';
+
+interface HeaderProps {
+  logo?: SanityImage;
+  navItems?: NavItem[];
+  ctaText?: string;
+}
+
+const { logo, navItems, ctaText } = Astro.props as HeaderProps;
+---
+
+<header class="w-full bg-transparent py-10">
+  <div
+    class="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12"
+  >
+    <PortableTextImage node={logo} class="h-8 w-32" />
+    <div class="flex items-center gap-60">
+      <Navigation links={navItems} />
+      <Button rightIcon="path">{ctaText}</Button>
+    </div>
+  </div>
+</header>

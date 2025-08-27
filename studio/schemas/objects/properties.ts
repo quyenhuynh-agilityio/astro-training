@@ -26,39 +26,89 @@ export const propertiesType = defineType({
         defineField({
           name: 'lookingFor',
           title: 'Looking For',
-          type: 'string',
-          options: {
-            list: ['Buy', 'Rent', 'Sell'],
-          },
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                }),
+              ],
+            },
+          ],
         }),
         defineField({
           name: 'location',
           title: 'Location',
-          type: 'string',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                }),
+              ],
+            },
+          ],
         }),
         defineField({
           name: 'propertyType',
           title: 'Property Type',
-          type: 'string',
-          options: {
-            list: ['House', 'Apartment', 'Villa', 'Townhouse'],
-          },
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                }),
+              ],
+            },
+          ],
         }),
         defineField({
           name: 'price',
           title: 'Price Range',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'min',
-              title: 'Minimum Price',
-              type: 'number',
-            }),
-            defineField({
-              name: 'max',
-              title: 'Maximum Price',
-              type: 'number',
-            }),
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                }),
+              ],
+            },
           ],
         }),
       ],

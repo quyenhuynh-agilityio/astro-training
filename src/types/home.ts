@@ -4,6 +4,7 @@ import type {
   SiteHeader,
   SiteFooter,
 } from './common';
+import type { Property } from './property';
 
 export interface Hero {
   heading: HeadingBlock;
@@ -35,7 +36,7 @@ export interface PropertyCard {
 
 export interface PropertiesSection {
   heading: HeadingBlock;
-  items?: PropertyCard[];
+  items?: Property[];
   filters?: any;
   introText?: string;
 }

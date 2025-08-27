@@ -2,44 +2,23 @@
 import Heading from '@components/Heading/index.astro';
 import PropertyCard from '@components/PropertyCard/index.astro';
 import Select from '@components/Select';
-import type { PropertyDetailType } from '@types-local/property';
+import type { PropertiesSection } from '@types-local/home';
 
 interface Props {
   title?: string;
-  properties: PropertyDetailType[];
+  properties: PropertiesSection;
 }
 
-const { title, properties } = Astro.props as Props;
+const { properties } = Astro.props as Props;
+const { heading, items, filters } = properties;
 
-const options = [
-  { value: '', label: 'Looking for' },
-  { value: 'rent', label: 'Rent' },
-  { value: 'buy', label: 'Buy' },
-];
-
-const locations = [
-  { value: '', label: 'Location' },
-  { value: 'ny', label: 'New York' },
-  { value: 'sf', label: 'San Francisco' },
-];
-
-const types = [
-  { value: '', label: 'Property Type' },
-  { value: 'house', label: 'House' },
-  { value: 'apartment', label: 'Apartment' },
-];
-
-const prices = [
-  { value: '', label: 'Price' },
-  { value: 'low', label: 'Low to High' },
-  { value: 'high', label: 'High to Low' },
-];
+const { options, location, propertyType, price } = filters || {};
 ---
 
 <section class="py-16 bg-bodyBg">
   <div class="max-w-7xl mx-auto px-4">
     <!-- Heading using PortableText -->
-    <Heading {title} />
+    <Heading title={heading.title} />
 
     <!-- Filters -->
     <div
@@ -53,19 +32,19 @@ const prices = [
       />
       <Select
         className="w-full md:flex-1 border-r border-accent"
-        options={locations}
+        options={location}
         name="location"
         ariaLabel="Location"
       />
       <Select
         className="w-full md:flex-1 border-r border-accent"
-        options={types}
+        options={propertyType}
         name="propertyType"
         ariaLabel="Property Type"
       />
       <Select
         className="w-full md:flex-1 rounded-tr-xl rounded-br-xl"
-        options={prices}
+        options={price}
         name="price"
         ariaLabel="Price"
       />
@@ -74,7 +53,7 @@ const prices = [
     <!-- Property Grid -->
     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {
-        properties.map((property) => {
+        items?.map((property) => {
           return (
             <li id={property.slug.current}>
               <PropertyCard

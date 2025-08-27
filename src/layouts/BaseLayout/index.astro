@@ -1,5 +1,4 @@
 ---
-// src/layouts/layout.astro
 const { title = 'Default Title' } = Astro.props;
 
 import '@styles/global.css';
@@ -10,13 +9,10 @@ import '@styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A brief description of your site for SEO."
-    />
+    <meta name="description" content="Welcome to Your Dream Home Journey." />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Quyen Huynh" />
-    <meta name="keywords" content="keyword1, keyword2, keyword3" />
+    <meta name="keywords" content="rent, home, keyword3" />
 
     <meta property="og:title" content={title} />
     <meta
@@ -36,7 +32,11 @@ import '@styles/global.css';
     <meta name="twitter:image" content="/images/twitter-image.jpg" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/apple-touch-icon.jpg"
+    />
     <link rel="manifest" href="/site.webmanifest" />
 
     <title>{title}</title>

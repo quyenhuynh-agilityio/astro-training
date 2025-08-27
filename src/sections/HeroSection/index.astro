@@ -1,7 +1,7 @@
 ---
 import PortableTextImage from '@components/PortableTextImage/index.astro';
 import PortableText from '@components/PortableText/index.astro';
-import Header from '@layouts/Header';
+import Header from '@layouts/Header/index.astro';
 import { Icons } from '@components/Icons';
 
 interface HeroProps {
@@ -16,21 +16,14 @@ interface HeroProps {
 
 const { title, subtitle, labelBtn, image, logo, navItems, ctaText } =
   Astro.props as HeroProps;
-
-const imageNode = image
-  ? { _type: 'image', asset: image.asset, alt: image.alt || 'Background' }
-  : null;
 ---
 
 <section class="relative w-full h-[90vh] overflow-hidden">
-  {
-    imageNode && (
-      <PortableTextImage
-        node={imageNode}
-        class="absolute inset-0 w-full h-full object-cover responsive__img"
-      />
-    )
-  }
+  <PortableTextImage
+    node={image}
+    class="absolute inset-0 w-full h-full object-cover responsive__img"
+  />
+
   <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20">
   </div>
   <div

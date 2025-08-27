@@ -4,8 +4,7 @@ import PortableTextImage from '@components/PortableTextImage/index.astro';
 import PortableText from '@components/PortableText/index.astro';
 import { cn } from '@lib/utils';
 import type { SanityImage } from '@types-local/common';
-import type { PropertyDetailType } from '@types-local/property';
-
+import type { PortableTextBlock } from 'sanity';
 interface Details {
   beds: number;
   baths: number;
@@ -18,7 +17,7 @@ interface Props {
   class?: string;
   slug: string;
   image?: SanityImage;
-  title: string;
+  title: PortableTextBlock;
   details: Details;
 }
 
@@ -38,8 +37,8 @@ const { class: className, slug, image, title, details } = Astro.props as Props;
   </div>
 
   <!-- Title -->
-  <div class="pl-30 py-30 border-b">
-    <h3 class="font-bold text-3md">{title}</h3>
+  <div class="pl-30 py-30 border-b font-bold text-3md">
+    <PortableText value={title} />
   </div>
 
   <!-- Details -->

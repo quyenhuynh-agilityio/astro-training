@@ -3,6 +3,7 @@ import { Icons } from '@components/Icons';
 import DetailItem from '@components/DetailItem';
 import PortableText from '@components/PortableText/index.astro';
 import PortableTextImage from '@components/PortableTextImage/index.astro';
+import type { Property } from '@types-local/property';
 
 export interface SanityImage {
   asset: {
@@ -19,23 +20,8 @@ export interface PropertyDetails {
   yearBuilt: number;
 }
 
-export interface PropertyData {
-  _id: string;
-  title: string;
-  slug: string;
-  address?: string;
-  price?: number;
-  pricePerSqft?: number;
-  mainImage: SanityImage;
-  galleryImages: SanityImage[];
-  details: PropertyDetails;
-  description: string;
-  features: string[];
-  status?: string;
-}
-
 interface Props {
-  property: PropertyData;
+  property: Property;
 }
 
 const { property } = Astro.props;
@@ -49,7 +35,7 @@ const { property } = Astro.props;
       <div class="lg:col-span-2">
         <PortableTextImage
           node={property.mainImage}
-          class="w-full h-[250px] sm:h-[350px] lg:h-[450px] object-cover rounded-2xl"
+          class="w-full h-250 sm:h-350 lg:h-450 object-cover rounded-2xl"
         />
       </div>
 
@@ -59,7 +45,7 @@ const { property } = Astro.props;
           class="flex gap-3 overflow-x-auto sm:grid sm:grid-cols-3 sm:gap-3 lg:grid-cols-1"
         >
           {
-            property.galleryImages
+            property?.galleryImages
               .slice(1, 7)
               .map((image, i) => (
                 <PortableTextImage
@@ -74,7 +60,7 @@ const { property } = Astro.props;
 
     <!-- Details -->
     <div class="bg-white rounded-2xl shadow-sm p-6 mb-8">
-      <h2 class="text-xl font-semibold mb-6">Details</h2>
+      <h3 class="text-xl font-semibold mb-6">Details</h3>
       <div
         class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 text-center border-t border-accent"
       >
@@ -106,9 +92,9 @@ const { property } = Astro.props;
 
     <!-- Description -->
     <div class="bg-white rounded-2xl shadow-sm p-6 mb-8">
-      <h2 class="text-xl font-semibold pb-4 border-b border-accent">
+      <h3 class="text-xl font-semibold pb-4 border-b border-accent">
         Description
-      </h2>
+      </h3>
       <div class="text-gray-700 whitespace-pre-line leading-relaxed pt-4">
         <PortableText value={property.description} />
       </div>
@@ -116,9 +102,9 @@ const { property } = Astro.props;
 
     <!-- Features -->
     <div class="bg-white rounded-2xl shadow-sm p-6 mb-8">
-      <h2 class="text-xl font-semibold py-4 border-b border-accent">
+      <h3 class="text-xl font-semibold py-4 border-b border-accent">
         Features
-      </h2>
+      </h3>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
         {
           (property.features || []).map((feature) => (

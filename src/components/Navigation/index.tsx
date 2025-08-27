@@ -1,13 +1,9 @@
 // src/components/Nav.tsx
+import type { NavItem } from '@types-local/common';
 import React from 'react';
 
-interface NavLink {
-  label: string;
-  href: string;
-}
-
 interface NavProps {
-  links?: NavLink[];
+  links?: NavItem[];
   className?: string;
 }
 
@@ -17,8 +13,11 @@ const Navigation: React.FC<NavProps> = ({ links, className = '' }) => {
       <ul className="flex space-x-60">
         {links?.map((link, index) => (
           <li key={index}>
-            <a href={link.href} className="hover:text-gray-300 text-base">
-              {link.label}
+            <a
+              href={link.link?.current}
+              className="hover:text-gray-300 text-base"
+            >
+              {link.title}
             </a>
           </li>
         ))}

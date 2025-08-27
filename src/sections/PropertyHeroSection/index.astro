@@ -1,26 +1,19 @@
 ---
 // src/components/PropertyHeroSection.astro
-import Header from '@layouts/Header';
+import Header from '@layouts/Header/index.astro';
 import PortableText from '@components/PortableText/index.astro';
-
-interface NavItem {
-  title: string;
-  link: string;
-}
-
-interface Logo {
-  url: string;
-  alt: string;
-}
+import type { PortableTextBlock } from 'sanity';
+import type { SanityImage } from '@types-local/common';
+import type { NavItem } from '@types-local/common';
 
 interface Props {
-  title: string;
-  address: string;
-  price: string;
-  pricePerSqft: string;
-  logo: Logo;
-  navItems: NavItem[];
-  ctaText: string;
+  title: PortableTextBlock;
+  address: PortableTextBlock;
+  price: number;
+  pricePerSqft: number;
+  logo?: SanityImage;
+  navItems?: NavItem[];
+  ctaText?: string;
 }
 
 const { title, address, price, pricePerSqft, logo, navItems, ctaText } =
