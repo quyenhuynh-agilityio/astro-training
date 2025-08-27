@@ -41,8 +41,8 @@ const Select: React.FC<SelectProps> = ({
         onChange={onChange}
         className={`text-md pl-10 py-12 font-bold focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${className}`}
       >
-        {options?.map((option) => (
-          <option key={option.value} value={option.value}>
+        {options?.map((option, index) => (
+          <option key={`${option.value}-${index}`} value={option.value}>
             {option.label}
           </option>
         ))}
