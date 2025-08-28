@@ -1,11 +1,10 @@
 ---
 import Button from '@components/Button';
-import PortableTextImage from '@components/PortableTextImage/index.astro';
 import Navigation from '@components/Navigation';
-import type { NavItem, SanityImage } from '@types-local/common';
-
+import type { NavItem, SanityImageType } from '@types-local/common';
+import SanityImage from '@components/SanityImage/index.astro';
 interface HeaderProps {
-  logo?: SanityImage;
+  logo?: SanityImageType;
   navItems?: NavItem[];
   ctaText?: string;
 }
@@ -15,10 +14,18 @@ const { logo, navItems, ctaText } = Astro.props as HeaderProps;
 
 <header class="w-full bg-transparent py-10">
   <div
-    class="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12"
+    class="max-w-sm md:max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12"
   >
-    <PortableTextImage node={logo} class="h-34 w-32" />
-    <div class="flex items-center gap-60">
+    <SanityImage
+      node={logo}
+      width={128}
+      height={34}
+      sizes="(max-width: 768px) 100vw, 128px"
+      className="h-34 w-32"
+      loading="eager"
+    />
+    <!-- <PortableText node={logo} class="h-34 w-32" /> -->
+    <div class="gap-2 flex items-center md:gap-60">
       <Navigation links={navItems} />
       <Button rightIcon="path">{ctaText}</Button>
     </div>

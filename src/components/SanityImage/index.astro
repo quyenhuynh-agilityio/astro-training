@@ -1,0 +1,61 @@
+---
+import { client } from '@lib/client';
+import imageUrlBuilder from '@sanity/image-url';
+import type { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder';
+
+const builder = imageUrlBuilder(client);
+
+// Define props with defaults for reusability
+const {
+  node,
+  className,
+  width = 960, // Default width
+  height, // Optional height
+  quality = 80, // Default quality
+  srcSetWidths = [320, 640, 960, 1280, 1600, 1920], // Default srcset widths
+  sizes = '(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 960px', // Default sizes
+  fallbackAspectRatio = 16 / 9, // Default fallback aspect ratio (e.g., 16:9)
+  loading = 'lazy', // Default to lazy loading
+} = Astro.props;
+let image: ImageUrlBuilder | undefined;
+
+// Generate image URL with optimizations
+try {
+  image =
+    node &&
+    node.asset &&
+    builder.image(node).width(width).fit('max').auto('format').quality(quality); // Use prop for quality
+} catch (error) {
+  console.error('Error building image URL:', error);
+}
+
+// Calculate intrinsic dimensions
+const intrinsicWidth = node?.asset?.metadata?.dimensions?.width || width;
+const intrinsicHeight =
+  node?.asset?.metadata?.dimensions?.height ||
+  height ||
+  width / fallbackAspectRatio;
+const aspectRatio = intrinsicHeight / intrinsicWidth;
+
+// Generate srcset for responsive images
+const srcSet = image
+  ? srcSetWidths.map((w) => `${image.width(w).url()} ${w}w`).join(', ')
+  : '';
+---
+
+{
+  image && (
+    <img
+      src={image.url()}
+      srcset={srcSet}
+      sizes={sizes}
+      width={intrinsicWidth}
+      height={intrinsicHeight}
+      alt={node.alt || ''}
+      title={node.alt}
+      class={className}
+      loading={loading}
+      style={`aspect-ratio: ${intrinsicWidth / intrinsicHeight};`}
+    />
+  )
+}

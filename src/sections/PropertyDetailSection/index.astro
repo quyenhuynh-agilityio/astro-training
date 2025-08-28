@@ -5,13 +5,6 @@ import PortableText from '@components/PortableText/index.astro';
 import PortableTextImage from '@components/PortableTextImage/index.astro';
 import type { Property } from '@types-local/property';
 
-export interface SanityImage {
-  asset: {
-    url: string;
-  };
-  alt?: string;
-}
-
 export interface PropertyDetails {
   beds: number;
   baths: number;
@@ -33,7 +26,7 @@ const { property } = Astro.props;
     <div class="mb-8 lg:grid lg:grid-cols-3 lg:gap-4">
       <!-- Main Image -->
       <div class="lg:col-span-2">
-        <PortableTextImage
+        <PortableText
           node={property.mainImage}
           class="w-full h-250 sm:h-350 lg:h-450 object-cover rounded-2xl"
         />
@@ -48,7 +41,7 @@ const { property } = Astro.props;
             property?.galleryImages
               .slice(1, 7)
               .map((image, i) => (
-                <PortableTextImage
+                <PortableText
                   node={image}
                   class="w-32 h-24 sm:w-full sm:h-28 object-cover rounded-xl cursor-pointer flex-shrink-0 hover:opacity-80 transition"
                 />

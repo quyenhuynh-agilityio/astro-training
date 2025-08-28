@@ -1,4 +1,4 @@
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
@@ -40,7 +40,7 @@ export default defineConfig({
     }),
   ],
   image: {
-    service: passthroughImageService(),
+    domains: ['cdn.sanity.io'], // allow Sanity image CDN
   },
   vite: {
     optimizeDeps: {
@@ -49,6 +49,10 @@ export default defineConfig({
     },
     ssr: {
       noExternal: ['@sanity/client'],
+      external: ['@sanity/image-url'],
+    },
+    assets: {
+      domains: ['cdn.sanity.io'], // allow remote domain
     },
     define: {
       global: 'globalThis',

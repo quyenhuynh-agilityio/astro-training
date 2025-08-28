@@ -3,15 +3,14 @@
 import Header from '@layouts/Header/index.astro';
 import PortableText from '@components/PortableText/index.astro';
 import type { PortableTextBlock } from 'sanity';
-import type { SanityImage } from '@types-local/common';
-import type { NavItem } from '@types-local/common';
+import type { NavItem, SanityImageType } from '@types-local/common';
 
 interface Props {
   title: PortableTextBlock;
   address: PortableTextBlock;
   price: number;
   pricePerSqft: number;
-  logo?: SanityImage;
+  logo?: SanityImageType;
   navItems?: NavItem[];
   ctaText?: string;
 }

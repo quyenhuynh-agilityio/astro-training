@@ -1,10 +1,15 @@
 /** A Sanity image with optional asset data */
-export interface SanityImage {
-  asset?: {
-    url?: string;
-    alt?: string;
+import type { SanityImageDimensions } from '@sanity/image-url/lib/types/types';
+
+export interface ImageDimensions {
+  dimensions: SanityImageDimensions;
+}
+export interface SanityImageType {
+  asset: {
+    url: string;
+    metadata: ImageDimensions;
   };
-  alt?: string;
+  alt: string;
 }
 
 /** A text heading block with alignment */
@@ -29,7 +34,7 @@ export interface Slug {
 
 /** Shared header type */
 export interface SiteHeader {
-  logo?: SanityImage;
+  logo?: SanityImageType;
   navItems?: NavItem[];
   ctaText?: string;
   ctaLink?: string;
@@ -37,14 +42,14 @@ export interface SiteHeader {
 
 /** Shared footer type */
 export interface SiteFooter {
-  logo?: SanityImage;
+  logo?: SanityImageType;
   links?: {
     title: string;
     links: string[];
   }[];
   socialLinks?: {
     url?: string;
-    icon?: SanityImage;
+    icon?: SanityImageType;
   }[];
   ctaText?: string;
   ctaLink?: string;
