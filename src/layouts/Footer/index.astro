@@ -30,7 +30,7 @@ interface FooterProps {
 const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
 ---
 
-<footer class="bg-black text-white px-177 py-80">
+<footer class="bg-black px-177 py-80">
   <div
     class="max-w-7xl mx-auto pb-12 flex flex-col md:flex-row items-center md:justify-between"
   >
@@ -51,7 +51,7 @@ const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
         width={128}
         height={34}
         sizes="(max-width: 768px) 100vw, 128px"
-        className="h-34 w-32"
+        className="h-34 w-32 object-contain"
         loading="eager"
       />
       <div class="flex space-x-10 mt-30">
@@ -78,12 +78,12 @@ const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
       columns?.map((col) => (
         <div>
           <h3 class="font-semibold mb-4">{col.heading}</h3>
-          <ul class="space-y-2 text-gray-300">
+          <ul class="space-y-2">
             {col.links.map((link) => (
               <li>
                 <a
                   href={portableTextToHref(link.label)}
-                  class="hover:text-primary transition"
+                  class="hover:text-primary text-white transition"
                 >
                   <PortableText value={link.label} />
                 </a>

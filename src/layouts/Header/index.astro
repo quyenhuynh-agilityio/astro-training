@@ -18,13 +18,12 @@ const { logo, navItems, ctaText } = Astro.props as HeaderProps;
   >
     <SanityImage
       node={logo}
-      width={128}
-      height={34}
-      sizes="(max-width: 768px) 100vw, 128px"
-      className="h-34 w-32"
+      width={256}
+      height={68}
+      sizes="128px"
+      className="w-32 h-34 object-contain"
       loading="eager"
     />
-    <!-- <PortableText node={logo} class="h-34 w-32" /> -->
     <div class="gap-2 flex items-center md:gap-60">
       <Navigation links={navItems} />
       <Button rightIcon="path">{ctaText}</Button>
