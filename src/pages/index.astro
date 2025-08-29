@@ -10,14 +10,22 @@ import type { HomePageType } from '@types-local/home';
 import { loadQuery } from 'studio/lib/load-query';
 import { homePageQuery } from '@queries/index';
 
-const { data: homePage } = await loadQuery<HomePageType>({
-  query: homePageQuery,
-});
+let homePage: HomePageType | null = null;
 
-if (!homePage) {
-  return Astro.redirect('/404');
+try {
+  const { data } = await loadQuery<HomePageType>({
+    query: homePageQuery,
+  });
+  homePage = data;
+} catch (err) {
+  // 🚨 Let Astro render /500.astro
+  throw new Response('Internal Server Error', { status: 500 });
 }
 
+if (!homePage) {
+  // 🚨 Let Astro render /404.astro
+  throw new Response('Not Found', { status: 404 });
+}
 const { header, hero, about, properties, feature, agent, testimonial, footer } =
   homePage;
 ---

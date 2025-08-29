@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@layouts/BaseLayout/index.astro';
+
+const title = '500 — Internal Server Error';
+---
+
+<BaseLayout {title}>
+  <section class="flex min-h-screen items-center justify-center px-6">
+    <div class="w-full max-w-xl text-center">
+      <p class="text-sm tracking-widest text-zinc-500 dark:text-zinc-400">
+        ERROR 500
+      </p>
+      <h1 class="mt-2 text-3xl md:text-4xl font-semibold">{title}</h1>
+      <p class="mt-3 text-zinc-600 dark:text-zinc-300">
+        Oops! Something went wrong on our end. Please try again later or contact
+        support if the problem persists.
+      </p>
+
+      <div class="mt-8 flex items-center justify-center gap-3">
+        <a
+          href="/"
+          class="px-4 py-2 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition"
+        >
+          ← Back to Home
+        </a>
+        <a
+          href="mailto:hello@example.com"
+          class="px-4 py-2 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition"
+        >
+          Contact Support
+        </a>
+      </div>
+
+      <div class="mt-10 text-xs text-zinc-500 dark:text-zinc-400">
+        <span class="inline-block animate-bounce">•</span>
+        <span class="inline-block animate-bounce [animation-delay:150ms]"
+          >•</span
+        >
+        <span class="inline-block animate-bounce [animation-delay:300ms]"
+          >•</span
+        >
+      </div>
+    </div>
+  </section>
+</BaseLayout>
