@@ -1,6 +1,6 @@
 ---
 import PortableText from '@components/PortableText/index.astro';
-import PortableTextImage from '@components/PortableTextImage/index.astro';
+import SanityImage from '@components/SanityImage/index.astro';
 import Button from '@components/Button';
 import Heading from '@components/Heading/index.astro';
 import { cn } from '@lib/utils';
@@ -36,7 +36,14 @@ const imageNode = image
       imageNode && (
         <div class={cn('flex-1', imageWrapperClassName)}>
           <div class="rounded-3xl overflow-hidden shadow-lg">
-            <PortableText node={imageNode} class="object-cover w-604 h-557" />
+            <SanityImage
+              node={image}
+              width={604}
+              height={557}
+              sizes="(max-width: 768px) 100vw, 604px"
+              className="object-cover"
+              loading="lazy"
+            />
           </div>
         </div>
       )

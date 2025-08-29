@@ -6,8 +6,16 @@ export const propertyQuery = `
   address,
   price,
   pricePerSqft,
-  mainImage { asset-> { url }, alt },
-  galleryImages[] { asset-> { url }, alt },
+  mainImage { alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      } },
+  galleryImages[] { alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      } },
   details { beds, baths, area, garage, yearBuilt },
   description[],
   features,
@@ -18,13 +26,21 @@ export const propertyQuery = `
 export const detailPageQuery = `
 *[_type == "homePage"][0] {
   header {
-    logo { asset-> { url }, alt },
+    logo { alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      }},
     navItems[] { title, link },
     ctaText,
     ctaLink
   },
   footer {
-    logo { asset-> { url }, alt },
+    logo { alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      }},
     links[] {
       title[],                               
       links[] {
@@ -34,7 +50,11 @@ export const detailPageQuery = `
     },
     socialLinks[] {
       url,
-      icon { asset-> { url }, alt }
+      icon { alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      }}
     },
     ctaText,
     ctaLink

@@ -1,6 +1,6 @@
 ---
 import { Icons } from '../Icons';
-import PortableTextImage from '@components/PortableTextImage/index.astro';
+import SanityImage from '@components/SanityImage/index.astro';
 import PortableText from '@components/PortableText/index.astro';
 import { cn } from '@lib/utils';
 import type { PortableTextBlock } from 'sanity';
@@ -33,6 +33,14 @@ const { class: className, slug, image, title, details } = Astro.props as Props;
 >
   <!-- Image -->
   <div class="h-266 w-full overflow-hidden">
+    <SanityImage
+      node={image}
+      width={604}
+      height={266}
+      sizes="(max-width: 768px) 100vw, 604px"
+      className="object-cover"
+      loading="lazy"
+    />
     <PortableText node={image} class="h-full w-full object-cover" />
   </div>
 
