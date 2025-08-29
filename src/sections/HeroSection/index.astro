@@ -1,16 +1,18 @@
 ---
-import PortableTextImage from '@components/PortableTextImage/index.astro';
 import PortableText from '@components/PortableText/index.astro';
 import Header from '@layouts/Header/index.astro';
 import { Icons } from '@components/Icons';
+import SanityImage from '@components/SanityImage/index.astro';
+import type { PortableTextBlock } from 'sanity';
+import type { NavItem, SanityImageType } from '@types-local/common';
 
 interface HeroProps {
-  title: string | any[];
-  subtitle: string | any[];
-  labelBtn?: string | any[];
-  image?: { asset?: any; alt?: string };
-  logo?: any;
-  navItems?: any[];
+  title: PortableTextBlock;
+  subtitle: PortableTextBlock;
+  labelBtn?: PortableTextBlock;
+  image: SanityImageType;
+  logo?: SanityImageType;
+  navItems?: NavItem[];
   ctaText?: string;
 }
 
@@ -19,11 +21,14 @@ const { title, subtitle, labelBtn, image, logo, navItems, ctaText } =
 ---
 
 <section class="relative w-full h-[90vh] overflow-hidden">
-  <PortableTextImage
+  <SanityImage
     node={image}
-    class="absolute inset-0 w-full h-full object-cover responsive__img"
+    width={1440}
+    height={810}
+    sizes="(max-width: 768px) 100vw, 1440px"
+    className="absolute inset-0 w-full h-full object-cover"
+    loading="eager"
   />
-
   <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20">
   </div>
   <div

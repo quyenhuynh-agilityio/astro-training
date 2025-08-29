@@ -1,19 +1,11 @@
 ---
-// src/components/PortableText.astro
 import { PortableText as PortableTextInternal } from 'astro-portabletext';
-import PortableTextImage from '../PortableTextImage/index.astro';
 import { H2Block, H3Block, NormalBlock } from '@components/Blocks';
-import type { PortableTextBlock } from 'sanity';
-
-interface Props {
-  value: PortableTextBlock | string;
-}
-
-const { value } = Astro.props;
+import SanityImage from '@components/SanityImage/index.astro';
 
 const components = {
   types: {
-    image: PortableTextImage,
+    image: SanityImage,
   },
   block: {
     normal: NormalBlock,
@@ -23,4 +15,4 @@ const components = {
 };
 ---
 
-<PortableTextInternal {value} {components} />
+<PortableTextInternal value={Astro.props.value} {components} />

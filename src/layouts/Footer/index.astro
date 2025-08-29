@@ -1,9 +1,9 @@
 ---
 import Button from '@components/Button';
 import PortableText from '@components/PortableText/index.astro';
-import PortableTextImage from '@components/PortableTextImage/index.astro';
+import SanityImage from '@components/SanityImage/index.astro';
 import { portableTextToHref } from '@lib/utils';
-import type { SanityImage } from '@types-local/common';
+import type { SanityImageType } from '@types-local/common';
 
 interface LinkItem {
   label: string;
@@ -17,11 +17,11 @@ interface Column {
 
 interface SocialLink {
   url: string;
-  icon: SanityImage;
+  icon: SanityImageType;
 }
 
 interface FooterProps {
-  logo?: SanityImage;
+  logo?: SanityImageType;
   columns: Column[];
   socialLinks?: SocialLink[];
   ctaText?: string;
@@ -46,16 +46,26 @@ const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
 
   <div class="max-w-7xl mx-auto mt-60 flex justify-between">
     <div>
-      {logo && <PortableTextImage node={logo} class="h-auto w-auto max-h-34" />}
+      <SanityImage
+        node={logo}
+        width={128}
+        height={34}
+        sizes="(max-width: 768px) 100vw, 128px"
+        className="h-34 w-32"
+        loading="eager"
+      />
       <div class="flex space-x-10 mt-30">
         {
           socialLinks.map((item) => (
             <a href={item?.url || ''} class="hover:text-primary transition">
               {item.icon && (
-                <PortableTextImage
+                <SanityImage
                   node={item.icon}
-                  alt={item.icon.alt || ''}
-                  class="size-5"
+                  width={20}
+                  height={20}
+                  sizes="(max-width: 768px) 100vw, 20px"
+                  className="w-5 h-5"
+                  loading="lazy"
                 />
               )}
             </a>

@@ -1,5 +1,5 @@
 ---
-import PortableTextImage from '@components/PortableTextImage/index.astro';
+import SanityImage from '@components/SanityImage/index.astro';
 const { t, index } = Astro.props;
 ---
 
@@ -8,9 +8,13 @@ const { t, index } = Astro.props;
   class="testimonial-btn flex items-center transition px-6 py-4 w-336 bg-white hover:bg-gray-100"
   data-index={index}
 >
-  <PortableTextImage
+  <SanityImage
     node={t.image}
-    class="w-14 h-14 rounded-full object-cover mb-2"
+    width={48}
+    height={48}
+    sizes="(max-width: 768px) 100vw, 48px"
+    className="rounded-full mb-2 w-12 h-12"
+    loading="lazy"
   />
   <div class="flex flex-col ml-5">
     <span class="text-sm font-medium text-black">{t.name}</span>

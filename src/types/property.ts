@@ -1,5 +1,6 @@
 import type { PortableTextBlock } from 'sanity';
-import type { SanityImage, SiteHeader, SiteFooter, Slug } from './common';
+import type { SiteHeader, SiteFooter, Slug, SanityImageType } from './common';
+
 export interface PropertyDetails {
   beds: number;
   baths: number;
@@ -24,8 +25,8 @@ export interface Property {
   address: PortableTextBlock;
   price: number;
   pricePerSqft: number;
-  mainImage: SanityImage;
-  galleryImages: SanityImage[];
+  mainImage: SanityImageType;
+  galleryImages: SanityImageType[];
   details: PropertyDetails;
   description: PortableTextBlock;
   features?: string[];

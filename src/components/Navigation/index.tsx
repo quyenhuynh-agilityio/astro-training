@@ -10,7 +10,7 @@ interface NavProps {
 const Navigation: React.FC<NavProps> = ({ links, className = '' }) => {
   return (
     <nav className={`text-white ${className}`}>
-      <ul className="flex space-x-60">
+      <ul className="flex space-x-1 md:space-x-60">
         {links?.map((link, index) => (
           <li key={index}>
             <a

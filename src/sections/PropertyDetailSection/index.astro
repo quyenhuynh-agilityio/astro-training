@@ -2,15 +2,8 @@
 import { Icons } from '@components/Icons';
 import DetailItem from '@components/DetailItem';
 import PortableText from '@components/PortableText/index.astro';
-import PortableTextImage from '@components/PortableTextImage/index.astro';
+import SanityImage from '@components/SanityImage/index.astro';
 import type { Property } from '@types-local/property';
-
-export interface SanityImage {
-  asset: {
-    url: string;
-  };
-  alt?: string;
-}
 
 export interface PropertyDetails {
   beds: number;
@@ -33,24 +26,26 @@ const { property } = Astro.props;
     <div class="mb-8 lg:grid lg:grid-cols-3 lg:gap-4">
       <!-- Main Image -->
       <div class="lg:col-span-2">
-        <PortableTextImage
+        <SanityImage
           node={property.mainImage}
-          class="w-full h-250 sm:h-350 lg:h-450 object-cover rounded-2xl"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 66vw, 960px"
+          className="w-full h-250 sm:h-350 lg:h-450 object-cover rounded-2xl"
+          loading="eager"
         />
       </div>
 
       <!-- Thumbnails -->
       <div class="mt-4 lg:mt-0">
-        <div
-          class="flex gap-3 overflow-x-auto sm:grid sm:grid-cols-3 sm:gap-3 lg:grid-cols-1"
-        >
+        <div class="flex overflow-x-auto grid grid-cols-2 gap-2 lg:grid-cols-1">
           {
             property?.galleryImages
               .slice(1, 7)
               .map((image, i) => (
-                <PortableTextImage
+                <SanityImage
                   node={image}
-                  class="w-32 h-24 sm:w-full sm:h-28 object-cover rounded-xl cursor-pointer flex-shrink-0 hover:opacity-80 transition"
+                  sizes="(max-width: 768px) 33vw, (max-width: 1024px) 20vw, 480px"
+                  className="w-32 h-24 sm:w-full sm:h-28 object-cover rounded-xl cursor-pointer flex-shrink-0 hover:opacity-80 transition"
+                  loading="eager"
                 />
               ))
           }

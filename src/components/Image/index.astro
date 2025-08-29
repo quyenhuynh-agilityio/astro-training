@@ -1,0 +1,45 @@
+---
+import type { SanityImageType } from '@types-local/common';
+import { Image } from 'astro:assets';
+
+interface Props {
+  node: SanityImageType;
+  class?: string;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  format?: 'webp' | 'avif' | 'png' | 'jpeg';
+}
+
+const {
+  node,
+  class: className,
+  sizes,
+  loading = 'lazy',
+  format = 'webp',
+} = Astro.props;
+
+const url = node?.asset?.url;
+const width = node?.asset?.metadata?.dimensions?.width || 1920;
+const height = node?.asset?.metadata?.dimensions?.height || 1080;
+
+// default responsive sizes
+const defaultSizes =
+  sizes || '(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px';
+---
+
+{
+  url && (
+    <Image
+      src={url}
+      alt={node?.alt || ''}
+      width={width}
+      height={height}
+      class={className}
+      sizes={defaultSizes}
+      loading={loading}
+      decoding="async"
+      fit="cover"
+      format={format}
+    />
+  )
+}

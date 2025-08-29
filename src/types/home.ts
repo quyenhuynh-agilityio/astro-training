@@ -1,14 +1,14 @@
 import type {
-  SanityImage,
   HeadingBlock,
   SiteHeader,
   SiteFooter,
+  SanityImageType,
 } from './common';
 import type { Property } from './property';
 
 export interface Hero {
   heading: HeadingBlock;
-  image?: SanityImage;
+  image?: SanityImageType;
   ctaText?: string;
   ctaLink?: string;
 }
@@ -16,7 +16,7 @@ export interface Hero {
 export interface About {
   title?: string;
   description?: string;
-  image?: SanityImage;
+  image?: SanityImageType;
   ctaText?: string;
   ctaLink?: string;
 }
@@ -31,7 +31,7 @@ export interface PropertyCard {
   title?: string;
   slug?: { current: string };
   details?: PropertyDetails;
-  mainImage?: SanityImage;
+  mainImage?: SanityImageType;
 }
 
 export interface PropertiesSection {
@@ -44,7 +44,7 @@ export interface PropertiesSection {
 export interface Feature {
   title?: string;
   description?: string;
-  image?: SanityImage;
+  image?: SanityImageType;
   ctaText?: string;
   ctaLink?: string;
 }
@@ -61,7 +61,7 @@ export interface Testimonial {
   testimonials?: {
     author: string;
     role?: string;
-    image?: SanityImage;
+    image?: SanityImageType;
     quote: string;
   }[];
   ctaText?: string;

@@ -2,12 +2,24 @@ export const homePageQuery = `
 *[_type == "homePage"][0] {
   hero {
     heading { title, subtitle, alignment },
-    image { asset, alt },
+    image {
+      alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      }
+    },
     ctaText,
     ctaLink
   },
   header {
-    logo { asset-> { url }, alt },
+    logo {
+      alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      }
+    },
     navItems[] { title, link },
     ctaText,
     ctaLink
@@ -15,7 +27,13 @@ export const homePageQuery = `
   about {
     title,        
     description,
-    image { asset-> { url }, alt },
+    image {
+      alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      }
+    },
     ctaText,
     ctaLink
   },
@@ -25,7 +43,13 @@ export const homePageQuery = `
       title,
       slug,
       details { beds, baths, area },
-      mainImage { asset-> { url }, alt }
+      mainImage {
+        alt,
+        asset->{
+          url,
+          metadata { dimensions { width, height } }
+        }
+      }
     },
     filters,
     introText[]
@@ -33,7 +57,13 @@ export const homePageQuery = `
   feature {
     title,
     description,
-    image { asset-> { url }, alt },
+    image {
+      alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      }
+    },
     ctaText,
     ctaLink
   },
@@ -48,14 +78,26 @@ export const homePageQuery = `
     testimonials[] {
       author,
       role,
-      image { asset-> { url }, alt },
+      image {
+        alt,
+        asset->{
+          url,
+          metadata { dimensions { width, height } }
+        }
+      },
       quote[]
     },
     ctaText,
     ctaLink
   },
   footer {
-    logo { asset-> { url }, alt },
+    logo {
+      alt,
+      asset->{
+        url,
+        metadata { dimensions { width, height } }
+      }
+    },
     links[] {
       title[],                               
       links[] {
@@ -65,7 +107,7 @@ export const homePageQuery = `
     },
     socialLinks[] {
       url,
-      icon { asset-> { url }, alt }
+      icon
     },
     ctaText,
     ctaLink
