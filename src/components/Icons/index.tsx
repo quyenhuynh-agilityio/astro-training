@@ -1,4 +1,6 @@
-type IconProps = React.SVGAttributes<SVGElement>;
+import { type SVGAttributes } from 'react';
+
+type IconProps = SVGAttributes<SVGElement>;
 
 export const Icons = {
   Instagram: (props: IconProps) => (

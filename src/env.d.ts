@@ -8,3 +8,6 @@ interface ImportMetaEnv {
   readonly PUBLIC_STUDIO_URL: string;
   readonly PUBLIC_SANITY_API_READ_TOKEN: string;
 }
+
+// Extend the global ImportMeta interface (needed for Astro env types)
+export {};

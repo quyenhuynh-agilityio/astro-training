@@ -1,10 +1,12 @@
+import { type ElementType } from 'react';
+
 const DetailItem = ({
   icon: Icon,
   label,
   value,
   bordered,
 }: {
-  icon: React.ElementType;
+  icon: ElementType;
   label?: string;
   value: string | number;
   bordered?: boolean;

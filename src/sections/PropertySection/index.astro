@@ -7,7 +7,7 @@ import type { PropertiesSection } from '@types-local/home';
 type Props = PropertiesSection;
 
 const { heading, items, filters } = Astro.props as Props;
-const { options, location, propertyType, price } = filters || {};
+const { lookingFor, location, propertyType, price } = filters || {};
 ---
 
 <section class="py-16 bg-bodyBg">
@@ -15,37 +15,34 @@ const { options, location, propertyType, price } = filters || {};
     <!-- Heading -->
     <Heading title={heading?.title} />
 
-    <!-- Filters -->
-    {
-      filters && (
-        <div class="flex flex-col md:flex-row w-fit gap-4 bg-white shadow-md rounded-xl my-10">
-          <Select
-            className="w-full md:flex-1 border-r border-accent rounded-tl-xl rounded-bl-xl"
-            options={options}
-            name="lookingFor"
-            ariaLabel="Looking for"
-          />
-          <Select
-            className="w-full md:flex-1 border-r border-accent"
-            options={location}
-            name="location"
-            ariaLabel="Location"
-          />
-          <Select
-            className="w-full md:flex-1 border-r border-accent"
-            options={propertyType}
-            name="propertyType"
-            ariaLabel="Property Type"
-          />
-          <Select
-            className="w-full md:flex-1 rounded-tr-xl rounded-br-xl"
-            options={price}
-            name="price"
-            ariaLabel="Price"
-          />
-        </div>
-      )
-    }
+    <div
+      class="grid grid-cols-2 md:grid-cols-4 gap-2 bg-white shadow-md rounded-xl my-10 w-full max-w-5xl"
+    >
+      <Select
+        className="w-full border-r border-accent rounded-tl-xl md:rounded-l-xl"
+        options={lookingFor}
+        name="lookingFor"
+        ariaLabel="Looking for"
+      />
+      <Select
+        className="w-full border-r border-accent"
+        options={location}
+        name="location"
+        ariaLabel="Location"
+      />
+      <Select
+        className="w-full border-r border-accent"
+        options={propertyType}
+        name="propertyType"
+        ariaLabel="Property Type"
+      />
+      <Select
+        className="w-full rounded-tr-xl md:rounded-r-xl"
+        options={price}
+        name="price"
+        ariaLabel="Price"
+      />
+    </div>
 
     <!-- Property Grid -->
     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

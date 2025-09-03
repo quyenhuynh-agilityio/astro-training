@@ -1,5 +1,5 @@
+import type { SanityImageType, SiteFooter, SiteHeader, Slug } from './common';
 import type { PortableTextBlock } from 'sanity';
-import type { SiteHeader, SiteFooter, Slug, SanityImageType } from './common';
 
 export interface PropertyDetails {
   beds: number;

@@ -1,6 +1,7 @@
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 import { toPlainText } from 'astro-portabletext';
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
 import type { PortableTextBlock } from 'sanity';
 
 export const cn = (...inputs: ClassValue[]) => {

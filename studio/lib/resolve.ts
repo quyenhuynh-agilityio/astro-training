@@ -1,6 +1,7 @@
 // ./src/sanity/lib/resolve.ts
 
 import { defineLocations } from 'sanity/presentation';
+
 import type { PresentationPluginOptions } from 'sanity/presentation';
 
 export const resolve: PresentationPluginOptions['resolve'] = {

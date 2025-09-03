@@ -1,13 +1,12 @@
 ---
 import BaseLayout from '@layouts/BaseLayout/index.astro';
-import PropertyHeroSection from '@sections/PropertyHeroSection/index.astro';
-import PropertyDetail from '@sections/PropertyDetailSection/index.astro';
 import Footer from '@layouts/Footer/index.astro';
-import { loadQuery } from '../../../studio/lib/load-query';
-
 import { detailPageQuery, propertyQuery } from '@queries/index';
+import PropertyDetail from '@sections/PropertyDetailSection/index.astro';
+import PropertyHeroSection from '@sections/PropertyHeroSection/index.astro';
 import type { HomePageType } from '@types-local/home';
 import type { Property } from '@types-local/property';
+import { loadQuery } from '../../../studio/lib/load-query';
 
 // ✅ Prerender so Astro runs getStaticPaths at build
 export const prerender = true;

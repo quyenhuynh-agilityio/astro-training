@@ -1,6 +1,7 @@
 // src/components/Nav.tsx
-import type { NavItem } from '@types-local/common';
 import React from 'react';
+
+import type { NavItem } from '@types-local/common';
 
 interface NavProps {
   links?: NavItem[];

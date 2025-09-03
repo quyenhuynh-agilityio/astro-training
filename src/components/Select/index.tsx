@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Icons } from '@components/Icons';
+
 interface Option {
   value: string;
   label: string;
@@ -11,7 +13,7 @@ interface SelectProps {
   label?: string;
   ariaLabel?: string;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: React.ChangeEventHandler<HTMLSelectElement>;
   className?: string;
 }
 
@@ -27,7 +29,7 @@ const Select: React.FC<SelectProps> = ({
   const selectId = `${name}-select`;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col relative">
       {label && (
         <label htmlFor={selectId} className="sr-only">
           {label}
@@ -39,14 +41,19 @@ const Select: React.FC<SelectProps> = ({
         aria-label={!label ? ariaLabel : undefined}
         value={value}
         onChange={onChange}
-        className={`text-md pl-10 py-12 font-bold focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${className}`}
+        className={`appearance-none text-md py-6 pr-10 pl-3 font-bold  bg-white sm:text-sm ${className}`}
       >
-        {options?.map((option, index) => (
-          <option key={`${option.value}-${index}`} value={option.value}>
-            {option.label}
-          </option>
-        ))}
+        {options?.map((option, index) => {
+          return (
+            <option key={`${option.value}-${index}`} value={option.value}>
+              {option.label}
+            </option>
+          );
+        })}
       </select>
+      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+        <Icons.ChevronDown />
+      </div>
     </div>
   );
 };

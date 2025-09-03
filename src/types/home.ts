@@ -1,8 +1,8 @@
 import type {
   HeadingBlock,
-  SiteHeader,
-  SiteFooter,
   SanityImageType,
+  SiteFooter,
+  SiteHeader,
 } from './common';
 import type { Property } from './property';
 

@@ -1,14 +1,14 @@
 ---
 import BaseLayout from '@layouts/BaseLayout/index.astro';
-import Hero from '@sections/HeroSection/index.astro';
-import AboutSection from '@sections/AboutSection/index.astro';
-import PropertySection from '@sections/PropertySection/index.astro';
 import Footer from '@layouts/Footer/index.astro';
-import TestimonialSection from '@sections/TestimonialSection/index.astro';
+import { homePageQuery } from '@queries/index';
+import AboutSection from '@sections/AboutSection/index.astro';
 import AgentSection from '@sections/AgentSection/index.astro';
+import Hero from '@sections/HeroSection/index.astro';
+import PropertySection from '@sections/PropertySection/index.astro';
+import TestimonialSection from '@sections/TestimonialSection/index.astro';
 import type { HomePageType } from '@types-local/home';
 import { loadQuery } from 'studio/lib/load-query';
-import { homePageQuery } from '@queries/index';
 
 let homePage: HomePageType | null = null;
 

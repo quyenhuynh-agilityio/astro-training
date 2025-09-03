@@ -1,7 +1,8 @@
-// src/components/Button.tsx
 import React from 'react';
-import { cn } from '@lib/utils';
+
 import { Icons } from '@components/Icons';
+
+import { cn } from '@lib/utils';
 
 type IconName = 'path' | 'check' | 'arrow'; // extend with other icon keys
 

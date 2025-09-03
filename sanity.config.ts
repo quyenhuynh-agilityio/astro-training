@@ -1,8 +1,9 @@
 import { defineConfig } from 'sanity';
-import { structureTool } from 'sanity/structure';
 import { presentationTool } from 'sanity/presentation';
-import { schema } from './studio/schemas';
+import { structureTool } from 'sanity/structure';
+
 import { resolve } from './studio/lib/resolve';
+import { schema } from './studio/schemas';
 
 export default defineConfig({
   projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,

@@ -1,9 +1,9 @@
-import { defineConfig } from 'astro/config';
-import { loadEnv } from 'vite';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
-import sanity from '@sanity/astro';
 import vercel from '@astrojs/vercel';
+import sanity from '@sanity/astro';
+import { defineConfig } from 'astro/config';
+import { loadEnv } from 'vite';
 
 const env = loadEnv(import.meta.env.MODE || 'development', process.cwd(), '');
 
