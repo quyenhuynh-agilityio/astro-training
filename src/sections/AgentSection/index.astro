@@ -3,12 +3,14 @@
 import Button from '@components/Button';
 import Heading from '@components/Heading/index.astro';
 import PortableText from '@components/PortableText/index.astro';
-// Props from parent
-const { title, description, cta } = Astro.props as {
-  title?: string;
-  description?: string;
+
+interface AgentSectionProps {
+  title: string;
+  description: string;
   cta?: string;
-};
+}
+
+const { title, description, cta } = Astro.props as AgentSectionProps;
 ---
 
 <section
@@ -20,10 +22,14 @@ const { title, description, cta } = Astro.props as {
       <PortableText value={description} />
     </div>
 
-    <div class="flex justify-center">
-      <Button size="large" rightIcon="path">
-        {cta}
-      </Button>
-    </div>
+    {
+      cta && (
+        <div class="flex justify-center">
+          <Button size="large" rightIcon="path">
+            {cta}
+          </Button>
+        </div>
+      )
+    }
   </div>
 </section>

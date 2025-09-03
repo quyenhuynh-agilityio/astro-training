@@ -5,19 +5,14 @@ import PortableText from '@components/PortableText/index.astro';
 import SanityImage from '@components/SanityImage/index.astro';
 import type { Property } from '@types-local/property';
 
-export interface PropertyDetails {
-  beds: number;
-  baths: number;
-  area: string;
-  garage: number;
-  yearBuilt: number;
-}
-
 interface Props {
   property: Property;
 }
 
-const { property } = Astro.props;
+const { property } = Astro.props as Props;
+
+const { mainImage, galleryImages, details, description, features } =
+  property || {};
 ---
 
 <section class="bg-gray-50 py-8">
@@ -27,7 +22,7 @@ const { property } = Astro.props;
       <!-- Main Image -->
       <div class="lg:col-span-2">
         <SanityImage
-          node={property.mainImage}
+          node={mainImage}
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 66vw, 960px"
           className="w-full h-250 sm:h-350 lg:h-450 object-cover rounded-2xl"
           loading="eager"
@@ -36,9 +31,9 @@ const { property } = Astro.props;
 
       <!-- Thumbnails -->
       <div class="mt-4 lg:mt-0">
-        <div class="flex overflow-x-auto grid grid-cols-2 gap-2 lg:grid-cols-1">
+        <div class="grid grid-cols-2 gap-2 lg:grid-cols-1">
           {
-            property?.galleryImages
+            (galleryImages || [])
               .slice(1, 7)
               .map((image, i) => (
                 <SanityImage
@@ -61,27 +56,24 @@ const { property } = Astro.props;
       >
         <DetailItem
           icon={Icons.Bed}
-          value={property.details.beds}
+          value={details?.beds}
           label="Beds"
           bordered
         />
         <DetailItem
           icon={Icons.Shower}
-          value={property.details.baths}
+          value={details?.baths}
           label="Baths"
           bordered
         />
-        <DetailItem icon={Icons.Size} value={property.details.area} bordered />
+        <DetailItem icon={Icons.Size} value={details?.area} bordered />
         <DetailItem
           icon={Icons.Garage}
-          value={property.details.garage}
+          value={details?.garage}
           label="Garage"
           bordered
         />
-        <DetailItem
-          icon={Icons.Bed}
-          value={`Built ${property.details.yearBuilt}`}
-        />
+        <DetailItem icon={Icons.Bed} value={`Built ${details?.yearBuilt}`} />
       </div>
     </div>
 
@@ -91,7 +83,7 @@ const { property } = Astro.props;
         Description
       </h3>
       <div class="text-gray-700 whitespace-pre-line leading-relaxed pt-4">
-        <PortableText value={property.description} />
+        <PortableText value={description} />
       </div>
     </div>
 
@@ -102,7 +94,7 @@ const { property } = Astro.props;
       </h3>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
         {
-          (property.features || []).map((feature) => (
+          (features || []).map((feature) => (
             <div class="flex items-center gap-2 text-gray-700 hover:text-primary transition">
               <Icons.Check />
               <span>{feature}</span>

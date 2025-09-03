@@ -4,67 +4,62 @@ import PropertyCard from '@components/PropertyCard/index.astro';
 import Select from '@components/Select';
 import type { PropertiesSection } from '@types-local/home';
 
-interface Props {
-  title?: string;
-  properties: PropertiesSection;
-}
+type Props = PropertiesSection;
 
-const { properties } = Astro.props as Props;
-const { heading, items, filters } = properties;
-
+const { heading, items, filters } = Astro.props as Props;
 const { options, location, propertyType, price } = filters || {};
 ---
 
 <section class="py-16 bg-bodyBg">
   <div class="max-w-7xl mx-auto px-4">
-    <!-- Heading using PortableText -->
-    <Heading title={heading.title} />
+    <!-- Heading -->
+    <Heading title={heading?.title} />
 
     <!-- Filters -->
-    <div
-      class="flex flex-col md:flex-row w-fit gap-4 bg-white shadow-md rounded-xl my-10"
-    >
-      <Select
-        className="w-full md:flex-1 border-r border-accent rounded-tl-xl rounded-bl-xl"
-        {options}
-        name="lookingFor"
-        ariaLabel="Looking for"
-      />
-      <Select
-        className="w-full md:flex-1 border-r border-accent"
-        options={location}
-        name="location"
-        ariaLabel="Location"
-      />
-      <Select
-        className="w-full md:flex-1 border-r border-accent"
-        options={propertyType}
-        name="propertyType"
-        ariaLabel="Property Type"
-      />
-      <Select
-        className="w-full md:flex-1 rounded-tr-xl rounded-br-xl"
-        options={price}
-        name="price"
-        ariaLabel="Price"
-      />
-    </div>
+    {
+      filters && (
+        <div class="flex flex-col md:flex-row w-fit gap-4 bg-white shadow-md rounded-xl my-10">
+          <Select
+            className="w-full md:flex-1 border-r border-accent rounded-tl-xl rounded-bl-xl"
+            options={options}
+            name="lookingFor"
+            ariaLabel="Looking for"
+          />
+          <Select
+            className="w-full md:flex-1 border-r border-accent"
+            options={location}
+            name="location"
+            ariaLabel="Location"
+          />
+          <Select
+            className="w-full md:flex-1 border-r border-accent"
+            options={propertyType}
+            name="propertyType"
+            ariaLabel="Property Type"
+          />
+          <Select
+            className="w-full md:flex-1 rounded-tr-xl rounded-br-xl"
+            options={price}
+            name="price"
+            ariaLabel="Price"
+          />
+        </div>
+      )
+    }
 
     <!-- Property Grid -->
     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {
-        items?.map((property) => {
-          return (
-            <li id={property.slug.current}>
-              <PropertyCard
-                slug={property.slug.current}
-                image={property.mainImage}
-                title={property.title}
-                details={property.details}
-              />
-            </li>
-          );
-        })
+        items?.map((property) => (
+          <li id={property.slug.current}>
+            <PropertyCard
+              slug={property.slug.current}
+              image={property.mainImage}
+              title={property.title}
+              details={property.details}
+            />
+          </li>
+        ))
       }
     </ul>
   </div>

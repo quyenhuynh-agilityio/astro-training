@@ -2,38 +2,44 @@
 import TestimonialQuote from './TestimonialQuote.astro';
 import TestimonialAvatar from './TestimonialAvatar.astro';
 import TestimonialAction from './TestimonialAction.tsx';
+import type { SanityImageType } from '@types-local/common';
 
-interface TestimonialItem {
-  name: string;
+interface Testimonial {
+  author: string;
   role?: string;
-  image: any;
-  quote: any;
+  image?: SanityImageType;
+  quote: string;
 }
 
-const { testimonials } = Astro.props as { testimonials: TestimonialItem[] };
+interface Props {
+  testimonials?: Testimonial[];
+}
+
+const { testimonials = [] } = Astro.props as Props;
 ---
 
-<section class="py-150 bg-white" id="testimonial-section">
-  <div class="mx-auto text-center px-6">
-    <div class="flex justify-center mb-6">
-      <span class="w-336 h-1 bg-gradient-to-r from-yellow-400 to-black"></span>
-    </div>
+{
+  testimonials.length > 0 && (
+    <section class="py-150 bg-white" id="testimonial-section">
+      <div class="mx-auto text-center px-6">
+        <div class="flex justify-center mb-6">
+          <span class="w-336 h-1 bg-gradient-to-r from-yellow-400 to-black" />
+        </div>
 
-    <div
-      class="relative mb-24 min-h-52 flex items-center justify-center mx-auto max-w-336"
-    >
-      {
-        testimonials.map((t, i) => (
-          <TestimonialQuote quote={t.quote} index={i} />
-        ))
-      }
-    </div>
+        <div class="relative mb-24 min-h-52 flex items-center justify-center mx-auto max-w-336">
+          {testimonials.map((t, i) => (
+            <TestimonialQuote quote={t.quote} index={i} />
+          ))}
+        </div>
 
-    <div class="flex justify-center gap-8">
-      {testimonials.map((t, i) => <TestimonialAvatar t={t} index={i} />)}
-    </div>
-  </div>
-</section>
+        <div class="flex justify-center gap-8">
+          {testimonials.map((t, i) => (
+            <TestimonialAvatar t={t} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
 
-<!-- Mount React action island -->
 <TestimonialAction client:load />

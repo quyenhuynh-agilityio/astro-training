@@ -22,12 +22,12 @@ interface SocialLink {
 
 interface FooterProps {
   logo?: SanityImageType;
-  columns: Column[];
+  links: Column[];
   socialLinks?: SocialLink[];
   ctaText?: string;
 }
 
-const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
+const { logo, links, socialLinks = [], ctaText } = Astro.props as FooterProps;
 ---
 
 <footer class="bg-black px-177 py-80">
@@ -75,7 +75,7 @@ const { logo, columns, socialLinks = [], ctaText } = Astro.props as FooterProps;
     </div>
 
     {
-      columns?.map((col) => (
+      links?.map((col) => (
         <div>
           <h3 class="font-semibold mb-4">{col.heading}</h3>
           <ul class="space-y-2">

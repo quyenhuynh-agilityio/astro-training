@@ -4,20 +4,32 @@ import SanityImage from '@components/SanityImage/index.astro';
 import Button from '@components/Button';
 import Heading from '@components/Heading/index.astro';
 import { cn } from '@lib/utils';
+import type { SanityImageType } from '@types-local/common';
+
+interface AboutSectionProps {
+  title: string;
+  description: string;
+  image?: SanityImageType;
+  ctaText?: string;
+  reverse?: boolean;
+  sectionClassName?: string;
+  containerClassName?: string;
+  imageWrapperClassName?: string;
+  textWrapperClassName?: string;
+}
 
 const {
   title,
   description,
   image,
-  buttonText,
+  ctaText,
   reverse = false,
   sectionClassName = '',
   containerClassName = '',
   imageWrapperClassName = '',
   textWrapperClassName = '',
-} = Astro.props;
+} = Astro.props as AboutSectionProps;
 
-// Prepare image node for PortableTextImage
 const imageNode = image
   ? { _type: 'image', asset: image.asset, alt: image.alt || 'About Image' }
   : null;
@@ -31,17 +43,16 @@ const imageNode = image
       containerClassName
     )}
   >
-    <!-- Image -->
     {
       imageNode && (
         <div class={cn('flex-1', imageWrapperClassName)}>
           <div class="rounded-3xl overflow-hidden shadow-lg">
             <SanityImage
-              node={image}
+              node={imageNode}
               width={604}
               height={557}
               sizes="(max-width: 768px) 100vw, 604px"
-              className="object-cover"
+              class="object-cover"
               loading="lazy"
             />
           </div>
@@ -49,15 +60,18 @@ const imageNode = image
       )
     }
 
-    <!-- Text Content -->
     <div class={cn('flex-1', textWrapperClassName)}>
       <Heading {title} />
       <div class="text-gray-600 mb-8 leading-relaxed">
         <PortableText value={description} />
       </div>
-      <Button className="py-5 px-10" variant="secondary" rightIcon="path">
-        {buttonText}
-      </Button>
+      {
+        ctaText && (
+          <Button className="py-5 px-10" variant="secondary" rightIcon="path">
+            {ctaText}
+          </Button>
+        )
+      }
     </div>
   </div>
 </section>

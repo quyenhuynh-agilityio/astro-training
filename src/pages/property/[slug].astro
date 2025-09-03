@@ -9,55 +9,68 @@ import { detailPageQuery, propertyQuery } from '@queries/index';
 import type { HomePageType } from '@types-local/home';
 import type { Property } from '@types-local/property';
 
-// Get static paths for all properties
-export async function getStaticPaths() {
-  const { data: properties } = await loadQuery<{ slug: { current: string } }[]>(
-    {
-      query: `*[_type == "homePage" && defined(slug.current)] { slug }`,
-    }
-  );
+// ✅ Prerender so Astro runs getStaticPaths at build
+export const prerender = true;
 
-  return properties.map((property) => ({
-    params: { slug: property.slug.current },
-  }));
+// Generate static paths for properties
+export async function getStaticPaths() {
+  try {
+    const { data: properties } = await loadQuery<
+      { slug: { current: string } }[]
+    >({
+      query: `*[_type == "property" && defined(slug.current)] { slug }`,
+    });
+
+    return properties.map((property) => {
+      // Strip "property/" prefix so Astro matches correctly
+      const cleanSlug = property.slug.current.replace(/^property\//, '');
+      return { params: { slug: cleanSlug } };
+    });
+  } catch (err) {
+    console.error('Error in getStaticPaths:', err);
+    throw new Response('Internal Server Error', { status: 500 });
+  }
 }
 
 const { slug } = Astro.params;
 
 const fullSlug = `property/${slug}`;
 
-const { data: property } = await loadQuery<Property>({
-  query: propertyQuery,
-  params: { slug: fullSlug },
-});
+let property: Property | null = null;
+let detailPage: HomePageType | null = null;
 
-const { data: detailPage } = await loadQuery<HomePageType>({
-  query: detailPageQuery,
-});
-const { header, footer } = detailPage;
-
-// Handle case where property is not found
-if (!property) {
-  return Astro.redirect('/404'); // Redirect to 404 page
+try {
+  const { data } = await loadQuery<Property>({
+    query: propertyQuery,
+    params: { slug: fullSlug },
+  });
+  property = data;
+} catch (err) {
+  throw new Response('Internal Server Error', { status: 500 });
 }
+
+try {
+  const { data } = await loadQuery<HomePageType>({
+    query: detailPageQuery,
+  });
+  detailPage = data;
+} catch (err) {
+  throw new Response('Internal Server Error', { status: 500 });
+}
+
+if (!property) {
+  throw new Response('Not Found', { status: 404 });
+}
+
+if (!detailPage) {
+  throw new Response('Not Found', { status: 404 });
+}
+
+const { header, footer } = detailPage;
 ---
 
-<BaseLayout title="Detail Page">
-  <PropertyHeroSection
-    title={property?.title}
-    address={property?.address}
-    price={property?.price}
-    pricePerSqft={property?.pricePerSqft}
-    logo={header.logo}
-    navItems={header.navItems}
-    ctaText={header.ctaText}
-  />
-
+<BaseLayout title={property.title || 'Detail Page'}>
+  <PropertyHeroSection {property} {header} />
   <PropertyDetail {property} />
-  <Footer
-    logo={footer.logo}
-    socialLinks={footer.socialLinks}
-    ctaText={footer.ctaText}
-    columns={footer.links}
-  />
+  <Footer {...footer} />
 </BaseLayout>

@@ -18,60 +18,24 @@ try {
   });
   homePage = data;
 } catch (err) {
-  // 🚨 Let Astro render /500.astro
+  console.error('[HomePage] Query failed:', err);
   throw new Response('Internal Server Error', { status: 500 });
 }
 
 if (!homePage) {
-  // 🚨 Let Astro render /404.astro
   throw new Response('Not Found', { status: 404 });
 }
+
 const { header, hero, about, properties, feature, agent, testimonial, footer } =
   homePage;
 ---
 
 <BaseLayout title="Home Page">
-  <Hero
-    title={hero.heading.title}
-    subtitle={hero.heading.subtitle}
-    labelBtn={hero.ctaText}
-    logo={header.logo}
-    navItems={header.navItems}
-    ctaText={header.ctaText}
-    image={hero.image}
-  />
-  <AboutSection
-    title={about.title}
-    description={about.description}
-    image={about.image}
-    buttonText={about.ctaText}
-  />
-  <PropertySection {properties} />
-
-  <AgentSection
-    title={agent?.title}
-    description={agent?.description}
-    cta={agent?.ctaText}
-  />
-  <AboutSection
-    reverse
-    title={feature.title}
-    description={feature.description}
-    image={feature.image}
-    buttonText={feature.ctaText}
-  />
-  <TestimonialSection
-    testimonials={(testimonial?.testimonials || []).map((t: any) => ({
-      name: t.author,
-      role: t.role,
-      image: t?.image,
-      quote: t.quote,
-    }))}
-  />
-  <Footer
-    logo={footer.logo}
-    socialLinks={footer.socialLinks}
-    ctaText={footer.ctaText}
-    columns={footer.links}
-  />
+  <Hero {hero} {header} />
+  <AboutSection {...about} />
+  <PropertySection {...properties} />
+  <AgentSection {...agent} />
+  <AboutSection reverse {...feature} />
+  <TestimonialSection {...testimonial} />
+  <Footer {...footer} />
 </BaseLayout>
