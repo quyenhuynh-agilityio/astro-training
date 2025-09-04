@@ -1,22 +1,32 @@
 ---
-import PortableText from '@components/PortableText/index.astro';
-import Header from '@layouts/Header/index.astro';
 import { Icons } from '@components/Icons';
+import PortableText from '@components/PortableText/index.astro';
 import SanityImage from '@components/SanityImage/index.astro';
-import type { PortableTextBlock } from 'sanity';
-import type { NavItem, SanityImageType } from '@types-local/common';
+import Header from '@layouts/Header/index.astro';
+import type {
+  HeadingBlock,
+  NavItem,
+  SanityImageType,
+} from '@types-local/common';
 
-interface HeroProps {
-  title: PortableTextBlock;
-  subtitle: PortableTextBlock;
-  labelBtn?: PortableTextBlock;
-  image: SanityImageType;
+interface HeroContent {
+  heading: HeadingBlock;
+  image?: SanityImageType;
+  ctaText?: string;
+}
+
+interface HeaderContent {
   logo?: SanityImageType;
   navItems?: NavItem[];
   ctaText?: string;
 }
 
-const { hero, header } = Astro.props as HeroProps;
+interface Props {
+  hero: HeroContent;
+  header: HeaderContent;
+}
+
+const { hero, header } = Astro.props as Props;
 
 const { heading, image, ctaText: labelBtn } = hero;
 const { logo, navItems, ctaText } = header;
