@@ -18,7 +18,6 @@ try {
   });
   homePage = data;
 } catch (err) {
-  console.error('[HomePage] Query failed:', err);
   throw new Response('Internal Server Error', { status: 500 });
 }
 

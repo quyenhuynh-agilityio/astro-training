@@ -17,6 +17,7 @@
   "dependencies": {
     "@astrojs/react": "^4.3.0",
     "@astrojs/vercel": "^8.2.6",
+    "@auth/core": "^0.40.0",
     "@fontsource/inter": "^5.2.6",
     "@fontsource/roboto": "^5.2.6",
     "@sanity/astro": "^3.2.10",
@@ -25,6 +26,8 @@
     "@types/react-dom": "^19.1.7",
     "astro": "^5.13.0",
     "astro-portabletext": "^0.11.2",
+    "auth-astro": "^4.2.0",
+    "cookie": "^1.0.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "sanity": "^4.4.1"

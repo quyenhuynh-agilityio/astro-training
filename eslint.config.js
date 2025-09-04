@@ -114,6 +114,7 @@ export default [
       // React rules
       'react/react-in-jsx-scope': 'off', // Not needed in React 17+
       'react/prop-types': 'off', // Using TypeScript for prop validation
+      '@typescript-eslint/no-explicit-any': ['off'],
     },
   },
 

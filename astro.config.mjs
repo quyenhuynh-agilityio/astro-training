@@ -3,6 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel';
 import sanity from '@sanity/astro';
 import { defineConfig } from 'astro/config';
+import auth from 'auth-astro';
 import { loadEnv } from 'vite';
 
 const env = loadEnv(import.meta.env.MODE || 'development', process.cwd(), '');
@@ -25,6 +26,7 @@ export default defineConfig({
   },
   integrations: [
     react(),
+    auth(),
     tailwind(),
     sanity({
       projectId: env.PUBLIC_SANITY_PROJECT_ID,
@@ -39,6 +41,9 @@ export default defineConfig({
       },
     }),
   ],
+  rewrites: {
+    '/': '/home', // Rewrite root to /home
+  },
   image: {
     domains: ['cdn.sanity.io'], // allow Sanity image CDN
   },

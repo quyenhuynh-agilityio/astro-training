@@ -2,26 +2,41 @@
 import LoginForm from '@components/LoginForm';
 import SanityImage from '@components/SanityImage/index.astro';
 import BaseLayout from '@layouts/BaseLayout/index.astro';
+import { loginPageQuery } from '@queries/loginPage';
+import type { HomePageType } from '@types-local/home';
+import { loadQuery } from 'studio/lib/load-query';
+let loginPage: HomePageType | null = null;
+
+try {
+  const { data } = await loadQuery<HomePageType>({
+    query: loginPageQuery,
+  });
+  loginPage = data;
+} catch (err) {
+  throw new Response('Internal Server Error', { status: 500 });
+}
+
+if (!loginPage) {
+  throw new Response('Not Found', { status: 404 });
+}
+
+const { hero } = loginPage;
 ---
 
 <BaseLayout>
   <div class="relative min-h-screen">
     <SanityImage
-      node="/images/main-bg.png"
+      node={hero.image}
       width={1440}
       height={810}
       sizes="(max-width: 768px) 100vw, 1440px"
       className="absolute inset-0 w-full h-full object-cover"
       loading="eager"
     />
-
-    <!-- Dark overlay -->
     <div class="absolute inset-0 bg-black/50"></div>
-
-    <!-- Login form -->
     <div class="relative z-10 flex items-center justify-center min-h-screen">
       <div class="w-full max-w-md">
-        <LoginForm />
+        <LoginForm client:load />
       </div>
     </div>
   </div>
