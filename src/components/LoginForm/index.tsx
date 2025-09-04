@@ -1,4 +1,7 @@
+// src/components/LoginForm.tsx
 import React, { useState } from 'react';
+
+import { signIn } from 'auth-astro/client';
 
 import Button from '@components/Button';
 import Input from '@components/Input';
@@ -8,14 +11,45 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
     }
-    setError('');
+
+    console.log('Attempting login with:', { email, password });
+    try {
+      const response = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+
+      console.log('SignIn response:', response);
+      if (response?.error) {
+        setError('Invalid email or password');
+        console.log('SignIn error details:', response.error);
+        return;
+      }
+
+      window.location.href = '/home';
+    } catch (err) {
+      setError('An error occurred during login');
+      console.error('Login error:', err);
+    }
   };
+
+  const handleGitHubLogin = async () => {
+    try {
+      await signIn('github', { redirect: true });
+    } catch (err) {
+      setError('Failed to login with GitHub');
+      console.error('GitHub login error:', err);
+    }
+  };
+
+  console.log('Rendering LoginForm with state:', { email, password, error }); // Debug
 
   return (
     <div className="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-md">
@@ -31,7 +65,9 @@ export default function LoginForm() {
           type="email"
           placeholder="Enter your email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
         />
 
         <Input
@@ -39,7 +75,9 @@ export default function LoginForm() {
           type="password"
           placeholder="Enter your password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
         />
 
         <div className="flex items-center justify-between text-sm">
@@ -58,6 +96,15 @@ export default function LoginForm() {
           Login
         </Button>
       </form>
+
+      <div className="mt-4 text-center">
+        <Button
+          className="w-full bg-gray-800 text-white py-2.5 rounded-xl hover:bg-gray-700"
+          onClick={handleGitHubLogin}
+        >
+          Login with GitHub
+        </Button>
+      </div>
 
       <p className="mt-6 text-center text-sm text-gray-500">
         Don&apos;t have an account?
