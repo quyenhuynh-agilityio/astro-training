@@ -4,7 +4,15 @@ import SanityImage from '@components/SanityImage/index.astro';
 import BaseLayout from '@layouts/BaseLayout/index.astro';
 import { loginPageQuery } from '@queries/loginPage';
 import type { HomePageType } from '@types-local/home';
+import { getSession } from 'auth-astro/server';
 import { loadQuery } from 'studio/lib/load-query';
+
+const session = await getSession(Astro.request);
+
+if (session) {
+  // Already logged in → redirect home
+  return Astro.redirect('/');
+}
 let loginPage: HomePageType | null = null;
 
 try {

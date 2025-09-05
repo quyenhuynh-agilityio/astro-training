@@ -1,8 +1,9 @@
 ---
 import Button from '@components/Button';
+import LogoutButton from '@components/LogoutButton';
 import Navigation from '@components/Navigation';
-import type { NavItem, SanityImageType } from '@types-local/common';
 import SanityImage from '@components/SanityImage/index.astro';
+import type { NavItem, SanityImageType } from '@types-local/common';
 interface HeaderProps {
   logo?: SanityImageType;
   navItems?: NavItem[];
@@ -27,6 +28,8 @@ const { logo, navItems, ctaText } = Astro.props as HeaderProps;
     <div class="gap-2 flex items-center md:gap-60">
       <Navigation links={navItems} />
       <Button rightIcon="path">{ctaText}</Button>
+      <!-- 🟢 Mount logout as a client island -->
+      <LogoutButton client:only="react" />
     </div>
   </div>
 </header>
