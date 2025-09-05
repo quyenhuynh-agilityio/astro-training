@@ -41,9 +41,9 @@ export default defineConfig({
       },
     }),
   ],
-  rewrites: {
-    '/': '/home', // Rewrite root to /home
-  },
+  // rewrites: {
+  //   '/': '/home', // Rewrite root to /home
+  // },
   image: {
     domains: ['cdn.sanity.io'], // allow Sanity image CDN
   },
