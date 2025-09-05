@@ -36,4 +36,6 @@ export default defineConfig({
       },
     }),
   ],
+  secret: import.meta.env.AUTH_SECRET,
+  trustHost: true,
 });

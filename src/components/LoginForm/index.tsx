@@ -17,39 +17,31 @@ export default function LoginForm() {
       setError('Please fill in all fields');
       return;
     }
-
-    console.log('Attempting login with:', { email, password });
     try {
       const response = await signIn('credentials', {
         email,
         password,
         redirect: false,
       });
-
-      console.log('SignIn response:', response);
       if (response?.error) {
-        setError('Invalid email or password');
-        console.log('SignIn error details:', response.error);
+        setError(`Invalid email or password ${response.error}`);
         return;
       }
 
       window.location.href = '/';
     } catch (err) {
-      setError('An error occurred during login');
-      console.error('Login error:', err);
+      setError(`An error occurred during login ${err}`);
     }
   };
 
   const handleGitHubLogin = async () => {
     try {
-      await signIn('github', { redirect: true });
+      await signIn('github', { redirect: true, callbackUrl: '/' });
     } catch (err) {
       setError('Failed to login with GitHub');
       console.error('GitHub login error:', err);
     }
   };
-
-  console.log('Rendering LoginForm with state:', { email, password, error }); // Debug
 
   return (
     <div className="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-md">
