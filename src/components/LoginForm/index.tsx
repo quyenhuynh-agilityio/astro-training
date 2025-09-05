@@ -33,7 +33,7 @@ export default function LoginForm() {
         return;
       }
 
-      window.location.href = '/home';
+      window.location.href = '/';
     } catch (err) {
       setError('An error occurred during login');
       console.error('Login error:', err);
