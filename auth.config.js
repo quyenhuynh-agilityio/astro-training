@@ -26,10 +26,4 @@ export default defineConfig({
       },
     }),
   ],
-  callbacks: {
-    async redirect({ url, baseUrl }) {
-      // Always redirect to /after login
-      return url.startsWith(baseUrl) ? url : '/';
-    },
-  },
 });

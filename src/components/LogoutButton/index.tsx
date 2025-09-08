@@ -1,4 +1,3 @@
-// src/components/LogoutButton.tsx
 import { signOut } from 'auth-astro/client';
 
 import Button from '@components/Button';
@@ -6,8 +5,11 @@ import Button from '@components/Button';
 export default function LogoutButton() {
   const handleLogout = async () => {
     try {
-      // Auth.js will handle redirect automatically
-      await signOut({ callbackUrl: '/login' });
+      // Sign out without redirect
+      await signOut();
+
+      // Force redirect manually
+      window.location.href = '/login';
     } catch (err) {
       console.error('Logout error:', err);
     }
