@@ -23,6 +23,7 @@ export default function LoginForm() {
         password,
         redirect: true,
       });
+      window.location.href = '/';
       if (response?.error) {
         setError(`Invalid email or password ${response.error}`);
         return;
@@ -34,7 +35,8 @@ export default function LoginForm() {
 
   const handleGitHubLogin = async () => {
     try {
-      await signIn('github', { redirect: true, callbackUrl: '/home' });
+      await signIn('github');
+      window.location.href = '/';
     } catch (err) {
       setError('Failed to login with GitHub');
       console.error('GitHub login error:', err);
